@@ -1,9 +1,12 @@
 #include "globals.hpp"
+#ifndef SCR
+#define SCR
 class scr{
 	public:
 		virtual ~scr()=0;
 		virtual void redraw()const=0;
 		virtual void handle_event(char event)=0;
+		virtual void handle_timer()=0;
 	protected:
 		int state;
 		WINDOW *win;
@@ -13,6 +16,7 @@ class scr_list:public scr{
 	public:
 		scr_list(std::string *list_items);
 		void draw_list();
+		void handle_timer();
 	protected:
 		std::string *items;
 };
@@ -47,6 +51,7 @@ class scr_game:public scr{
 		~scr_game();
 		void redraw()const;
 		void handle_event(char event);
+		void handle_timer();
 };
 
 class scr_quit:public scr{
@@ -55,4 +60,6 @@ class scr_quit:public scr{
 		~scr_quit();
 		void redraw()const;
 		void handle_event(char event);
+		void handle_timer();
 };
+#endif
