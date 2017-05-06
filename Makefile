@@ -20,7 +20,7 @@
 #                                    BASICS                                   #
 ###############################################################################
 CXX       :=  g++
-CXXFLAGS  :=  -std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb
+CXXFLAGS  :=  -std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb -lcurses
 TARGET    :=  hendrvan
 ###############################################################################
 
@@ -59,7 +59,7 @@ NOCOL     :=  \033[0m
 
 .PHONY : all clean run compile doc
 
-all: $(TARGET) $(OBJECTS)
+all: $(OBJECTS) $(TARGET)
 
 ###############################################################################
 #                                    TARGET                                   #
@@ -72,25 +72,25 @@ $(TARGET): $(DATADIR) $(BUILDDIR) $(BUILDDIR)/main.o
 ###############################################################################
 #                                 OBJECT FILES                                #
 ###############################################################################
-$(BUILDDIR)/moving_object.o: $(SRCDIR)/moving_object.%pp $(BUILDDIR)
+$(BUILDDIR)/view.o: $(SRCDIR)/view.$(SRCEXT) $(BUILDDIR)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c -o $@ $^
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(BUILDDIR)/player.o: $(BUILDDIR)/moving_object.o $(SRCDIR)/player.%pp
+$(BUILDDIR)/object.o: $(SRCDIR)/object.$(SRCEXT)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c -o $@ $^
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(BUILDDIR)/invader.o: $(BUILDDIR)/moving_object.o $(SRCDIR)/invader.%pp
+$(BUILDDIR)/main.o: $(SRCDIR)/main.$(SRCEXT)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c -o $@ $^
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(BUILDDIR)/falling.o: $(BUILDDIR)/moving_object.o $(SRCDIR)/falling.%pp
+$(BUILDDIR)/globals.o: $(SRCDIR)/globals.$(SRCEXT)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c -o $@ $^
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(BUILDDIR)/main.o: $(SRCDIR)/main.cpp
+$(BUILDDIR)/scr.o: $(SRCDIR)/scr.$(SRCEXT)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c -o $@ $^
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 ###############################################################################
 
 ###############################################################################
@@ -104,9 +104,6 @@ $(DATADIR):
 	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
 	mkdir -p $@
 
-$(DATADIR):
-	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
-	mkdir -p $@
 ###############################################################################
 
 ###############################################################################
