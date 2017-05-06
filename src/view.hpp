@@ -1,7 +1,12 @@
+/**
+ * \file view.hpp
+ * Screen wrapper, used for basic GUI manipulation.
+ */
+
 #ifndef VIEW
 #define VIEW
 
-/*ncurses colors*/
+//ncurses colors
 #define RED 1
 #define GREEN 2
 #define YELLOW 3
@@ -18,19 +23,38 @@
 
 #include "globals.hpp"
 #include "scr.hpp"
-///GUI
+
+///GUI basics
 class view{
 	public:
 		view();
 		~view();
-		///gets char and sends it to appropriate screen to handle
+
+		///gets char and sends it to the appropriate screen to handle
 		void read_input();
+
+		///top bar indicating game status
 		void status_bar(int lvl, int score, int lives);
+
+		///refresh gui - FIXME delete?
 		void refresh();
+
+		///switch to another screen
 		void switch_screen(int s);
+
+		///receives time tick and alerts the appropriate screen
+		void handle_timer();
 	protected:
-		int rows,cols;
+		///screen dimensions - x
+		int cols;
+
+		///screen dimensions - y
+		int rows;
+		
+		///main window
 		WINDOW *scr_main;
+
+		///pointer to the current screen - to enable switching
 		scr *current_screen;
 };
 #endif
