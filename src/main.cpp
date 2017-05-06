@@ -6,9 +6,8 @@
  * 
  * Created by Vanda Hendrychova
  */
-#include <bits/stdc++.h>
-using namespace std;
-int main(){
+#include "main.hpp"
+int main(int argc,char ** argv){
 	cout<<"Ahoj, tady semestralka"<<endl;
 	return 0;
 }

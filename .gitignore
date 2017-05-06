@@ -1,3 +1,5 @@
 build
 hendrvan
 *.o
+.*.swp
+vgcore.*
