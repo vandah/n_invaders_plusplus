@@ -5,6 +5,6 @@
 #ifndef GLOBALS
 #define GLOBALS
 extern void show_version();
+/// evaluate command line parameters
 extern void get_opts(int argc, char** argv);
-extern void start_timer();
 #endif
