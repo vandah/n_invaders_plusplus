@@ -18,10 +18,14 @@
 
 #include "globals.hpp"
 #include "scr.hpp"
+///GUI
 class view{
 	public:
-		void init_view();
-		void status_bar(int lvl, int score, int lives); /*top bar*/
+		view();
+		~view();
+		///gets char and sends it to appropriate screen to handle
+		void read_input();
+		void status_bar(int lvl, int score, int lives);
 		void refresh();
 		void switch_screen(int s);
 	protected:
