@@ -1,5 +1,5 @@
 #include "view.hpp"
-void view::init_view(){
+view::view(){
 	scr_main=initscr();
 	cbreak();
 	noecho();
