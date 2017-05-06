@@ -1,0 +1,4 @@
+class screen{
+	public:
+	protected:
+};
