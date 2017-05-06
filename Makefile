@@ -84,7 +84,7 @@ $(BUILDDIR)/invader.o: $(BUILDDIR)/moving_object.o $(SRCDIR)/invader.%pp
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c -o $@ $^
 
-$(BUILDDIR)/bonus.o: $(BUILDDIR)/moving_object.o $(SRCDIR)/bonus.%pp
+$(BUILDDIR)/falling.o: $(BUILDDIR)/moving_object.o $(SRCDIR)/falling.%pp
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c -o $@ $^
 
