@@ -2,8 +2,10 @@
 class object{
 	public:
 		object();
+		virtual ~object();
 		virtual void redraw()=0;
 		virtual void destroy()=0;
+		virtual void reset()=0;
 	protected:
 		int size_x, size_y;
 		int pos_x, pos_y;
@@ -24,4 +26,5 @@ class bonus:public falling{
 };
 class smart:public moving{};
 class invader:public moving{};
+class ufo:public moving{};
 class player:public moving{};
