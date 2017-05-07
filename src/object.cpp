@@ -1,6 +1,8 @@
 #include "object.hpp"
 object::object(int sx,int sy,int px,int py):size({sx,sy}),pos({px,py}){}
 
+object::~object(){}
+
 void object::set_pos(std::pair<int,int> xy){pos=xy;}
 
 std::pair<int,int> object::get_pos(){return pos;}
