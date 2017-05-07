@@ -54,17 +54,18 @@ YELLOW    :=  \033[1;33m
 YELLOWT   :=  \033[0;33m
 RED       :=  \033[1;31m
 GREEN     :=  \033[1;32m
+GREENT    :=  \033[0;32m
 NOCOL     :=  \033[0m
 ###############################################################################
 
 .PHONY : all clean run compile doc
 
-all: $(OBJECTS) $(TARGET)
+all: $(BUILDDIR) $(OBJECTS) $(TARGET)
 
 ###############################################################################
 #                                    TARGET                                   #
 ###############################################################################
-$(TARGET): $(DATADIR) $(BUILDDIR) $(BUILDDIR)/main.o
+$(TARGET): $(DATADIR) $(BUILDDIR) $(OBJECTS)
 	@echo -e "\n$(GREEN)Linking ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)
 ###############################################################################
@@ -74,23 +75,23 @@ $(TARGET): $(DATADIR) $(BUILDDIR) $(BUILDDIR)/main.o
 ###############################################################################
 $(BUILDDIR)/view.o: $(SRCDIR)/view.$(SRCEXT) $(BUILDDIR)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/object.o: $(SRCDIR)/object.$(SRCEXT)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/main.o: $(SRCDIR)/main.$(SRCEXT)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/globals.o: $(SRCDIR)/globals.$(SRCEXT)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/scr.o: $(SRCDIR)/scr.$(SRCEXT)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 ###############################################################################
 
 ###############################################################################
@@ -98,11 +99,11 @@ $(BUILDDIR)/scr.o: $(SRCDIR)/scr.$(SRCEXT)
 ###############################################################################
 $(BUILDDIR):
 	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
-	mkdir -p $@
+	@mkdir -p $@
 
 $(DATADIR):
 	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
-	mkdir -p $@
+	@mkdir -p $@
 
 ###############################################################################
 
