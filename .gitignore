@@ -3,3 +3,4 @@ hendrvan
 *.o
 .*.swp
 vgcore.*
+tmp
