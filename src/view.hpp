@@ -37,7 +37,7 @@ class view{
 		void status_bar(int lvl, int score, int lives);
 
 		///refresh gui - FIXME delete?
-		void refresh();
+		//		void refresh();
 
 		///switch to another screen
 		void switch_screen(int s);
@@ -51,7 +51,7 @@ class view{
 
 		///screen dimensions - y
 		int rows;
-		
+
 		///main window
 		WINDOW *scr_main;
 
