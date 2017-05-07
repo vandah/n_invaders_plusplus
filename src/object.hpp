@@ -1,4 +1,8 @@
+#ifndef OBJECT
+#define OBJECT
+
 #include "globals.hpp"
+
 ///generic static object
 class object{
 	public:
@@ -69,3 +73,4 @@ class player:public moving{
 		void destroy();
 		void reset();
 };
+#endif
