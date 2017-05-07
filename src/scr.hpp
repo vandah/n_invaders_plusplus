@@ -3,18 +3,44 @@
 #define SCR
 class scr{
 	public:
+		///variable inicialization
+		scr();
+		
+		///screen state handling
+		void set_state(int s);
+
+		///screen state handling
+		int get_state()const;
+
+		///screen main window handling
+		void set_win(WINDOW*w);
+
+		///screen main window handling
+		WINDOW* get_win()const;
+		
+		///destructor
 		virtual ~scr()=0;
+
+		///updates the window
 		virtual void redraw()const=0;
+
+		///keypress event handler
 		virtual void handle_event(char event)=0;
+
+		///time tick
 		virtual void handle_timer()=0;
+
 	protected:
+		///screens are moving between several states
 		int state;
+
+		///the main window
 		WINDOW *win;
 };
 
 class scr_list:public scr{
 	public:
-		scr_list(std::string *list_items);
+		scr_list(const std::string* &list_items);
 		void draw_list();
 		void handle_timer();
 	protected:
