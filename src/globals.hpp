@@ -3,12 +3,13 @@
  * global includes and functions
  */
 
+#ifndef GLOBALS
+#define GLOBALS
+
 #include <unistd.h>
 #include <csignal>
 #include <string>
 #include <ncurses.h>
-#ifndef GLOBALS
-#define GLOBALS
 
 ///version info
 extern void show_version();
