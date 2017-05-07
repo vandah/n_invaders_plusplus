@@ -1,8 +1,9 @@
+#ifndef MAIN
+#define MAIN
+
 #include "globals.hpp"
 #include "view.hpp"
 #include <sys/time.h>
-#ifndef MAIN
-#define MAIN
 
 extern view gui;
 
