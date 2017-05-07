@@ -33,5 +33,12 @@ void start_timer(){
 	action.sa_handler = &handle_timer; /* signal handler function */
 	action.sa_flags = SA_RESTART;
 
+	sigemptyset(&action.sa_mask);
+	sigaddset(&action.sa_mask, SIGINT);
+
 	sigaction(SIGALRM, &action, NULL);
 }
+
+void handle_timer(int sig){gui.handle_timer();}
+
+void finish(){}//TODO implement
