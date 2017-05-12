@@ -9,18 +9,6 @@ class scr{
 		///variable inicialization
 		scr();
 
-		///screen state handling
-		void set_state(int s);
-
-		///screen state handling
-		int get_state()const;
-
-		///main window handling
-		void set_win(WINDOW*w);
-
-		///main window handling
-		WINDOW* get_win()const;
-
 		///destructor
 		virtual ~scr();
 
@@ -46,15 +34,17 @@ class scr_list:public scr{
 	public:
 		scr_list(const std::vector<std::string> &list_items);
 
+		scr_list();
+
 		///destructor
 		~scr_list();
 
 		///print list items
-		void draw_list();
+		void draw_list()const;
 
 		///time tick
 		void handle_timer();
-		
+
 		///move selected idx up
 		void up();
 
@@ -63,7 +53,7 @@ class scr_list:public scr{
 
 		///updates the window
 		virtual void redraw()const=0;
-		
+
 		///keypress event handler
 		virtual void handle_event(char event)=0;
 	protected:
