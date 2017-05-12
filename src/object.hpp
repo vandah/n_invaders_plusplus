@@ -10,8 +10,6 @@ class object{
 		virtual ~object();
 		virtual void redraw()=0;
 		virtual void destroy()=0;
-		void set_pos(std::pair<int,int> xy);
-		std::pair<int,int> get_pos();
 	protected:
 		std::pair<int,int> size;
 		std::pair<int,int> pos;
