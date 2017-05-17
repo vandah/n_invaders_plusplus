@@ -15,11 +15,12 @@
 #define MAGENTA 6
 #define WHITE 7
 
-#define SCR_MENU 0
-#define SCR_GAME 1
-#define SCR_HISCORE 2
-#define SCR_SETTINGS 3
-#define SCR_QUIT 4
+#define SCREEN_MENU 0
+#define SCREEN_GAME 1
+#define SCREEN_HISCORE 2
+#define SCREEN_SETTINGS 3
+#define SCREEN_QUIT 4
+#define SCREEN_UNDEF 5
 
 #include "globals.hpp"
 #include "scr.hpp"

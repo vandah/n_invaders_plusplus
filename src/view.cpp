@@ -1,6 +1,12 @@
 #include "view.hpp"
+#include "scr.hpp"
+#include "scr_menu.hpp"
+#include "scr_hiscore.hpp"
+#include "scr_settings.hpp"
+
 view::view(){
 	scr_main=initscr();
+	keypad(stdscr, TRUE);
 	cbreak();
 	noecho();
 	keypad(scr_main,TRUE);
@@ -16,21 +22,21 @@ view::~view(){}
 void view::switch_screen(int s){
 	scr *tmp_screen = current_screen;
 	switch(s){
-		case SCR_MENU:
+		case SCREEN_MENU:
 			current_screen=new scr_menu;
 			break;
-//		case SCR_GAME:
-//			current_screen=new scr_game;
-//			break;
-//		case SCR_HISCORE:
-//			current_screen=new scr_hiscore;
-//			break;
-//		case SCR_SETTINGS:
-//			current_screen=new scr_settings;
-//			break;
-//		case SCR_QUIT:
-//			current_screen=new scr_quit;
-//			break;
+		case SCREEN_GAME:
+			current_screen=new scr_game;
+			break;
+		case SCREEN_HISCORE:
+			current_screen=new scr_hiscore;
+			break;
+		case SCREEN_SETTINGS:
+			current_screen=new scr_settings;
+			break;
+		case SCREEN_QUIT:
+			current_screen=new scr_quit;
+			break;
 		default: /*NO DEFINED SCREEN*/
 			return;
 	}
