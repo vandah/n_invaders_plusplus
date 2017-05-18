@@ -2,6 +2,7 @@
 #define SCR_SETTINGS
 
 #include "scr.hpp"
+#include "scr_list.hpp"
 
 ///game settings
 class scr_settings:public scr_list{
