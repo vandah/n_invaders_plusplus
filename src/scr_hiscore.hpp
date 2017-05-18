@@ -1,4 +1,4 @@
-#ifdef SCR_HISCORE
+#ifndef SCR_HISCORE
 #define SCR_HISCORE
 
 #include "scr.hpp"
