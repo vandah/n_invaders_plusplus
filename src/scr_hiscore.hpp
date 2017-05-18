@@ -2,6 +2,7 @@
 #define SCR_HISCORE
 
 #include "scr.hpp"
+#include "scr_list.hpp"
 
 ///show high scores
 class scr_hiscore:public scr_list{
