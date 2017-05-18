@@ -92,6 +92,26 @@ $(BUILDDIR)/globals.o: $(SRCDIR)/globals.$(SRCEXT)
 $(BUILDDIR)/scr.o: $(SRCDIR)/scr.$(SRCEXT)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/scr_list.o: $(SRCDIR)/scr_list.$(SRCEXT)
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/scr_quit.o: $(SRCDIR)/scr_quit.$(SRCEXT)
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/scr_menu.o: $(SRCDIR)/scr_menu.$(SRCEXT)
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/scr_game.o: $(SRCDIR)/scr_game.$(SRCEXT)
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/scr_settings.o: $(SRCDIR)/scr_settings.$(SRCEXT)
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 ###############################################################################
 
 ###############################################################################
