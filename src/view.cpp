@@ -4,6 +4,7 @@
 #include "scr_hiscore.hpp"
 #include "scr_settings.hpp"
 #include "scr_quit.hpp"
+#include "scr_game.hpp"
 
 view::view(){
 	scr_main=initscr();
