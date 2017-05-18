@@ -112,6 +112,10 @@ $(BUILDDIR)/scr_game.o: $(SRCDIR)/scr_game.$(SRCEXT)
 $(BUILDDIR)/scr_settings.o: $(SRCDIR)/scr_settings.$(SRCEXT)
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/scr_hiscore.o: $(SRCDIR)/scr_hiscore.$(SRCEXT)
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 ###############################################################################
 
 ###############################################################################
