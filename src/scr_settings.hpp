@@ -1,4 +1,4 @@
-#ifdef SCR_SETTINGS
+#ifndef SCR_SETTINGS
 #define SCR_SETTINGS
 
 #include "scr.hpp"
