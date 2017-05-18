@@ -1,4 +1,4 @@
-#ifdef SCR_QUIT
+#ifndef SCR_QUIT
 #define SCR_QUIT
 
 #include "scr.hpp"
