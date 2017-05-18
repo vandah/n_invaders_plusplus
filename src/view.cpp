@@ -3,6 +3,7 @@
 #include "scr_menu.hpp"
 #include "scr_hiscore.hpp"
 #include "scr_settings.hpp"
+#include "scr_quit.hpp"
 
 view::view(){
 	scr_main=initscr();
