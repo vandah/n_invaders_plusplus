@@ -12,10 +12,9 @@ view gui;
 
 int main(int argc,char ** argv){
 	get_opts(argc, argv);
+	gui.init();
 	start_timer();
 	while(1)gui.read_input();
-	finish();
-	return 0;
 }
 
 void start_timer(){
@@ -41,4 +40,6 @@ void start_timer(){
 
 void handle_timer(int sig){gui.handle_timer();}
 
-void finish(){}//TODO implement
+void finish(int exit_code){
+	exit(exit_code);
+}//TODO implement
