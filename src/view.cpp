@@ -6,7 +6,9 @@
 #include "scr_quit.h"
 #include "scr_game.h"
 
-view::view(){
+view::view():cols(0),rows(0),scr_main(NULL),current_screen(NULL){}
+
+void view::init(){
 	scr_main=initscr();
 	keypad(stdscr, TRUE);
 	cbreak();
