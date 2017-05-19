@@ -1,4 +1,4 @@
-#include "scr_hiscore.hpp"
+#include "scr_hiscore.h"
 scr_hiscore::scr_hiscore(){}
 scr_hiscore::~scr_hiscore(){}
 void scr_hiscore::redraw()const{}

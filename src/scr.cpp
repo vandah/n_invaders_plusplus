@@ -1,5 +1,5 @@
-#include "scr.hpp"
-#include "main.hpp"
+#include "scr.h"
+#include "main.h"
 
 scr::scr():state(0),win(NULL){}
 

@@ -1,4 +1,4 @@
-#include "scr_settings.hpp"
+#include "scr_settings.h"
 
 scr_settings::scr_settings(){}
 

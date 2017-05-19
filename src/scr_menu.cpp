@@ -1,6 +1,6 @@
-#include "scr_menu.hpp"
-#include "scr.hpp"
-#include "main.hpp"
+#include "scr_menu.h"
+#include "scr.h"
+#include "main.h"
 
 scr_menu::scr_menu():scr_list(){
 	items = std::vector<std::pair<std::string,int>>{{"Play",SCREEN_GAME},

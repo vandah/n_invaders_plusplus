@@ -1,4 +1,4 @@
-#include "scr_game.hpp"
+#include "scr_game.h"
 scr_game::scr_game(){}
 scr_game::~scr_game(){}
 void scr_game::redraw()const{}

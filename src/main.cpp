@@ -6,7 +6,7 @@
  *
  * Created by Vanda Hendrychova
  */
-#include "main.hpp"
+#include "main.h"
 
 view gui;
 

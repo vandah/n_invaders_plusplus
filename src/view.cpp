@@ -1,10 +1,10 @@
-#include "view.hpp"
-#include "scr.hpp"
-#include "scr_menu.hpp"
-#include "scr_hiscore.hpp"
-#include "scr_settings.hpp"
-#include "scr_quit.hpp"
-#include "scr_game.hpp"
+#include "view.h"
+#include "scr.h"
+#include "scr_menu.h"
+#include "scr_hiscore.h"
+#include "scr_settings.h"
+#include "scr_quit.h"
+#include "scr_game.h"
 
 view::view(){
 	scr_main=initscr();

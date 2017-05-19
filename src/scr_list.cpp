@@ -1,5 +1,5 @@
-#include "scr_list.hpp"
-#include "main.hpp"
+#include "scr_list.h"
+#include "main.h"
 
 scr_list::scr_list():selected_idx(0){
 	win = newwin(30,40,10,10);
