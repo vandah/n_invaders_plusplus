@@ -1,0 +1,182 @@
+#!/bin/bash
+SRCDIR=src
+BUILDDIR=build
+DATADIR=data
+DIRS='$(BUILDDIR) $(DATADIR)'
+TARGET=hendrvan
+SRCEXT=cpp
+HDREXT=h
+CXX="g++"
+CXXFLAGS="-std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb -lcurses"
+LEN_SRCEXT=`echo ${SRCEXT} | wc -c`
+LEN_SRCDIR=`echo ${SRCDIR} | wc -c`
+SRCS=`echo $(find ${SRCDIR} -type f -name "*.${SRCEXT}" -exec echo {} \;)`
+OBJECTS=`
+for SOURCE_FILE in ${SRCS}
+do
+	printf "%s%s" '$(BUILDDIR)/' "${SOURCE_FILE:LEN_SRCDIR:-LEN_SRCEXT}.o "
+done
+`
+SOURCES=`
+for SOURCE_FILE in ${SRCS}
+do
+	printf "%s%s" '$(SRCDIR)/' "${SOURCE_FILE:LEN_SRCDIR}"
+done
+`
+
+print_hash_line(){
+	local HASH_LINE='###############################################################################'
+	printf "%s\n" "${HASH_LINE}"
+}
+
+end_section(){
+	print_hash_line
+	printf "\n"
+}
+
+print_middle(){
+	local LEN_TITLE=`echo "$1"|wc -c`
+	local HALF=$(((80-${LEN_TITLE})/2))
+	printf '#'
+	for i in `seq 2 ${HALF}`;do printf " ";done
+	printf "$1"
+	for i in `seq $((${HALF}+${LEN_TITLE}+2)) 80`;do printf " ";done
+	printf '#\n'
+}
+
+print_title(){
+	print_hash_line
+	print_middle "$1"
+	print_hash_line
+}
+
+build_objects(){
+	print_title "OBJECT FILES"
+
+	for SOURCE_FILE in ${SRCS}
+	do
+		INCLUDES=`grep \#include ${SOURCE_FILE}|awk -F\" '{print $2}'|awk -F. '{print $1 ".o"}'`
+		OBJECT_FILE="${SOURCE_FILE:${LEN_SRCDIR}:-${LEN_SRCEXT}}.o"
+
+		printf "\n"
+		printf "\$(BUILDDIR)/${OBJECT_FILE}: "
+
+		printf "%s" "\$(SRCDIR)/${SOURCE_FILE:${LEN_SRCDIR}}"
+
+		for i in $INCLUDES
+		do
+			if [ ${i} = ${OBJECT_FILE} ];
+			then
+				printf " \$(SRCDIR)/${i::-2}.h"
+			else
+				printf " \$(BUILDDIR)/${i}"
+			fi
+		done
+		printf "\n"
+
+		printf "\t%s\n" '@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"'
+		printf "\t%s\n" '$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"'
+	done
+
+	end_section
+}
+
+intro(){
+	print_hash_line
+	print_middle ""
+	print_middle "SPACE INVADERS"
+	print_middle ""
+	print_middle "MAKEFILE"
+	print_middle ""
+	print_hash_line
+	for i in `seq 0 10`; do print_middle ""; done
+}
+
+basics(){
+	print_title "BASICS"
+	printf "CXX       :=  %s\n"  "${CXX}"
+	printf "CXXFLAGS  :=  %s\n"  "${CXXFLAGS}"
+	printf "TARGET    :=  %s\n" "${TARGET}"
+	printf "\n%s\n" '.PHONY : all clean run compile doc'
+	printf "\n%s\n" 'all: $(BUILDDIR) $(OBJECTS) $(TARGET)'
+
+	end_section
+}
+
+directories(){
+	print_title "DIRECTORIES"
+
+	printf "SRCDIR    :=  %s\n" "${SRCDIR}"
+	printf "BUILDDIR  :=  %s\n" "${BUILDDIR}"
+	printf "DATADIR   :=  %s\n" "${DATADIR}"
+
+	for d in ${DIRS}
+	do
+		printf "\n"
+		printf "%s\n" "${d}:"
+		printf "\t%s\n" '@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"'
+		printf "\t%s\n" '@mkdir -p $@'
+	done
+
+	end_section
+}
+
+list_files(){
+	print_title "FILES"
+
+	printf "SOURCES   :=  %s\n\n" "${SOURCES}"
+	printf "OBJECTS   :=  %s\n" "${OBJECTS}"
+
+	end_section
+}
+
+colors(){
+	print_title "COLORS"
+
+	printf "%s\n" 'YELLOW    :=  \033[1;33m'
+	printf "%s\n" 'YELLOWT   :=  \033[0;33m'
+	printf "%s\n" 'RED       :=  \033[1;31m'
+	printf "%s\n" 'GREEN     :=  \033[1;32m'
+	printf "%s\n" 'GREENT    :=  \033[0;32m'
+	printf "%s\n" 'NOCOL     :=  \033[0m'
+
+	end_section
+}
+
+utilities(){
+	print_title "UTILITIES"
+
+	printf "%s\n" 'clean:'
+	printf "\t%s\n" '@echo -e "\n$(RED)Cleaning ...$(NOCOL)"'
+	printf "\t%s\n" 'rm -rf $(BUILDDIR) $(TARGET) doc'
+	printf "\n%s\n" 'run: $(TARGET)'
+	printf "\t%s\n" './$<'
+	printf "\n%s\n" 'compile: $(TARGET)'
+	printf "\n%s\n" 'doc:'
+	printf "\t%s\n" 'doxygen'
+
+	end_section
+}
+
+target(){
+	print_title "TARGET"
+
+	printf "%s\n" '$(TARGET): $(DATADIR) $(BUILDDIR) $(OBJECTS)'
+	printf "\t%s\n" '@echo -e "\n$(GREEN)Linking ...$(NOCOL)"'
+	printf "\t%s\n" '$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)'
+
+	end_section
+}
+
+main(){
+	intro
+	basics
+	colors
+	directories
+	list_files
+	utilities
+	target
+	build_objects
+}
+
+main >Makefile
