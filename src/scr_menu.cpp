@@ -10,5 +10,5 @@ scr_menu::scr_menu():scr_list(){
 
 scr_menu::~scr_menu(){}
 
-void scr_menu::redraw()const{scr_list::draw_list();refresh();}
+void scr_menu::redraw()const{draw_list();refresh();}
 
