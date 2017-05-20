@@ -47,13 +47,14 @@ class view{
 		///receives time tick and alerts the appropriate screen
 		void handle_timer();
 
-	protected:
+	public:
 		///screen dimensions - x
 		int cols;
 
 		///screen dimensions - y
 		int rows;
 
+    protected:
 		///main window
 		WINDOW *scr_main;
 
