@@ -1,9 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classscr.html" title="scr" alt="" coords="5,56,45,83"/>
-<area shape="rect" id="node2" href="$classscr__game.html" title="game screen " alt="" coords="93,5,172,32"/>
-<area shape="rect" id="node3" href="$classscr__list.html" title="generic screen for listing items " alt="" coords="101,56,165,83"/>
-<area shape="rect" id="node7" href="$classscr__quit.html" title="bye bye and quit " alt="" coords="99,107,167,133"/>
-<area shape="rect" id="node4" href="$classscr__hiscore.html" title="show high scores " alt="" coords="222,5,311,32"/>
-<area shape="rect" id="node5" href="$classscr__menu.html" title="main menu screen " alt="" coords="227,56,306,83"/>
-<area shape="rect" id="node6" href="$classscr__settings.html" title="game settings " alt="" coords="220,107,313,133"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="falling" name="falling">
-<area shape="rect" id="node4" href="$classbonus.html" title="{bonus\n||+ grant()\l+ redraw()\l+ destroy()\l}" alt="" coords="5,528,91,635"/>
-<area shape="rect" id="node5" href="$classmissile.html" title="{missile\n||+ redraw()\l+ destroy()\l}" alt="" coords="115,535,200,627"/>
-<area shape="rect" id="node2" href="$classmoving.html" title="moving object " alt="" coords="65,219,140,311"/>
-<area shape="rect" id="node3" href="$classobject.html" title="generic static object " alt="" coords="45,5,161,171"/>
-</map>

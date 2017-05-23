@@ -1,9 +1,0 @@
-<map id="src/view.h" name="src/view.h">
-<area shape="rect" id="node2" href="$main_8h.html" title="src/main.h" alt="" coords="263,80,346,107"/>
-<area shape="rect" id="node8" href="$view_8cpp.html" title="src/view.cpp" alt="" coords="371,80,465,107"/>
-<area shape="rect" id="node3" href="$globals_8cpp.html" title="src/globals.cpp" alt="" coords="5,155,116,181"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="src/main.cpp" alt="" coords="140,155,237,181"/>
-<area shape="rect" id="node5" href="$scr_8cpp.html" title="src/scr.cpp" alt="" coords="261,155,348,181"/>
-<area shape="rect" id="node6" href="$scr__list_8cpp.html" title="src/scr_list.cpp" alt="" coords="372,155,483,181"/>
-<area shape="rect" id="node7" href="$scr__menu_8cpp.html" title="src/scr_menu.cpp" alt="" coords="507,155,633,181"/>
-</map>

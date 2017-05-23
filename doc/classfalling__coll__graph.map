@@ -1,5 +1,0 @@
-<map id="falling" name="falling">
-<area shape="rect" id="node2" href="$classmoving.html" title="moving object " alt="" coords="19,360,93,452"/>
-<area shape="rect" id="node3" href="$classobject.html" title="generic static object " alt="" coords="13,175,99,311"/>
-<area shape="rect" id="node4" href="$structobject_1_1TLook.html" title="{object::TLook\n|+ wardrobe\l+ choice\l|}" alt="" coords="5,5,107,97"/>
-</map>
