@@ -7,8 +7,8 @@ TARGET=hendrvan
 SRCEXT=cpp
 HDREXT=h
 CXX="g++"
-CXXFLAGS="-std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb `pkg-config --libs
-ncurses`"
+CXXFLAGS="-std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb \`pkg-config \
+--libs ncurses\`"
 LEN_SRCEXT=`echo ${SRCEXT} | wc -c`
 LEN_SRCDIR=`echo ${SRCDIR} | wc -c`
 SRCS=`echo $(find ${SRCDIR} -type f -name "*.${SRCEXT}" -exec echo {} \;)`
