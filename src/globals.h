@@ -7,14 +7,14 @@
 #define GLOBALS
 #define VERSION "0.0.1-1"
 
-#include <unistd.h>
 #include <csignal>
-#include <string>
-#include <vector>
 #include <iostream>
 #include <ncurses.h>
+#include <string>
+#include <unistd.h>
+#include <vector>
 
-///version info
+/// version info
 extern void show_version();
 
 /// evaluate command line parameters

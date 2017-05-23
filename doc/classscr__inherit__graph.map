@@ -1,0 +1,8 @@
+<map id="scr" name="scr">
+<area shape="rect" id="node2" href="$classscr__game.html" title="game screen " alt="" coords="5,255,124,391"/>
+<area shape="rect" id="node3" href="$classscr__list.html" title="generic screen for listing items " alt="" coords="148,233,267,413"/>
+<area shape="rect" id="node7" href="$classscr__quit.html" title="bye bye and quit " alt="" coords="291,255,409,391"/>
+<area shape="rect" id="node4" href="$classscr__hiscore.html" title="show high scores " alt="" coords="9,461,128,583"/>
+<area shape="rect" id="node5" href="$classscr__menu.html" title="main menu screen " alt="" coords="152,469,263,575"/>
+<area shape="rect" id="node6" href="$classscr__settings.html" title="game settings " alt="" coords="287,461,408,583"/>
+</map>

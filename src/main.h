@@ -9,15 +9,15 @@ extern view gui;
 
 #define FPS 50
 
-int main(int argc,char **argv);
+int main(int argc, char** argv);
 
-///start timer and set time handler function
+/// start timer and set time handler function
 void start_timer();
 
-///inform the gui about time event
+/// inform the gui about time event
 void handle_timer(int sig);
 
-///cleanup
+/// cleanup
 void finish(int exit_code);
 
 #endif

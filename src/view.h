@@ -6,7 +6,7 @@
 #ifndef VIEW
 #define VIEW
 
-//ncurses colors
+// ncurses colors
 #define RED 1
 #define GREEN 2
 #define YELLOW 3
@@ -25,40 +25,40 @@
 #include "globals.h"
 #include "scr.h"
 
-///GUI basics
-class view{
-	public:
-		view();
-		~view();
-		void init();
+/// GUI basics
+class view {
+  public:
+  view();
+  ~view();
+  void init();
 
-		///gets char and sends it to the appropriate screen to handle
-		void read_input();
+  /// gets char and sends it to the appropriate screen to handle
+  void read_input();
 
-		///top bar indicating game status
-		void status_bar(int lvl, int score, int lives);
+  /// top bar indicating game status
+  void status_bar(int lvl, int score, int lives);
 
-		///refresh gui - FIXME delete?
-		//		void refresh();
+  /// refresh gui - FIXME delete?
+  //		void refresh();
 
-		///switch to another screen
-		void switch_screen(int s);
+  /// switch to another screen
+  void switch_screen(int s);
 
-		///receives time tick and alerts the appropriate screen
-		void handle_timer();
+  /// receives time tick and alerts the appropriate screen
+  void handle_timer();
 
-	public:
-		///screen dimensions - x
-		int cols;
+  public:
+  /// screen dimensions - x
+  int cols;
 
-		///screen dimensions - y
-		int rows;
+  /// screen dimensions - y
+  int rows;
 
-    protected:
-		///main window
-		WINDOW *scr_main;
+  protected:
+  /// main window
+  WINDOW* scr_main;
 
-		///pointer to the current screen - to enable switching
-		scr *current_screen;
+  /// pointer to the current screen - to enable switching
+  scr* current_screen;
 };
 #endif

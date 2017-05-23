@@ -1,0 +1,6 @@
+<map id="scr_list" name="scr_list">
+<area shape="rect" id="node3" href="$classscr__hiscore.html" title="show high scores " alt="" coords="5,461,124,583"/>
+<area shape="rect" id="node4" href="$classscr__menu.html" title="main menu screen " alt="" coords="148,469,259,575"/>
+<area shape="rect" id="node5" href="$classscr__settings.html" title="game settings " alt="" coords="283,461,404,583"/>
+<area shape="rect" id="node2" href="$classscr.html" title="{scr\n|# state\l# win\l# midcol\l# current_row\l|+ scr()\l+ ~scr()\l+ redraw()\l+ handle_event()\l+ handle_timer()\l}" alt="" coords="144,5,263,185"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="scr_hiscore" name="scr_hiscore">
+<area shape="rect" id="node2" href="$classscr__list.html" title="generic screen for listing items " alt="" coords="5,233,124,413"/>
+<area shape="rect" id="node3" href="$classscr.html" title="{scr\n|# state\l# win\l# midcol\l# current_row\l|+ scr()\l+ ~scr()\l+ redraw()\l+ handle_event()\l+ handle_timer()\l}" alt="" coords="5,5,124,185"/>
+</map>

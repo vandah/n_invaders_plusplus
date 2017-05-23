@@ -1,0 +1,23 @@
+<map id="src/globals.h" name="src/globals.h">
+<area shape="rect" id="node2" href="$globals_8cpp.html" title="src/globals.cpp" alt="" coords="5,304,116,331"/>
+<area shape="rect" id="node3" href="$main_8h.html" title="src/main.h" alt="" coords="258,229,341,256"/>
+<area shape="rect" id="node8" href="$view_8h.html" title="src/view.h" alt="" coords="325,155,407,181"/>
+<area shape="rect" id="node10" href="$scr_8h.html" title="src/scr.h" alt="" coords="639,80,712,107"/>
+<area shape="rect" id="node21" href="$object_8h.html" title="src/object.h" alt="" coords="1009,80,1099,107"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="src/main.cpp" alt="" coords="251,304,348,331"/>
+<area shape="rect" id="node5" href="$scr_8cpp.html" title="src/scr.cpp" alt="" coords="140,304,227,331"/>
+<area shape="rect" id="node6" href="$scr__list_8cpp.html" title="src/scr_list.cpp" alt="" coords="372,304,483,331"/>
+<area shape="rect" id="node7" href="$scr__menu_8cpp.html" title="src/scr_menu.cpp" alt="" coords="507,304,633,331"/>
+<area shape="rect" id="node9" href="$view_8cpp.html" title="src/view.cpp" alt="" coords="909,304,1004,331"/>
+<area shape="rect" id="node11" href="$scr__game_8h.html" title="src/scr_game.h" alt="" coords="1137,155,1249,181"/>
+<area shape="rect" id="node13" href="$scr__hiscore_8h.html" title="src/scr_hiscore.h" alt="" coords="658,229,781,256"/>
+<area shape="rect" id="node15" href="$scr__list_8h.html" title="src/scr_list.h" alt="" coords="584,155,681,181"/>
+<area shape="rect" id="node17" href="$scr__settings_8h.html" title="src/scr_settings.h" alt="" coords="1045,229,1172,256"/>
+<area shape="rect" id="node19" href="$scr__quit_8h.html" title="src/scr_quit.h" alt="" coords="811,155,913,181"/>
+<area shape="rect" id="node12" href="$scr__game_8cpp.html" title="src/scr_game.cpp" alt="" coords="1248,229,1375,256"/>
+<area shape="rect" id="node14" href="$scr__hiscore_8cpp.html" title="src/scr_hiscore.cpp" alt="" coords="658,304,794,331"/>
+<area shape="rect" id="node16" href="$scr__menu_8h.html" title="src/scr_menu.h" alt="" coords="522,229,634,256"/>
+<area shape="rect" id="node18" href="$scr__settings_8cpp.html" title="src/scr_settings.cpp" alt="" coords="1039,304,1179,331"/>
+<area shape="rect" id="node20" href="$scr__quit_8cpp.html" title="src/scr_quit.cpp" alt="" coords="805,229,919,256"/>
+<area shape="rect" id="node22" href="$object_8cpp.html" title="src/object.cpp" alt="" coords="1273,155,1377,181"/>
+</map>

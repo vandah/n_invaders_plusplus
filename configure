@@ -181,3 +181,5 @@ main(){
 }
 
 main >Makefile
+
+make clean
