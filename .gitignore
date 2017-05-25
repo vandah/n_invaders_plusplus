@@ -4,5 +4,6 @@ hendrvan
 .*.swp
 vgcore.*
 tmp
-vim-*
+.vim-*
 doc
+tags
