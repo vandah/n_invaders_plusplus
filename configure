@@ -2,7 +2,7 @@
 SRCDIR=src
 BUILDDIR=build
 DATADIR=data
-DIRS='$(BUILDDIR) $(DATADIR)'
+DIRS='$(BUILDDIR) $(DATADIR) $(BUILDDIR)/scr $(BUILDDIR)/object'
 TARGET=hendrvan
 SRCEXT=cpp
 HDREXT=h
@@ -21,7 +21,7 @@ done
 SOURCES=`
 for SOURCE_FILE in ${SRCS}
 do
-	printf "%s%s" '$(SRCDIR)/' "${SOURCE_FILE:LEN_SRCDIR}"
+	printf "%s%s" '$(SRCDIR)/' "${SOURCE_FILE:LEN_SRCDIR} "
 done
 `
 
@@ -56,16 +56,37 @@ build_objects(){
 
 	for SOURCE_FILE in ${SRCS}
 	do
-		INCLUDES=`grep \#include ${SOURCE_FILE}|awk -F\" '{print $2}'|awk -F. '{print $1 ".o"}'`
+		INCLUDES=`grep \#include ${SOURCE_FILE}|awk -F\" '{print $2}'|awk 'BEGIN{FS=".";OFS=".";}{$NF="o";print $0}'`
 		OBJECT_FILE="${SOURCE_FILE:${LEN_SRCDIR}:-${LEN_SRCEXT}}.o"
+		OBJ_DIR="`echo ${OBJECT_FILE} | awk 'BEGIN{FS="/";OFS="/";}{$NF="";print $0}'`"
 
 		printf "\n"
 		printf "\$(BUILDDIR)/${OBJECT_FILE}: "
 
 		printf "%s" "\$(SRCDIR)/${SOURCE_FILE:${LEN_SRCDIR}}"
 
-		for i in $INCLUDES
+		for inc in $INCLUDES
 		do
+			i="${OBJ_DIR}${inc}"
+			i=`echo ${i} | python -c "
+l=str(input());
+p=''
+o=0
+l=l.split('/')
+d=len(l)
+l.reverse()
+for i in l:
+	if i!='..':
+		if o<=0:
+			if d>0 and d!=len(l):
+				p='/'+p
+			p=i+p
+		else:
+			o-=1
+	else:
+		o+=1
+	d-=1
+print(p)"`
 			if [ ${i} = ${OBJECT_FILE} ];
 			then
 				printf " \$(SRCDIR)/${i::-2}.h"
@@ -162,7 +183,7 @@ utilities(){
 target(){
 	print_title "TARGET"
 
-	printf "%s\n" '$(TARGET): $(DATADIR) $(BUILDDIR) $(OBJECTS)'
+	printf "%s %s %s\n" '$(TARGET):' "${DIRS}" '$(OBJECTS)'
 	printf "\t%s\n" '@echo -e "\n$(GREEN)Linking ...$(NOCOL)"'
 	printf "\t%s\n" '$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)'
 

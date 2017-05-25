@@ -17,7 +17,7 @@ class scr_list : public scr {
   void handle_timer();
 
   /// updates the window
-  virtual void redraw() const = 0;
+  void redraw() const;
 
   /// keypress event handler
   void handle_event(int event);
@@ -27,9 +27,10 @@ class scr_list : public scr {
   std::vector<std::pair<std::string, int>> items;
 
   /// selected line
-  int selected_idx;
-
+  unsigned int selected_idx;
   /// screen to return to if backspace is pressed
   int back;
+
+  std::string screen_title;
 };
 #endif

@@ -1,7 +1,7 @@
 #ifndef OBJECT
 #define OBJECT
 
-#include "globals.h"
+#include "../globals.h"
 
 /// generic static object
 class object {

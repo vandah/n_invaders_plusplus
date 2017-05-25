@@ -1,13 +1,17 @@
 #include "scr_list.h"
-#include "main.h"
+#include "../main.h"
 
 scr_list::scr_list()
-    : selected_idx(0)
+    : items(std::vector<std::pair<std::string, int>>{
+          { "Go back", SCREEN_MENU }, { "Or also back", SCREEN_MENU } })
+    , selected_idx(0)
+    , back(SCREEN_MENU)
+    , screen_title("")
 {
   win = newwin(gui.rows - 1, gui.cols - 1, 1, 1);
   keypad(win, TRUE);
-  midcol = gui.cols;
-  current_row = gui.rows;
+  midcol = gui.cols / 2;
+  midrow = gui.rows / 2;
 }
 
 scr_list::~scr_list() {}
@@ -18,13 +22,18 @@ void scr_list::draw_list() const
   noecho();
   cbreak();
   refresh();
-  //    midcol = COLS/2;
-  //    current_row
   box(win, 0, 0);
   wrefresh(win);
-  mvprintw(24, 14, "selected: %d, from: %d", selected_idx,
-      items.size()); // FIXME souradnice jsou random
-  //    border(win);
+
+  int current_row = midrow - items.size() / 2;
+  for (unsigned int i = 0; i < items.size(); ++i) {
+    attron(COLOR_PAIR(1 + (i == selected_idx)));
+
+    mvprintw(current_row, midcol - (items[i].first.length() / 2), " %s ",
+        items[i].first.c_str());
+
+    current_row += 2;
+  }
 }
 
 void scr_list::handle_timer()
@@ -39,7 +48,7 @@ void scr_list::handle_event(int event)
   case 'l':
   case 10:
   case KEY_ENTER:
-    //            gui.switch_screen(items[selected_idx].second);
+    gui.switch_screen(items[selected_idx].second);
     break;
   case 'k':
   case KEY_UP:
@@ -57,11 +66,15 @@ void scr_list::handle_event(int event)
   case 8:
   case 127:
   case KEY_BACKSPACE:
-    selected_idx++;
-    selected_idx %= items.size();
     gui.switch_screen(back);
     break;
   default:
     break;
   }
+}
+
+void scr_list::redraw() const
+{
+  draw_list();
+  refresh();
 }

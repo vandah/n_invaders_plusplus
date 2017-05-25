@@ -1,10 +1,10 @@
 #include "view.h"
-#include "scr.h"
-#include "scr_game.h"
-#include "scr_hiscore.h"
-#include "scr_menu.h"
-#include "scr_quit.h"
-#include "scr_settings.h"
+#include "scr/scr.h"
+#include "scr/scr_game.h"
+#include "scr/scr_hiscore.h"
+#include "scr/scr_menu.h"
+#include "scr/scr_quit.h"
+#include "scr/scr_settings.h"
 
 view::view()
     : cols(0)
@@ -17,6 +17,10 @@ view::view()
 void view::init()
 {
   scr_main = initscr();
+  start_color();
+  init_pair(1, COLOR_GREEN, COLOR_BLACK);
+  init_pair(2, COLOR_BLACK, COLOR_GREEN);
+  bkgd(COLOR_PAIR(1)); // Green Text on a White Screen
   keypad(stdscr, TRUE);
   cbreak();
   noecho();
@@ -25,7 +29,6 @@ void view::init()
   cols = COLS;
   refresh();
   current_screen = new scr_menu;
-  // TODO
 }
 
 view::~view() {}

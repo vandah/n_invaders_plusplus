@@ -1,6 +1,6 @@
 #include "scr_menu.h"
-#include "main.h"
-#include "scr.h"
+#include "../main.h"
+//#include "scr.h"
 
 scr_menu::scr_menu()
     : scr_list()
@@ -9,12 +9,7 @@ scr_menu::scr_menu()
     { "High Scores", SCREEN_HISCORE }, { "Settings", SCREEN_SETTINGS },
     { "Quit", SCREEN_QUIT } };
   back = SCREEN_UNDEF;
+  screen_title = "MAIN MENU";
 }
 
 scr_menu::~scr_menu() {}
-
-void scr_menu::redraw() const
-{
-  draw_list();
-  refresh();
-}

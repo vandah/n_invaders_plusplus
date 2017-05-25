@@ -1,7 +1,7 @@
 #ifndef SCR
 #define SCR
 
-#include "globals.h"
+#include "../globals.h"
 
 class scr {
   public:
@@ -29,7 +29,7 @@ class scr {
 
   int midcol;
 
-  int current_row;
+  int midrow;
 };
 
 #endif

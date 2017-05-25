@@ -23,7 +23,7 @@
 #define SCREEN_UNDEF 5
 
 #include "globals.h"
-#include "scr.h"
+#include "scr/scr.h"
 
 /// GUI basics
 class view {

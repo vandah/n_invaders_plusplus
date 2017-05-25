@@ -10,8 +10,6 @@ class scr_menu : public scr_list {
 
   ~scr_menu();
 
-  void redraw() const;
-
   protected:
   std::vector<int> screen_items;
 };
