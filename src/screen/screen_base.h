@@ -18,7 +18,7 @@ class screen_base {
   virtual void handle_event(int event) = 0;
 
   /// time tick
-  virtual void handle_timer() = 0;
+  void handle_timer();
 
   protected:
   /// Screens are moving between several states

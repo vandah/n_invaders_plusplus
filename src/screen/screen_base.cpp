@@ -9,4 +9,10 @@ screen_base::screen_base()
 {
 }
 
+void screen_base::handle_timer()
+{
+  redraw();
+  handle_event(wgetch(win));
+}
+
 screen_base::~screen_base() { endwin(); }

@@ -36,12 +36,6 @@ void scr_list::draw_list() const
   }
 }
 
-void scr_list::handle_timer()
-{
-  redraw();
-  handle_event(wgetch(win));
-}
-
 void scr_list::handle_event(int event)
 {
   switch (event) {

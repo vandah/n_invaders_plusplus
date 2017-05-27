@@ -14,9 +14,6 @@ class scr_list : public screen_base {
   /// print list items
   void draw_list() const;
 
-  /// time tick
-  void handle_timer();
-
   /// updates the window
   void redraw() const;
 
