@@ -16,7 +16,7 @@
 #                                   BASICS                                    #
 ###############################################################################
 CXX       :=  g++
-CXXFLAGS  :=  -std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb `pkg-config --libs ncurses`
+CXXFLAGS  :=  -std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb -lncurses
 TARGET    :=  hendrvan
 
 .PHONY : all clean run compile doc
