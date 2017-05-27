@@ -23,7 +23,21 @@ void get_opts(int argc, char** argv)
       show_version();
     } else if (opt == "--help" || opt == "-h") {
       show_help();
+    } else if (opt == "--hiscores" || opt == "-s") {
+      show_hiscores();
     }
     // TODO other options
   }
+}
+
+void show_hiscores()
+{
+  std::vector<std::pair<std::string, int>> hiscores = get_hiscores();
+  int rank = 1;
+  for (auto line : hiscores) {
+    std::cout << "#" << std::setw(2) << rank << "  " << std::setw(30)
+              << line.first << " " << std::setw(20) << line.second << std::endl;
+    rank++;
+  }
+  finish(0);
 }

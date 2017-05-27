@@ -1,10 +1,10 @@
 #include "view.h"
-#include "screen/screen_base.h"
 #include "screen/scr_game.h"
 #include "screen/scr_hiscore.h"
 #include "screen/scr_menu.h"
 #include "screen/scr_quit.h"
 #include "screen/scr_settings.h"
+#include "screen/screen_base.h"
 
 view::view()
     : cols(0)
@@ -20,6 +20,8 @@ void view::init()
   start_color();
   init_pair(1, COLOR_GREEN, COLOR_BLACK);
   init_pair(2, COLOR_BLACK, COLOR_GREEN);
+  init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
+  init_pair(4, COLOR_WHITE, COLOR_BLACK);
   bkgd(COLOR_PAIR(1)); // Green Text on a White Screen
   keypad(stdscr, TRUE);
   cbreak();

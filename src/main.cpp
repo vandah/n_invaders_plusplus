@@ -1,7 +1,7 @@
 /**
  * @mainpage
  * @section Description
- * Last Change:24-May-2017.
+ * Last Change:27-May-2017.
  * delsi popis
  *
  * Created by Vanda Hendrychova
@@ -43,4 +43,21 @@ void start_timer()
 
 void handle_timer(int sig) { gui.handle_timer(); }
 
-void finish(int exit_code) { exit(exit_code); } // TODO implement
+void finish(int exit_code) { exit(exit_code); }
+
+std::vector<std::pair<std::string, int>> get_hiscores()
+{
+  std::vector<std::pair<std::string, int>> hiscores;
+  std::string name;
+  int score;
+
+  std::ifstream input(HISCORE_FILE, std::ios::in);
+
+  if (!input.fail()) {
+    while (input >> name >> score) {
+      hiscores.push_back({ name, score });
+    }
+  }
+
+  return hiscores;
+}

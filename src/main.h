@@ -8,6 +8,7 @@
 extern view gui;
 
 #define FPS 50
+#define HISCORE_FILE "data/high_scores.txt"
 
 int main(int argc, char** argv);
 
@@ -20,4 +21,6 @@ void handle_timer(int sig);
 /// cleanup
 void finish(int exit_code);
 
+/// get high scores from a file
+std::vector<std::pair<std::string, int>> get_hiscores();
 #endif

@@ -18,8 +18,6 @@ scr_list::~scr_list() {}
 
 void scr_list::draw_list() const
 {
-  scr_clear();
-
   int current_row = midrow - items.size() / 2;
   for (unsigned int i = 0; i < items.size(); ++i) {
     attron(COLOR_PAIR(1 + (i == selected_idx)));
@@ -55,6 +53,7 @@ void scr_list::key_left() { key_backspace(); }
 
 void scr_list::redraw() const
 {
+  scr_clear();
   draw_list();
   refresh();
 }

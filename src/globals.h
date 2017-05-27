@@ -9,15 +9,21 @@
 #define AUTHOR "Vanda Hendrychova"
 
 #include <csignal>
+#include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <ncurses.h>
 #include <string>
 #include <unistd.h>
 #include <vector>
+#include <sstream>
 
 /// version info
 extern void show_version();
 
 /// evaluate command line parameters
 extern void get_opts(int argc, char** argv);
+
+/// print high scores to stdout
+extern void show_hiscores();
 #endif

@@ -15,7 +15,7 @@ class scr_list : public screen_base {
   void draw_list() const;
 
   /// updates the window
-  void redraw() const;
+  virtual void redraw() const;
 
   /// go to the screen which corresponds to the selection
   void key_enter();
