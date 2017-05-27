@@ -2,7 +2,7 @@
 SRCDIR=src
 BUILDDIR=build
 DATADIR=data
-DIRS='$(BUILDDIR) $(DATADIR) $(BUILDDIR)/scr $(BUILDDIR)/object'
+DIRS="\$(DATADIR) $(for d in $(find src -type d);do printf \$\(BUILDDIR\)/${d:4}\ ;done)"
 TARGET=hendrvan
 SRCEXT=cpp
 HDREXT=h
@@ -40,7 +40,7 @@ print_middle(){
 	local HALF=$(((80-${LEN_TITLE})/2))
 	printf '#'
 	for i in `seq 2 ${HALF}`;do printf " ";done
-	printf "$1"
+	printf "%s" "$1"
 	for i in `seq $((${HALF}+${LEN_TITLE}+2)) 80`;do printf " ";done
 	printf '#\n'
 }
@@ -49,6 +49,10 @@ print_title(){
 	print_hash_line
 	print_middle "$1"
 	print_hash_line
+}
+
+print_blank(){
+	print_middle ""
 }
 
 build_objects(){
@@ -105,13 +109,21 @@ print(p)"`
 
 intro(){
 	print_hash_line
-	print_middle ""
+	print_blank
 	print_middle "SPACE INVADERS"
-	print_middle ""
+	print_blank
 	print_middle "MAKEFILE"
-	print_middle ""
+	print_blank
+
 	print_hash_line
-	for i in `seq 0 10`; do print_middle ""; done
+
+	print_blank
+	print_middle '< oo> <o o> <oo > <ooo>'
+	print_middle '<^>   /^\   /|\   <|>'
+	print_middle '>O<   <o>   _o-   -o_'
+	print_middle '@-@   <+>   #-#   %^%'
+	print_middle '/~\   /.\   \~/   \./'
+	print_blank
 }
 
 basics(){
@@ -120,7 +132,7 @@ basics(){
 	printf "CXXFLAGS  :=  %s\n"  "${CXXFLAGS}"
 	printf "TARGET    :=  %s\n" "${TARGET}"
 	printf "\n%s\n" '.PHONY : all clean run compile doc'
-	printf "\n%s\n" 'all: $(BUILDDIR) $(OBJECTS) $(TARGET)'
+	printf "\n%s %s %s\n" 'all:' "${DIRS}" '$(OBJECTS) $(TARGET)'
 
 	end_section
 }

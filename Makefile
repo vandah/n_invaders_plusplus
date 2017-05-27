@@ -6,15 +6,11 @@
 #                                                                             #
 ###############################################################################
 #                                                                             #
-#                                                                             #
-#                                                                             #
-#                                                                             #
-#                                                                             #
-#                                                                             #
-#                                                                             #
-#                                                                             #
-#                                                                             #
-#                                                                             #
+#                           < oo> <o o> <oo > <ooo>                           #
+#                            <^>   /^\   /|\   <|>                            #
+#                            >O<   <o>   _o-   -o_                            #
+#                            @-@   <+>   #-#   %^%                            #
+#                            /~\   /.\   \~/   \./                            #
 #                                                                             #
 ###############################################################################
 #                                   BASICS                                    #
@@ -25,7 +21,7 @@ TARGET    :=  hendrvan
 
 .PHONY : all clean run compile doc
 
-all: $(BUILDDIR) $(OBJECTS) $(TARGET)
+all: $(DATADIR) $(BUILDDIR)/ $(BUILDDIR)/scr $(BUILDDIR)/object $(BUILDDIR)/object/bonus  $(OBJECTS) $(TARGET)
 ###############################################################################
 
 ###############################################################################
@@ -46,11 +42,11 @@ SRCDIR    :=  src
 BUILDDIR  :=  build
 DATADIR   :=  data
 
-$(BUILDDIR):
+$(DATADIR):
 	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
 	@mkdir -p $@
 
-$(DATADIR):
+$(BUILDDIR)/:
 	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
 	@mkdir -p $@
 
@@ -61,14 +57,18 @@ $(BUILDDIR)/scr:
 $(BUILDDIR)/object:
 	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
 	@mkdir -p $@
+
+$(BUILDDIR)/object/bonus:
+	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
+	@mkdir -p $@
 ###############################################################################
 
 ###############################################################################
 #                                    FILES                                    #
 ###############################################################################
-SOURCES   :=  $(SRCDIR)/scr/scr.cpp $(SRCDIR)/scr/scr_quit.cpp $(SRCDIR)/scr/scr_settings.cpp $(SRCDIR)/scr/scr_game.cpp $(SRCDIR)/scr/scr_list.cpp $(SRCDIR)/scr/scr_hiscore.cpp $(SRCDIR)/scr/scr_menu.cpp $(SRCDIR)/object/object.cpp $(SRCDIR)/view.cpp $(SRCDIR)/main.cpp $(SRCDIR)/globals.cpp 
+SOURCES   :=  $(SRCDIR)/scr/scr.cpp $(SRCDIR)/scr/scr_quit.cpp $(SRCDIR)/scr/scr_settings.cpp $(SRCDIR)/scr/scr_game.cpp $(SRCDIR)/scr/scr_list.cpp $(SRCDIR)/scr/scr_hiscore.cpp $(SRCDIR)/scr/scr_menu.cpp $(SRCDIR)/object/smart.cpp $(SRCDIR)/object/falling.cpp $(SRCDIR)/object/ufo.cpp $(SRCDIR)/object/bonus/bonus.cpp $(SRCDIR)/object/missile.cpp $(SRCDIR)/object/invader.cpp $(SRCDIR)/object/moving.cpp $(SRCDIR)/object/player.cpp $(SRCDIR)/object/object.cpp $(SRCDIR)/view.cpp $(SRCDIR)/main.cpp $(SRCDIR)/globals.cpp 
 
-OBJECTS   :=  $(BUILDDIR)/scr/scr.o $(BUILDDIR)/scr/scr_quit.o $(BUILDDIR)/scr/scr_settings.o $(BUILDDIR)/scr/scr_game.o $(BUILDDIR)/scr/scr_list.o $(BUILDDIR)/scr/scr_hiscore.o $(BUILDDIR)/scr/scr_menu.o $(BUILDDIR)/object/object.o $(BUILDDIR)/view.o $(BUILDDIR)/main.o $(BUILDDIR)/globals.o 
+OBJECTS   :=  $(BUILDDIR)/scr/scr.o $(BUILDDIR)/scr/scr_quit.o $(BUILDDIR)/scr/scr_settings.o $(BUILDDIR)/scr/scr_game.o $(BUILDDIR)/scr/scr_list.o $(BUILDDIR)/scr/scr_hiscore.o $(BUILDDIR)/scr/scr_menu.o $(BUILDDIR)/object/smart.o $(BUILDDIR)/object/falling.o $(BUILDDIR)/object/ufo.o $(BUILDDIR)/object/bonus/bonus.o $(BUILDDIR)/object/missile.o $(BUILDDIR)/object/invader.o $(BUILDDIR)/object/moving.o $(BUILDDIR)/object/player.o $(BUILDDIR)/object/object.o $(BUILDDIR)/view.o $(BUILDDIR)/main.o $(BUILDDIR)/globals.o 
 ###############################################################################
 
 ###############################################################################
@@ -90,7 +90,7 @@ doc:
 ###############################################################################
 #                                   TARGET                                    #
 ###############################################################################
-$(TARGET): $(BUILDDIR) $(DATADIR) $(BUILDDIR)/scr $(BUILDDIR)/object $(OBJECTS)
+$(TARGET): $(DATADIR) $(BUILDDIR)/ $(BUILDDIR)/scr $(BUILDDIR)/object $(BUILDDIR)/object/bonus  $(OBJECTS)
 	@echo -e "\n$(GREEN)Linking ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)
 ###############################################################################
@@ -124,6 +124,38 @@ $(BUILDDIR)/scr/scr_hiscore.o: $(SRCDIR)/scr/scr_hiscore.cpp $(SRCDIR)/scr/scr_h
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/scr/scr_menu.o: $(SRCDIR)/scr/scr_menu.cpp $(SRCDIR)/scr/scr_menu.h $(BUILDDIR)/main.o $(BUILDDIR)/scr/scr.o
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/object/smart.o: $(SRCDIR)/object/smart.cpp $(SRCDIR)/object/smart.h
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/object/falling.o: $(SRCDIR)/object/falling.cpp $(SRCDIR)/object/falling.h
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/object/ufo.o: $(SRCDIR)/object/ufo.cpp $(SRCDIR)/object/ufo.h
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/object/bonus/bonus.o: $(SRCDIR)/object/bonus/bonus.cpp $(SRCDIR)/object/bonus/bonus.h
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/object/missile.o: $(SRCDIR)/object/missile.cpp $(SRCDIR)/object/missile.h
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/object/invader.o: $(SRCDIR)/object/invader.cpp $(SRCDIR)/object/invader.h
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/object/moving.o: $(SRCDIR)/object/moving.cpp $(SRCDIR)/object/moving.h
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/object/player.o: $(SRCDIR)/object/player.cpp $(SRCDIR)/object/player.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
