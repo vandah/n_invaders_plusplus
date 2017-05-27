@@ -110,9 +110,9 @@ print(p)"`
 intro(){
 	print_hash_line
 	print_blank
-	print_middle "SPACE INVADERS"
+	print_middle "nInvaders++"
 	print_blank
-	print_middle "MAKEFILE"
+	print_middle "$1"
 	print_blank
 
 	print_hash_line
@@ -202,8 +202,8 @@ target(){
 	end_section
 }
 
-main(){
-	intro
+create_makefile(){
+	intro "MAKEFILE"
 	basics
 	colors
 	directories
@@ -213,6 +213,46 @@ main(){
 	build_objects
 }
 
-main >Makefile
+create_doxyfile(){
+	intro "DOXYFILE"
+
+	print_title "BASICS"
+	printf "%s\n" 'PROJECT_NAME           = "Action game - nInvaders++"'
+	printf "%s\n" 'PROJECT_BRIEF          = "A C++ ncurses implementation of space invaders."'
+	printf "%s\n" 'OUTPUT_DIRECTORY       ='
+	printf "%s\n" 'EXTENSION_MAPPING      = C++'
+	end_section
+
+	print_title ""
+	printf "%s\n" 'EXTRACT_ALL            = YES'
+	printf "%s\n" 'EXTRACT_PRIVATE        = YES'
+	printf "%s\n" 'EXTRACT_STATIC         = YES'
+	printf "%s\n" 'EXTRACT_LOCAL_CLASSES  = YES'
+	end_section
+
+	print_title "INPUT FILES"
+	printf "%s\n" 'INPUT                  = src'
+	printf "%s\n" 'RECURSIVE              = YES'
+	end_section
+
+	print_title "HTML"
+	printf "%s\n" 'HTML_OUTPUT            = doc'
+	printf "%s\n" 'HTML_TIMESTAMP         = YES'
+	printf "%s\n" 'GENERATE_TREEVIEW      = YES'
+	end_section
+
+	print_title "LATEX"
+	printf "%s\n" 'GENERATE_LATEX         = NO'
+	end_section
+
+	print_title "GRAPHS"
+	printf "%s\n" 'HAVE_DOT               = YES'
+	printf "%s\n" 'UML_LOOK               = YES'
+	printf "%s\n" 'DOT_MULTI_TARGETS      = YES'
+	end_section
+}
+
+create_makefile >Makefile
+create_doxyfile >Doxyfile
 
 make clean
