@@ -1,5 +1,10 @@
 #include "falling.h"
 
-void falling::fall(bool down) { move({ 0, down ? -1 : 1 }); }
+falling::falling(bool down)
+    : down(down)
+{
+}
 
-void falling::reset() {}
+falling::~falling() {}
+
+void falling::fall() { move({ 0, down ? -1 : 1 }); }

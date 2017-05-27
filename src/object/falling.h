@@ -5,7 +5,16 @@
 
 class falling : public moving {
   public:
-  void fall(bool down = true);
-  void reset();
+  /// constructor, make 'down' the default direction for falling
+  falling(bool down = true);
+
+  ~falling();
+
+  /// move up or down depending on the selected direction
+  void fall();
+
+  protected:
+  /// movement direction
+  bool down;
 };
 #endif
