@@ -1,10 +1,10 @@
 #ifndef SCR_QUIT
 #define SCR_QUIT
 
-#include "scr.h"
+#include "screen_base.h"
 
 /// bye bye and quit
-class scr_quit : public scr {
+class scr_quit : public screen_base {
   public:
   scr_quit();
   ~scr_quit();

@@ -23,7 +23,7 @@
 #define SCREEN_UNDEF 5
 
 #include "globals.h"
-#include "scr/scr.h"
+#include "screen/screen_base.h"
 
 /// GUI basics
 class view {
@@ -59,6 +59,6 @@ class view {
   WINDOW* scr_main;
 
   /// pointer to the current screen - to enable switching
-  scr* current_screen;
+  screen_base* current_screen;
 };
 #endif

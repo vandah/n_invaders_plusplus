@@ -1,8 +1,9 @@
 #ifndef SCR_LIST
 #define SCR_LIST
-#include "scr.h"
+#include "screen_base.h"
+
 /// generic screen for listing items
-class scr_list : public scr {
+class scr_list : public screen_base {
   public:
   /// constructor
   scr_list();

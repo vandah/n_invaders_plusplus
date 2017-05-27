@@ -1,8 +1,8 @@
 #ifndef SCR_GAME
 #define SCR_GAME
-#include "scr.h"
+#include "screen_base.h"
 /// game screen
-class scr_game : public scr {
+class scr_game : public screen_base {
   public:
   scr_game();
   ~scr_game();

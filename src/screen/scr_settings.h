@@ -1,7 +1,7 @@
 #ifndef SCR_SETTINGS
 #define SCR_SETTINGS
 
-#include "scr.h"
+#include "screen_base.h"
 #include "scr_list.h"
 
 /// game settings

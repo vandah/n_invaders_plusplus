@@ -1,10 +1,10 @@
 #include "view.h"
-#include "scr/scr.h"
-#include "scr/scr_game.h"
-#include "scr/scr_hiscore.h"
-#include "scr/scr_menu.h"
-#include "scr/scr_quit.h"
-#include "scr/scr_settings.h"
+#include "screen/screen_base.h"
+#include "screen/scr_game.h"
+#include "screen/scr_hiscore.h"
+#include "screen/scr_menu.h"
+#include "screen/scr_quit.h"
+#include "screen/scr_settings.h"
 
 view::view()
     : cols(0)
@@ -35,7 +35,7 @@ view::~view() {}
 
 void view::switch_screen(int s)
 {
-  scr* tmp_screen = current_screen;
+  screen_base* tmp_screen = current_screen;
   switch (s) {
   case SCREEN_MENU:
     current_screen = new scr_menu;

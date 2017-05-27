@@ -21,7 +21,7 @@ TARGET    :=  hendrvan
 
 .PHONY : all clean run compile doc
 
-all: $(DATADIR) $(BUILDDIR)/ $(BUILDDIR)/scr $(BUILDDIR)/object $(BUILDDIR)/object/bonus  $(OBJECTS) $(TARGET)
+all: $(DATADIR) $(BUILDDIR)/ $(BUILDDIR)/object $(BUILDDIR)/object/bonus $(BUILDDIR)/screen  $(OBJECTS) $(TARGET)
 ###############################################################################
 
 ###############################################################################
@@ -50,10 +50,6 @@ $(BUILDDIR)/:
 	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
 	@mkdir -p $@
 
-$(BUILDDIR)/scr:
-	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
-	@mkdir -p $@
-
 $(BUILDDIR)/object:
 	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
 	@mkdir -p $@
@@ -61,14 +57,18 @@ $(BUILDDIR)/object:
 $(BUILDDIR)/object/bonus:
 	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
 	@mkdir -p $@
+
+$(BUILDDIR)/screen:
+	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
+	@mkdir -p $@
 ###############################################################################
 
 ###############################################################################
 #                                    FILES                                    #
 ###############################################################################
-SOURCES   :=  $(SRCDIR)/scr/scr.cpp $(SRCDIR)/scr/scr_quit.cpp $(SRCDIR)/scr/scr_settings.cpp $(SRCDIR)/scr/scr_game.cpp $(SRCDIR)/scr/scr_list.cpp $(SRCDIR)/scr/scr_hiscore.cpp $(SRCDIR)/scr/scr_menu.cpp $(SRCDIR)/object/smart.cpp $(SRCDIR)/object/falling.cpp $(SRCDIR)/object/ufo.cpp $(SRCDIR)/object/bonus/bonus.cpp $(SRCDIR)/object/missile.cpp $(SRCDIR)/object/invader.cpp $(SRCDIR)/object/moving.cpp $(SRCDIR)/object/player.cpp $(SRCDIR)/object/object.cpp $(SRCDIR)/view.cpp $(SRCDIR)/main.cpp $(SRCDIR)/globals.cpp 
+SOURCES   :=  $(SRCDIR)/object/smart.cpp $(SRCDIR)/object/falling.cpp $(SRCDIR)/object/ufo.cpp $(SRCDIR)/object/bonus/bonus.cpp $(SRCDIR)/object/missile.cpp $(SRCDIR)/object/invader.cpp $(SRCDIR)/object/moving.cpp $(SRCDIR)/object/player.cpp $(SRCDIR)/object/object.cpp $(SRCDIR)/view.cpp $(SRCDIR)/screen/screen_base.cpp $(SRCDIR)/screen/scr_quit.cpp $(SRCDIR)/screen/scr_settings.cpp $(SRCDIR)/screen/scr_game.cpp $(SRCDIR)/screen/scr_list.cpp $(SRCDIR)/screen/scr_hiscore.cpp $(SRCDIR)/screen/scr_menu.cpp $(SRCDIR)/main.cpp $(SRCDIR)/globals.cpp 
 
-OBJECTS   :=  $(BUILDDIR)/scr/scr.o $(BUILDDIR)/scr/scr_quit.o $(BUILDDIR)/scr/scr_settings.o $(BUILDDIR)/scr/scr_game.o $(BUILDDIR)/scr/scr_list.o $(BUILDDIR)/scr/scr_hiscore.o $(BUILDDIR)/scr/scr_menu.o $(BUILDDIR)/object/smart.o $(BUILDDIR)/object/falling.o $(BUILDDIR)/object/ufo.o $(BUILDDIR)/object/bonus/bonus.o $(BUILDDIR)/object/missile.o $(BUILDDIR)/object/invader.o $(BUILDDIR)/object/moving.o $(BUILDDIR)/object/player.o $(BUILDDIR)/object/object.o $(BUILDDIR)/view.o $(BUILDDIR)/main.o $(BUILDDIR)/globals.o 
+OBJECTS   :=  $(BUILDDIR)/object/smart.o $(BUILDDIR)/object/falling.o $(BUILDDIR)/object/ufo.o $(BUILDDIR)/object/bonus/bonus.o $(BUILDDIR)/object/missile.o $(BUILDDIR)/object/invader.o $(BUILDDIR)/object/moving.o $(BUILDDIR)/object/player.o $(BUILDDIR)/object/object.o $(BUILDDIR)/view.o $(BUILDDIR)/screen/screen_base.o $(BUILDDIR)/screen/scr_quit.o $(BUILDDIR)/screen/scr_settings.o $(BUILDDIR)/screen/scr_game.o $(BUILDDIR)/screen/scr_list.o $(BUILDDIR)/screen/scr_hiscore.o $(BUILDDIR)/screen/scr_menu.o $(BUILDDIR)/main.o $(BUILDDIR)/globals.o 
 ###############################################################################
 
 ###############################################################################
@@ -90,7 +90,7 @@ doc:
 ###############################################################################
 #                                   TARGET                                    #
 ###############################################################################
-$(TARGET): $(DATADIR) $(BUILDDIR)/ $(BUILDDIR)/scr $(BUILDDIR)/object $(BUILDDIR)/object/bonus  $(OBJECTS)
+$(TARGET): $(DATADIR) $(BUILDDIR)/ $(BUILDDIR)/object $(BUILDDIR)/object/bonus $(BUILDDIR)/screen  $(OBJECTS)
 	@echo -e "\n$(GREEN)Linking ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)
 ###############################################################################
@@ -98,34 +98,6 @@ $(TARGET): $(DATADIR) $(BUILDDIR)/ $(BUILDDIR)/scr $(BUILDDIR)/object $(BUILDDIR
 ###############################################################################
 #                                OBJECT FILES                                 #
 ###############################################################################
-
-$(BUILDDIR)/scr/scr.o: $(SRCDIR)/scr/scr.cpp $(SRCDIR)/scr/scr.h $(BUILDDIR)/main.o
-	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
-
-$(BUILDDIR)/scr/scr_quit.o: $(SRCDIR)/scr/scr_quit.cpp $(SRCDIR)/scr/scr_quit.h
-	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
-
-$(BUILDDIR)/scr/scr_settings.o: $(SRCDIR)/scr/scr_settings.cpp $(SRCDIR)/scr/scr_settings.h $(BUILDDIR)/main.o
-	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
-
-$(BUILDDIR)/scr/scr_game.o: $(SRCDIR)/scr/scr_game.cpp $(SRCDIR)/scr/scr_game.h
-	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
-
-$(BUILDDIR)/scr/scr_list.o: $(SRCDIR)/scr/scr_list.cpp $(SRCDIR)/scr/scr_list.h $(BUILDDIR)/main.o
-	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
-
-$(BUILDDIR)/scr/scr_hiscore.o: $(SRCDIR)/scr/scr_hiscore.cpp $(SRCDIR)/scr/scr_hiscore.h
-	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
-
-$(BUILDDIR)/scr/scr_menu.o: $(SRCDIR)/scr/scr_menu.cpp $(SRCDIR)/scr/scr_menu.h $(BUILDDIR)/main.o $(BUILDDIR)/scr/scr.o
-	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/object/smart.o: $(SRCDIR)/object/smart.cpp $(SRCDIR)/object/smart.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
@@ -163,7 +135,35 @@ $(BUILDDIR)/object/object.o: $(SRCDIR)/object/object.cpp $(SRCDIR)/object/object
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
-$(BUILDDIR)/view.o: $(SRCDIR)/view.cpp $(SRCDIR)/view.h $(BUILDDIR)/scr/scr.o $(BUILDDIR)/scr/scr_game.o $(BUILDDIR)/scr/scr_hiscore.o $(BUILDDIR)/scr/scr_menu.o $(BUILDDIR)/scr/scr_quit.o $(BUILDDIR)/scr/scr_settings.o
+$(BUILDDIR)/view.o: $(SRCDIR)/view.cpp $(SRCDIR)/view.h $(BUILDDIR)/screen/screen_base.o $(BUILDDIR)/screen/scr_game.o $(BUILDDIR)/screen/scr_hiscore.o $(BUILDDIR)/screen/scr_menu.o $(BUILDDIR)/screen/scr_quit.o $(BUILDDIR)/screen/scr_settings.o
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/screen/screen_base.o: $(SRCDIR)/screen/screen_base.cpp $(SRCDIR)/screen/screen_base.h $(BUILDDIR)/main.o
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/screen/scr_quit.o: $(SRCDIR)/screen/scr_quit.cpp $(SRCDIR)/screen/scr_quit.h
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/screen/scr_settings.o: $(SRCDIR)/screen/scr_settings.cpp $(SRCDIR)/screen/scr_settings.h $(BUILDDIR)/main.o
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/screen/scr_game.o: $(SRCDIR)/screen/scr_game.cpp $(SRCDIR)/screen/scr_game.h
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/screen/scr_list.o: $(SRCDIR)/screen/scr_list.cpp $(SRCDIR)/screen/scr_list.h $(BUILDDIR)/main.o
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/screen/scr_hiscore.o: $(SRCDIR)/screen/scr_hiscore.cpp $(SRCDIR)/screen/scr_hiscore.h
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/screen/scr_menu.o: $(SRCDIR)/screen/scr_menu.cpp $(SRCDIR)/screen/scr_menu.h $(BUILDDIR)/main.o
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 

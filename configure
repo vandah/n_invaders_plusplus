@@ -59,7 +59,9 @@ build_objects(){
 
 	for SOURCE_FILE in ${SRCS}
 	do
-		INCLUDES=`grep \#include ${SOURCE_FILE}|awk -F\" '{print $2}'|awk 'BEGIN{FS=".";OFS=".";}{$NF="o";print $0}'`
+		INCLUDES=`grep ^\#include ${SOURCE_FILE}|awk -F\" '{print $2}'|awk 'BEGIN{FS=".";OFS=".";}{$NF="o";print $0}'`
+		#INCLUDES+=" "
+		#INCLUDES+=`grep ^\#include "${SOURCE_FILE::-${LEN_SRCEXT}}.h" | awk -F\" '{print $2}'|awk 'BEGIN{FS=".";OFS=".";}!/^$/{$NF="o";print $0}'`
 		OBJECT_FILE="${SOURCE_FILE:${LEN_SRCDIR}:-${LEN_SRCEXT}}.o"
 		OBJ_DIR="`echo ${OBJECT_FILE} | awk 'BEGIN{FS="/";OFS="/";}{$NF="";print $0}'`"
 

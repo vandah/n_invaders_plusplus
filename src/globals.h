@@ -6,6 +6,7 @@
 #ifndef GLOBALS
 #define GLOBALS
 #define VERSION "0.0.1-1"
+#define AUTHOR "Vanda Hendrychova"
 
 #include <csignal>
 #include <iostream>

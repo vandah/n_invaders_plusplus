@@ -1,15 +1,15 @@
-#ifndef SCR
-#define SCR
+#ifndef SCREEN_BASE
+#define SCREEN_BASE
 
 #include "../globals.h"
 
-class scr {
+class screen_base {
   public:
   /// variable inicialization
-  scr();
+  screen_base();
 
   /// destructor
-  virtual ~scr();
+  virtual ~screen_base();
 
   /// updates the window
   virtual void redraw() const = 0;
@@ -21,7 +21,7 @@ class scr {
   virtual void handle_timer() = 0;
 
   protected:
-  /// screens are moving between several states
+  /// Screens are moving between several states
   int state;
 
   /// the main window
