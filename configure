@@ -132,6 +132,10 @@ basics(){
 	printf "CXX       :=  %s\n"  "${CXX}"
 	printf "CXXFLAGS  :=  %s\n"  "${CXXFLAGS}"
 	printf "TARGET    :=  %s\n" "${TARGET}"
+	printf "SRCDIR    :=  %s\n" "${SRCDIR}"
+	printf "BUILDDIR  :=  %s\n" "${BUILDDIR}"
+	printf "DATADIR   :=  %s\n" "${DATADIR}"
+
 	printf "\n%s\n" '.PHONY : all clean run compile doc'
 	printf "\n%s %s %s\n" 'all:' "${DIRS}" '$(OBJECTS) $(TARGET)'
 
@@ -140,10 +144,6 @@ basics(){
 
 directories(){
 	print_title "DIRECTORIES"
-
-	printf "SRCDIR    :=  %s\n" "${SRCDIR}"
-	printf "BUILDDIR  :=  %s\n" "${BUILDDIR}"
-	printf "DATADIR   :=  %s\n" "${DATADIR}"
 
 	for d in ${DIRS}
 	do

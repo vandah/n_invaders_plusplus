@@ -18,6 +18,9 @@
 CXX       :=  g++
 CXXFLAGS  :=  -std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb -lncurses
 TARGET    :=  hendrvan
+SRCDIR    :=  src
+BUILDDIR  :=  build
+DATADIR   :=  data
 
 .PHONY : all clean run compile doc
 
@@ -38,9 +41,6 @@ NOCOL     :=  \033[0m
 ###############################################################################
 #                                 DIRECTORIES                                 #
 ###############################################################################
-SRCDIR    :=  src
-BUILDDIR  :=  build
-DATADIR   :=  data
 
 $(DATADIR):
 	@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"
