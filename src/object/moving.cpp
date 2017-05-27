@@ -8,3 +8,5 @@ void moving::move(std::pair<int, int> xy)
     pos = { new_x, new_y };
   }
 }
+
+void moving::reset() {}

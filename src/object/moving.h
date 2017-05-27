@@ -8,7 +8,7 @@
 class moving : public object {
   public:
   void move(std::pair<int, int> xy);
-  virtual void reset() = 0;
+  virtual void reset();
 
   protected:
   int state;
