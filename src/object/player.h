@@ -5,8 +5,8 @@
 
 class player : public moving {
   public:
-  void redraw();
-  void destroy();
+  player();
+  ~player();
   void reset();
 };
 #endif

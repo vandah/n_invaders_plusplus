@@ -5,8 +5,8 @@
 
 class invader : public moving {
   public:
-  void redraw();
-  void destroy();
+  invader();
+  ~invader();
   void reset();
 };
 #endif

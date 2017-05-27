@@ -5,7 +5,7 @@
 
 class smart : public moving {
   public:
-  void redraw();
-  void destroy();
+  smart() {}
+  ~smart() {}
 };
 #endif

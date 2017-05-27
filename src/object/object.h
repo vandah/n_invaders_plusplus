@@ -3,16 +3,25 @@
 
 #include "../globals.h"
 
+
 /// generic static object
 class object {
   public:
-  object(int sx = 0, int sy = 0, int px = 0, int py = 0);
+  object(int size_x = 0, int size_y = 0, int pos_x = 0, int pos_y = 0);
   virtual ~object();
-  virtual void redraw() = 0;
+  void redraw();
   virtual void destroy() = 0;
 
   protected:
-  struct TLook {
+  class TLook {
+    public:
+      TLook();
+      ~TLook();
+      void fill_wardrobe();
+      std::string current_look();
+      void next_look();
+      void reset();
+    private:
     std::vector<std::string> wardrobe;
     int choice;
   };

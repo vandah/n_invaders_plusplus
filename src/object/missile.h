@@ -5,8 +5,7 @@
 
 class missile : public falling {
   public:
-  void redraw();
-  void destroy();
+  missile();
+  ~missile();
 };
 #endif
-

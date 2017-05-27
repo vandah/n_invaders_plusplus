@@ -1,6 +1,7 @@
 #ifndef OBJECT_MOVING
 #define OBJECT_MOVING
 
+#include "../main.h"
 #include "object.h"
 
 /// moving object

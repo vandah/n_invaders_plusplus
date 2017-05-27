@@ -6,8 +6,6 @@
 class falling : public moving {
   public:
   void fall(bool down = true);
-  void redraw();
-  void destroy();
   void reset();
 };
 #endif
