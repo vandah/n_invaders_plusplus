@@ -17,6 +17,17 @@ void scr_game::key_left() { Player.move_left(); }
 
 void scr_game::key_up() { Player.shoot(); }
 
-void scr_game::key_pause() {}
+void scr_game::key_pause() { is_paused = !is_paused; }
 
-void scr_game::key_backspace() {}
+void scr_game::key_quit() {}
+
+void scr_game::key_backspace() { key_quit(); }
+
+void scr_game::check_state()
+{
+  if (Player.is_dead()) {
+    game_over();
+  }
+}
+
+void scr_game::game_over() {}

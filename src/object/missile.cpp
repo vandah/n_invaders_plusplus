@@ -1,4 +1,8 @@
 #include "missile.h"
-missile::missile() {}
+
+missile::missile(bool invader)
+    : falling(invader)
+{
+}
 
 missile::~missile() {}

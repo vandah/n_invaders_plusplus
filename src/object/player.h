@@ -1,8 +1,9 @@
 #ifndef OBJECT_MOVING_PLAYER
 #define OBJECT_MOVING_PLAYER
 
-#include "moving.h"
 #include "missile.h"
+#include "moving.h"
+#define DEFAULT_LIVES 5
 
 class player : public moving {
   public:
@@ -18,13 +19,26 @@ class player : public moving {
   /// if it is possible, shoot a missile
   void shoot();
 
+  /// missile hit target or screen edge -> remove it
+  void clear_missile();
+
   /// reset player to initial position
   void reset();
 
   /// what to do if player was shot
   void die();
 
+  /// check number of lives
+  bool is_dead();
+
   protected:
+  /// a missile shot by player
   missile* active_missile;
+
+  /// remaining lives
+  int lives;
+
+  /// gained score
+  int score;
 };
 #endif

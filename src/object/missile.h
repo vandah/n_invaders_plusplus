@@ -5,7 +5,7 @@
 
 class missile : public falling {
   public:
-  missile();
+  missile(bool invader = false);
   ~missile();
 };
 #endif
