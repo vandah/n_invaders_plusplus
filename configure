@@ -73,7 +73,7 @@ build_objects(){
 		for inc in $INCLUDES
 		do
 			i="${OBJ_DIR}${inc}"
-			i=`echo ${i} | python -c "
+			i=`echo ${i} | python3 -c "
 l=str(input());
 p=''
 o=0
@@ -198,7 +198,7 @@ target(){
 
 	printf "%s %s %s\n" '$(TARGET):' "${DIRS}" '$(OBJECTS)'
 	printf "\t%s\n" '@echo -e "\n$(GREEN)Linking ...$(NOCOL)"'
-	printf "\t%s\n" '$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)'
+	printf "\t%s\n" '$(CXX) -o $@ $(OBJECTS) $(CXXFLAGS)'
 
 	end_section
 }

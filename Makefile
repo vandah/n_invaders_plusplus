@@ -92,7 +92,7 @@ doc:
 ###############################################################################
 $(TARGET): $(DATADIR) $(BUILDDIR)/ $(BUILDDIR)/object $(BUILDDIR)/object/bonus $(BUILDDIR)/screen  $(OBJECTS)
 	@echo -e "\n$(GREEN)Linking ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)
+	$(CXX) -o $@ $(OBJECTS) $(CXXFLAGS)
 ###############################################################################
 
 ###############################################################################
