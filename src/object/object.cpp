@@ -24,4 +24,6 @@ void object::TLook::reset() { choice = 0; }
 
 void object::redraw() {}
 
+void object::destroy() {}
+
 object::~object() {}

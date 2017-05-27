@@ -9,7 +9,7 @@ class object {
   object(int size_x = 0, int size_y = 0, int pos_x = 0, int pos_y = 0);
   virtual ~object();
   void redraw();
-  virtual void destroy() = 0;
+  virtual void destroy();
 
   protected:
   class TLook {
