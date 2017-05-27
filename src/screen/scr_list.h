@@ -17,8 +17,23 @@ class scr_list : public screen_base {
   /// updates the window
   void redraw() const;
 
-  /// keypress event handler
-  void handle_event(int event);
+  /// go to the screen which corresponds to the selection
+  void key_enter();
+
+  /// select an element which is higher in the list
+  void key_up();
+
+  /// select an element which is lower in the list
+  void key_down();
+
+  /// go to the previous screen
+  void key_backspace();
+
+  /// implemented as key_enter()
+  void key_right();
+
+  /// implemented as key_backspace()
+  void key_left();
 
   protected:
   /// menu items to print (matched with screens they point to)

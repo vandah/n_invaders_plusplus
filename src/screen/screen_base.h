@@ -14,8 +14,27 @@ class screen_base {
   /// updates the window
   virtual void redraw() const = 0;
 
+  /// clear screen
+  void scr_clear() const;
+
   /// keypress event handler
-  virtual void handle_event(int event) = 0;
+  virtual void handle_event(int event);
+
+  virtual void key_up();
+
+  virtual void key_down();
+
+  virtual void key_left();
+
+  virtual void key_right();
+
+  virtual void key_enter();
+
+  virtual void key_backspace();
+
+  virtual void key_quit();
+
+  virtual void key_pause();
 
   /// time tick
   void handle_timer();

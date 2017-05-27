@@ -7,6 +7,12 @@ class player : public moving {
   public:
   player();
   ~player();
+  void move_right();
+  void move_left();
+  void shoot();
   void reset();
+
+  protected:
+  bool missile_loaded;
 };
 #endif

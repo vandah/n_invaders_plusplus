@@ -18,12 +18,7 @@ scr_list::~scr_list() {}
 
 void scr_list::draw_list() const
 {
-  clear();
-  noecho();
-  cbreak();
-  refresh();
-  box(win, 0, 0);
-  wrefresh(win);
+  scr_clear();
 
   int current_row = midrow - items.size() / 2;
   for (unsigned int i = 0; i < items.size(); ++i) {
@@ -36,36 +31,27 @@ void scr_list::draw_list() const
   }
 }
 
-void scr_list::handle_event(int event)
+void scr_list::key_enter() { gui.switch_screen(items[selected_idx].second); }
+
+void scr_list::key_up()
 {
-  switch (event) {
-  case 'l':
-  case 10:
-  case KEY_ENTER:
-    gui.switch_screen(items[selected_idx].second);
-    break;
-  case 'k':
-  case KEY_UP:
-    if (items.size()) {
-      selected_idx--;
-      selected_idx %= items.size();
-    }
-    break;
-  case 'j':
-  case KEY_DOWN:
-    selected_idx++;
+  if (items.size()) {
+    selected_idx--;
     selected_idx %= items.size();
-    break;
-  case 'h':
-  case 8:
-  case 127:
-  case KEY_BACKSPACE:
-    gui.switch_screen(back);
-    break;
-  default:
-    break;
   }
 }
+
+void scr_list::key_down()
+{
+  selected_idx++;
+  selected_idx %= items.size();
+}
+
+void scr_list::key_backspace() { gui.switch_screen(back); }
+
+void scr_list::key_right() { key_enter(); }
+
+void scr_list::key_left() { key_backspace(); }
 
 void scr_list::redraw() const
 {

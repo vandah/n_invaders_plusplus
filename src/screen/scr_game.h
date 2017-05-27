@@ -1,6 +1,9 @@
 #ifndef SCR_GAME
 #define SCR_GAME
+#include "../object/invader.h"
+#include "../object/player.h"
 #include "screen_base.h"
+
 /// game screen
 class scr_game : public screen_base {
   public:
@@ -13,7 +16,29 @@ class scr_game : public screen_base {
   /// draw the whole screen
   void redraw() const;
 
-  /// react on keypress
-  void handle_event(int event);
+  /// move player's ship right
+  void key_right();
+
+  /// move player's ship left
+  void key_left();
+
+  /// shoot
+  void key_up();
+
+  /// pause game
+  void key_pause();
+
+  /// exit the current game
+  void key_backspace();
+
+  protected:
+  /// grid of invaders
+  std::vector<std::vector<invader>> invaders;
+
+  /// the player's ship
+  player Player;
+
+  /// is the game running or paused ?
+  bool is_paused;
 };
 #endif

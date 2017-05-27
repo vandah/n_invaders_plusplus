@@ -9,7 +9,6 @@ class scr_quit : public screen_base {
   scr_quit();
   ~scr_quit();
   void redraw() const;
-  void handle_event(int event);
 };
 
 #endif
