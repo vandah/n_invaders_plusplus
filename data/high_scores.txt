@@ -1,0 +1,2 @@
+pokus 1000
+novy_pokus 100
