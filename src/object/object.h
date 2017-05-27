@@ -3,7 +3,6 @@
 
 #include "../globals.h"
 
-
 /// generic static object
 class object {
   public:
@@ -14,14 +13,15 @@ class object {
 
   protected:
   class TLook {
-    public:
-      TLook();
-      ~TLook();
-      void fill_wardrobe();
-      std::string current_look();
-      void next_look();
-      void reset();
-    private:
+public:
+    TLook();
+    ~TLook();
+    void fill_wardrobe();
+    std::string current_look();
+    void next_look();
+    void reset();
+
+private:
     std::vector<std::string> wardrobe;
     int choice;
   };

@@ -4,10 +4,16 @@
 /// game screen
 class scr_game : public screen_base {
   public:
+  /// constructor
   scr_game();
+
+  /// destructor
   ~scr_game();
+
+  /// draw the whole screen
   void redraw() const;
+
+  /// react on keypress
   void handle_event(int event);
-  void handle_timer();
 };
 #endif
