@@ -6,23 +6,28 @@ scr_game::scr_game()
   win = newwin(gui.rows - 1, gui.cols - 1, 1, 1);
   keypad(win, TRUE);
   nodelay(win, TRUE);
+  for (auto v : battlefield) {
+    std::fill(v.begin(), v.end(), 0);
+  }
+  scr_clear();
 }
 
 scr_game::~scr_game() {}
 
 void scr_game::redraw() const
 {
-  scr_clear();
-
   if (is_paused) {
     attron(COLOR_PAIR(2));
+
     for (int i = 2; i < gui.cols - 1; ++i) {
       mvprintw(gui.rows / 2, i, "-");
     }
+
     mvprintw(gui.rows / 2, gui.cols / 2 - 4, "> PAUSE <");
+  } else {
+    Player.redraw();
   }
 
-  Player.redraw();
   wmove(win, 0, 0);
   refresh();
 }
@@ -74,5 +79,5 @@ void scr_game::handle_timer()
     Player.handle_timer();
   }
 
-  handle_event(wgetch(win));
+  read_input();
 }

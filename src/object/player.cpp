@@ -40,6 +40,10 @@ void player::reset()
   /// reset position
   pos = { gui.cols / 2 - 2, gui.rows - 5 };
 
+  move({ 0, 0 });
+
+  redraw();
+
   /// delete missile
   if (active_missile) {
     delete active_missile;
@@ -61,24 +65,25 @@ int player::color() const { return 6; }
 
 player::missile::missile()
     : falling(false)
+    , crash(false)
 {
 }
 
 std::vector<std::string> player::missile::get_looks() const
 {
-  return std::vector<std::string>{ "!" };
+  if (!crash) {
+    return std::vector<std::string>{ "!" };
+  } else {
+    return std::vector<std::string>{ " " };
+  }
 }
 
 int player::missile::color() const { return 5; }
 
-player::missile::~missile() {}
-
-void player::redraw() const
+player::missile::~missile()
 {
-  if (active_missile) {
-    active_missile->redraw();
-  }
-  object::redraw();
+  crash = true;
+  redraw();
 }
 
 void player::handle_timer()
@@ -87,10 +92,12 @@ void player::handle_timer()
 
   if (active_missile) {
     active_missile->fall();
+    active_missile->redraw();
 
     if (active_missile->top()) {
       delete active_missile;
       active_missile = NULL;
+      redraw();
     }
   }
 }

@@ -21,6 +21,7 @@ public:
 protected:
     std::vector<std::string> get_looks() const;
     int color() const;
+    bool crash;
   };
 
   protected:

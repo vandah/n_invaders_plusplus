@@ -48,6 +48,8 @@ class scr_game : public screen_base {
   /// behaves as key_quit
   void key_backspace();
 
+  std::vector<std::vector<int>> battlefield;
+
   /// grid of invaders
   std::vector<std::vector<invader>> invaders;
 

@@ -33,14 +33,8 @@ class view {
   ~view();
   void init();
 
-  /// gets char and sends it to the appropriate screen to handle
-  void read_input();
-
   /// top bar indicating game status
   void status_bar(int lvl, int score, int lives);
-
-  /// refresh gui - FIXME delete?
-  //		void refresh();
 
   /// switch to another screen
   void switch_screen(int s);
@@ -48,7 +42,6 @@ class view {
   /// receives time tick and alerts the appropriate screen
   void handle_timer();
 
-  public:
   /// screen dimensions - x
   int cols;
 

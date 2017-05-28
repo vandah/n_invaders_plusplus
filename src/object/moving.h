@@ -7,8 +7,10 @@
 /// moving object
 class moving : public object {
   public:
+  moving();
+  ~moving();
   void move(std::pair<int, int> xy);
-  
+
   bool top();
   bool bottom();
   bool right();
@@ -16,10 +18,11 @@ class moving : public object {
 
   virtual void reset() = 0;
 
-  using object::redraw;
+  virtual void redraw() const;
 
   protected:
   virtual int color() const = 0;
   virtual std::vector<std::string> get_looks() const = 0;
+  std::pair<int, int> old_pos;
 };
 #endif

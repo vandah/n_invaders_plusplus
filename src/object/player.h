@@ -32,18 +32,6 @@ class player : public shooting {
   /// check number of lives
   bool is_dead();
 
-  void redraw() const;
-
-  //  class missile : falling {
-  // public:
-  //    missile();
-  //    ~missile();
-  //    void redraw() const;
-  //
-  // protected:
-  //    std::vector<std::string> get_looks() const;
-  //    int color() const;
-  //  };
   void handle_timer();
 
   protected:
