@@ -9,7 +9,6 @@ object::object(int size_x, int size_y, int pos_x, int pos_y)
 std::string object::current_look() const
 {
   std::vector<std::string> wardrobe = get_looks();
-  std::cout << wardrobe.size() << std::endl;
   if (!wardrobe.empty()) {
     return wardrobe[choice];
   } else {
