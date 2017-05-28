@@ -34,15 +34,17 @@ void scr_list::key_enter() { gui.switch_screen(items[selected_idx].second); }
 void scr_list::key_up()
 {
   if (items.size()) {
-    selected_idx--;
+    selected_idx = items.size() - 1 + selected_idx;
     selected_idx %= items.size();
   }
 }
 
 void scr_list::key_down()
 {
-  selected_idx++;
-  selected_idx %= items.size();
+  if (items.size()) {
+    selected_idx++;
+    selected_idx %= items.size();
+  }
 }
 
 void scr_list::key_backspace() { gui.switch_screen(back); }
