@@ -49,7 +49,11 @@ void player::reset()
 
 std::vector<std::string> player::get_looks() const
 {
-  return std::vector<std::string>{ "/_^_\\" };
+  if (active_missile) {
+    return std::vector<std::string>{ "/___\\" };
+  } else {
+    return std::vector<std::string>{ "/_^_\\" };
+  }
 }
 
 /// color yellow
