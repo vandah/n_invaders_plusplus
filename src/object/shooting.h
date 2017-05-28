@@ -8,16 +8,14 @@ class shooting : public moving {
   public:
   virtual void reset() = 0;
 
-  virtual std::vector<std::string> get_looks() const = 0;
-
-  virtual void redraw() const;
+  //  virtual void redraw() const;
+  using moving::redraw;
 
   //  class missile;
-  class missile : falling {
+  class missile : public falling {
 public:
     missile();
     ~missile();
-    void redraw() const;
     void set_pos(std::pair<int, int> new_pos);
 
 protected:

@@ -34,16 +34,17 @@ class player : public shooting {
 
   void redraw() const;
 
-//  class missile : falling {
-//public:
-//    missile();
-//    ~missile();
-//    void redraw() const;
-//
-//protected:
-//    std::vector<std::string> get_looks() const;
-//    int color() const;
-//  };
+  //  class missile : falling {
+  // public:
+  //    missile();
+  //    ~missile();
+  //    void redraw() const;
+  //
+  // protected:
+  //    std::vector<std::string> get_looks() const;
+  //    int color() const;
+  //  };
+  void handle_timer();
 
   protected:
   std::vector<std::string> get_looks() const;

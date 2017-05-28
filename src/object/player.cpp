@@ -73,17 +73,22 @@ int player::missile::color() const { return 5; }
 
 player::missile::~missile() {}
 
-void player::missile::redraw() const
-{
-  falling::redraw();
-  mvprintw(pos.second, pos.first, "!");
-}
-
 void player::redraw() const
 {
-  object::redraw();
   if (active_missile) {
     active_missile->redraw();
-    std::cout << "drawing missile" << std::endl;
+  }
+  object::redraw();
+}
+
+void player::handle_timer()
+{
+  redraw();
+  if (active_missile) {
+    active_missile->fall();
+    if (active_missile->top()) {
+      delete active_missile;
+      active_missile = NULL;
+    }
   }
 }
