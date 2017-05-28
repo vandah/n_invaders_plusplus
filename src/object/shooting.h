@@ -25,5 +25,6 @@ protected:
 
   protected:
   virtual int color() const = 0;
+  virtual std::vector<std::string> get_looks() const = 0;
 };
 #endif

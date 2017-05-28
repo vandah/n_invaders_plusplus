@@ -20,6 +20,10 @@ class screen_base {
   /// keypress event handler
   virtual void handle_event(int event);
 
+  /// time tick
+  virtual void handle_timer();
+
+  protected:
   virtual void key_up();
 
   virtual void key_down();
@@ -36,10 +40,6 @@ class screen_base {
 
   virtual void key_pause();
 
-  /// time tick
-  void handle_timer();
-
-  protected:
   /// Screens are moving between several states
   int state;
 

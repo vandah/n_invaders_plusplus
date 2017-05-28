@@ -12,15 +12,40 @@ scr_game::~scr_game() {}
 void scr_game::redraw() const
 {
   scr_clear();
+
+  if (is_paused) {
+    attron(COLOR_PAIR(2));
+    for (int i = 2; i < gui.cols - 1; ++i) {
+      mvprintw(gui.rows / 2, i, "-");
+    }
+    mvprintw(gui.rows / 2, gui.cols / 2 - 4, "> PAUSE <");
+  }
+
   Player.redraw();
+  wmove(win, 0, 0);
   refresh();
 }
 
-void scr_game::key_right() { Player.move_right(); }
+void scr_game::key_right()
+{
+  if (!is_paused) {
+    Player.move_right();
+  }
+}
 
-void scr_game::key_left() { Player.move_left(); }
+void scr_game::key_left()
+{
+  if (!is_paused) {
+    Player.move_left();
+  }
+}
 
-void scr_game::key_up() { Player.shoot(); }
+void scr_game::key_up()
+{
+  if (!is_paused) {
+    Player.shoot();
+  }
+}
 
 void scr_game::key_pause() { is_paused = !is_paused; }
 
@@ -36,3 +61,14 @@ void scr_game::check_state()
 }
 
 void scr_game::game_over() {}
+
+void scr_game::handle_timer()
+{
+  redraw();
+
+  if (!is_paused) {
+    Player.handle_timer();
+  }
+
+  handle_event(wgetch(win));
+}

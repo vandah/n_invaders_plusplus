@@ -15,8 +15,20 @@ class scr_game : public screen_base {
   /// destructor
   ~scr_game();
 
+  void handle_timer();
+
+  protected:
   /// draw the whole screen
   void redraw() const;
+
+  /// check whether there are collisions
+  void check_conflicts();
+
+  /// is player still alive ?
+  void check_state();
+
+  /// if player is out of lives, end the game, ask for name and show stats
+  void game_over();
 
   /// move player's ship right
   void key_right();
@@ -36,16 +48,6 @@ class scr_game : public screen_base {
   /// behaves as key_quit
   void key_backspace();
 
-  /// check whether there are collisions
-  void check_conflicts();
-
-  /// is player still alive ?
-  void check_state();
-
-  /// if player is out of lives, end the game, ask for name and show stats
-  void game_over();
-
-  protected:
   /// grid of invaders
   std::vector<std::vector<invader>> invaders;
 

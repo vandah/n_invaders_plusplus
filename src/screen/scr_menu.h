@@ -11,6 +11,5 @@ class scr_menu : public scr_list {
   ~scr_menu();
 
   protected:
-  std::vector<int> screen_items;
 };
 #endif

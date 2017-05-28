@@ -17,6 +17,10 @@ class scr_list : public screen_base {
   /// updates the window
   virtual void redraw() const;
 
+  protected:
+  /// menu items to print (matched with screens they point to)
+  std::vector<std::pair<std::string, int>> items;
+
   /// go to the screen which corresponds to the selection
   void key_enter();
 
@@ -34,10 +38,6 @@ class scr_list : public screen_base {
 
   /// implemented as key_backspace()
   void key_left();
-
-  protected:
-  /// menu items to print (matched with screens they point to)
-  std::vector<std::pair<std::string, int>> items;
 
   /// selected line
   unsigned int selected_idx;
