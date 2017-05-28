@@ -27,6 +27,7 @@ void view::init()
   keypad(stdscr, TRUE);
   cbreak();
   noecho();
+  nodelay(stdscr,TRUE);
   keypad(scr_main, TRUE);
   rows = LINES;
   cols = COLS;

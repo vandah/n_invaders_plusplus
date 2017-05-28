@@ -5,6 +5,7 @@ scr_game::scr_game()
 {
   win = newwin(gui.rows - 1, gui.cols - 1, 1, 1);
   keypad(win, TRUE);
+  nodelay(win, TRUE);
 }
 
 scr_game::~scr_game() {}
