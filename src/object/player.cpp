@@ -38,7 +38,7 @@ bool player::is_dead() { return (lives <= 0); }
 void player::reset()
 {
   /// reset position
-  pos = { gui.cols / 2, gui.rows - 5 };
+  pos = { gui.cols / 2 - 2, gui.rows - 5 };
 
   /// delete missile
   if (active_missile) {
