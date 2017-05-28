@@ -24,7 +24,7 @@ DATADIR   :=  data
 
 .PHONY : all clean run compile doc
 
-all: $(DATADIR) $(BUILDDIR)/ $(BUILDDIR)/object $(BUILDDIR)/object/bonus $(BUILDDIR)/screen  $(OBJECTS) $(TARGET)
+all: $(DATADIR) $(BUILDDIR)/ $(BUILDDIR)/object $(BUILDDIR)/object/bonus $(BUILDDIR)/screen  $(OBJECTS) $(TARGET) doc
 ###############################################################################
 
 ###############################################################################

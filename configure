@@ -150,7 +150,7 @@ basics(){
 	printf "DATADIR   :=  %s\n" "${DATADIR}"
 
 	printf "\n%s\n" '.PHONY : all clean run compile doc'
-	printf "\n%s %s %s\n" 'all:' "${DIRS}" '$(OBJECTS) $(TARGET)'
+	printf "\n%s %s %s\n" 'all:' "${DIRS}" '$(OBJECTS) $(TARGET) doc'
 
 	end_section
 }
