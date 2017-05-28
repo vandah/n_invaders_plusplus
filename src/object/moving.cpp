@@ -9,3 +9,14 @@ void moving::move(std::pair<int, int> xy)
     pos = { new_x, new_y };
   }
 }
+
+bool moving::bottom() { return pos.second >= gui.rows - 1; }
+
+bool moving::top() { return pos.second <= 3; }
+
+bool moving::right()
+{
+  return pos.first >= gui.cols - current_look().size() - 1;
+}
+
+bool moving::left() { return pos.first <= 2; }
