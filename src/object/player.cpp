@@ -15,15 +15,25 @@ player::~player()
   }
 }
 
-void player::move_right() { move({ 1, 0 }); }
+void player::move_right()
+{
+  move({ 1, 0 });
+  redraw();
+}
 
-void player::move_left() { move({ -1, 0 }); }
+void player::move_left()
+{
+  move({ -1, 0 });
+  redraw();
+}
 
 void player::shoot()
 {
   if (!active_missile) {
     active_missile = new missile();
-    active_missile->set_pos(pos);
+    active_missile->set_pos({ pos.first + 2, pos.second - 1 });
+    move({ 0, 0 });
+    redraw();
   }
 }
 
