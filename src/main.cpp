@@ -23,7 +23,7 @@ int main(int argc, char** argv)
   start_timer();
 
   while (1) {
-    //    gui.read_input();
+    sleep(100);
   }
 }
 
