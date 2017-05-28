@@ -22,7 +22,8 @@ void player::move_left() { move({ -1, 0 }); }
 void player::shoot()
 {
   if (!active_missile) {
-    active_missile = new missile(false);
+    active_missile = new missile();
+    active_missile->set_pos(pos);
   }
 }
 
@@ -53,3 +54,32 @@ std::vector<std::string> player::get_looks() const
 
 /// color yellow
 int player::color() const { return 6; }
+
+player::missile::missile()
+    : falling(false)
+{
+}
+
+std::vector<std::string> player::missile::get_looks() const
+{
+  return std::vector<std::string>{ "!" };
+}
+
+int player::missile::color() const { return 5; }
+
+player::missile::~missile() {}
+
+void player::missile::redraw() const
+{
+  falling::redraw();
+  mvprintw(pos.second, pos.first, "!");
+}
+
+void player::redraw() const
+{
+  object::redraw();
+  if (active_missile) {
+    active_missile->redraw();
+    std::cout << "drawing missile" << std::endl;
+  }
+}

@@ -3,6 +3,7 @@
 
 #include "../object/invader.h"
 #include "../object/player.h"
+#include "../view.h"
 #include "screen_base.h"
 
 /// game screen

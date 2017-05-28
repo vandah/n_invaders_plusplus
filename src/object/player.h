@@ -1,11 +1,12 @@
 #ifndef OBJECT_MOVING_PLAYER
 #define OBJECT_MOVING_PLAYER
 
-#include "missile.h"
-#include "moving.h"
+#include "falling.h"
+#include "shooting.h"
+
 #define DEFAULT_LIVES 5
 
-class player : public moving {
+class player : public shooting {
   public:
   player();
   ~player();
@@ -30,6 +31,19 @@ class player : public moving {
 
   /// check number of lives
   bool is_dead();
+
+  void redraw() const;
+
+//  class missile : falling {
+//public:
+//    missile();
+//    ~missile();
+//    void redraw() const;
+//
+//protected:
+//    std::vector<std::string> get_looks() const;
+//    int color() const;
+//  };
 
   protected:
   std::vector<std::string> get_looks() const;

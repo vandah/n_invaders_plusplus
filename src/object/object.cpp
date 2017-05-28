@@ -1,6 +1,7 @@
 #include "object.h"
 object::object(int size_x, int size_y, int pos_x, int pos_y)
-    : size({ size_x, size_y })
+    : choice(0)
+    , size({ size_x, size_y })
     , pos({ pos_x, pos_y })
 {
 }
@@ -8,7 +9,8 @@ object::object(int size_x, int size_y, int pos_x, int pos_y)
 std::string object::current_look() const
 {
   std::vector<std::string> wardrobe = get_looks();
-  if (!wardrobe.empty() && choice < wardrobe.size()) {
+  std::cout << wardrobe.size() << std::endl;
+  if (!wardrobe.empty()) {
     return wardrobe[choice];
   } else {
     return "";

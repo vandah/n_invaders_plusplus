@@ -2,7 +2,6 @@
 #include "screen/scr_game.h"
 #include "screen/scr_hiscore.h"
 #include "screen/scr_menu.h"
-#include "screen/scr_quit.h"
 #include "screen/scr_settings.h"
 #include "screen/screen_base.h"
 
@@ -54,7 +53,8 @@ void view::switch_screen(int s)
     current_screen = new scr_settings;
     break;
   case SCREEN_QUIT:
-    current_screen = new scr_quit;
+    delete tmp_screen;
+    finish(0);
     break;
   default: /*NO DEFINED SCREEN*/
     return;

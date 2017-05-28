@@ -24,7 +24,7 @@ void scr_game::key_up() { Player.shoot(); }
 
 void scr_game::key_pause() { is_paused = !is_paused; }
 
-void scr_game::key_quit() {}
+void scr_game::key_quit() { gui.switch_screen(SCREEN_MENU); }
 
 void scr_game::key_backspace() { key_quit(); }
 

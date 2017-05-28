@@ -11,7 +11,7 @@ class object {
   virtual ~object();
 
   /// show the object
-  void redraw() const;
+  virtual void redraw() const;
 
   virtual void destroy();
 
