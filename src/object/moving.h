@@ -11,6 +11,8 @@ class moving : public object {
 
   virtual void reset() = 0;
 
+  using object::redraw;
+
   virtual std::vector<std::string> get_looks() const = 0;
 
   protected:

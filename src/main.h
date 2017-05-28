@@ -9,6 +9,7 @@ extern view gui;
 
 #define FPS 50
 #define HISCORE_FILE "data/high_scores.txt"
+#define LVL_CNT 5
 
 int main(int argc, char** argv);
 

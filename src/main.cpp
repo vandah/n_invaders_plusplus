@@ -6,17 +6,25 @@
  *
  * Created by Vanda Hendrychova
  */
+
 #include "main.h"
 
 view gui;
 
 int main(int argc, char** argv)
 {
+  /// evaluate the commandline arguments
   get_opts(argc, argv);
+
+  /// initialize the GUI
   gui.init();
+
+  /// start the time ticks
   start_timer();
-  while (1)
-    gui.read_input();
+
+  while (1) {
+    //    gui.read_input();
+  }
 }
 
 void start_timer()

@@ -15,6 +15,8 @@ class falling : public moving {
 
   void reset();
 
+  virtual void redraw() const;
+
   protected:
   /// movement direction
   bool down;
