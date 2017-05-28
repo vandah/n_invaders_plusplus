@@ -22,6 +22,8 @@ void view::init()
   init_pair(2, COLOR_BLACK, COLOR_GREEN);
   init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
   init_pair(4, COLOR_WHITE, COLOR_BLACK);
+  init_pair(5, COLOR_CYAN, COLOR_BLACK);
+  init_pair(6, COLOR_YELLOW, COLOR_BLACK);
   bkgd(COLOR_PAIR(1)); // Green Text on a White Screen
   keypad(stdscr, TRUE);
   cbreak();

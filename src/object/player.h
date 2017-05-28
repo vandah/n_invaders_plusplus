@@ -32,6 +32,10 @@ class player : public moving {
   bool is_dead();
 
   protected:
+  std::vector<std::string> get_looks() const;
+
+  int color() const;
+
   /// a missile shot by player
   missile* active_missile;
 

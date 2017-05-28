@@ -9,7 +9,12 @@ scr_game::scr_game()
 
 scr_game::~scr_game() {}
 
-void scr_game::redraw() const { scr_clear(); }
+void scr_game::redraw() const
+{
+  scr_clear();
+  Player.redraw();
+  refresh();
+}
 
 void scr_game::key_right() { Player.move_right(); }
 

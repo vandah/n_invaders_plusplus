@@ -13,10 +13,10 @@
 #include <iomanip>
 #include <iostream>
 #include <ncurses.h>
+#include <sstream>
 #include <string>
 #include <unistd.h>
 #include <vector>
-#include <sstream>
 
 /// version info
 extern void show_version();

@@ -8,9 +8,12 @@
 class moving : public object {
   public:
   void move(std::pair<int, int> xy);
-  virtual void reset();
+
+  virtual void reset() = 0;
+
+  virtual std::vector<std::string> get_looks() const = 0;
 
   protected:
-  int state;
+  virtual int color() const = 0;
 };
 #endif

@@ -7,29 +7,32 @@
 class object {
   public:
   object(int size_x = 0, int size_y = 0, int pos_x = 0, int pos_y = 0);
+
   virtual ~object();
-  void redraw();
+
+  /// show the object
+  void redraw() const;
+
   virtual void destroy();
 
+  void reset();
+
   protected:
-  class TLook {
-public:
-    TLook();
-    ~TLook();
-    void fill_wardrobe();
-    std::string current_look();
-    void next_look();
-    void reset();
+  virtual int color() const = 0;
 
-private:
-    std::vector<std::string> wardrobe;
-    int choice;
-  };
+  std::string current_look() const;
 
-  TLook show;
-  TLook destroy_effect;
+  /// switch look
+  void next_look();
+
+  /// get an array of available looks
+  virtual std::vector<std::string> get_looks() const = 0;
+
+  /// which look shoould be displayed
+  int choice;
 
   std::pair<int, int> size;
+
   std::pair<int, int> pos;
 };
 #endif

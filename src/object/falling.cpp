@@ -8,3 +8,5 @@ falling::falling(bool down)
 falling::~falling() {}
 
 void falling::fall() { move({ 0, down ? -1 : 1 }); }
+
+void falling::reset() {}

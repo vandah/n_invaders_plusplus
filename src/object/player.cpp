@@ -37,7 +37,7 @@ bool player::is_dead() { return (lives <= 0); }
 void player::reset()
 {
   /// reset position
-  pos = { gui.cols / 2, gui.rows / 2 };
+  pos = { gui.cols / 2, gui.rows - 5 };
 
   /// delete missile
   if (active_missile) {
@@ -45,3 +45,11 @@ void player::reset()
     active_missile = NULL;
   }
 }
+
+std::vector<std::string> player::get_looks() const
+{
+  return std::vector<std::string>{ "/_^_\\" };
+}
+
+/// color yellow
+int player::color() const { return 6; }

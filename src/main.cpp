@@ -1,7 +1,7 @@
 /**
  * @mainpage
  * @section Description
- * Last Change:27-May-2017.
+ * Last Change:28-May-2017.
  * delsi popis
  *
  * Created by Vanda Hendrychova

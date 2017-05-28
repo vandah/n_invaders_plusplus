@@ -13,8 +13,14 @@ class falling : public moving {
   /// move up or down depending on the selected direction
   void fall();
 
+  void reset();
+
   protected:
   /// movement direction
   bool down;
+
+  virtual std::vector<std::string> get_looks() const = 0;
+
+  virtual int color() const = 0;
 };
 #endif

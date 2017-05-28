@@ -5,25 +5,31 @@ object::object(int size_x, int size_y, int pos_x, int pos_y)
 {
 }
 
-object::TLook::TLook() {}
-
-object::TLook::~TLook() {}
-
-std::string object::TLook::current_look()
+std::string object::current_look() const
 {
-  return (wardrobe.empty()) ? "" : wardrobe[choice];
+  std::vector<std::string> wardrobe = get_looks();
+  if (!wardrobe.empty() && choice < wardrobe.size()) {
+    return wardrobe[choice];
+  } else {
+    return "";
+  }
 }
 
-void object::TLook::next_look()
+void object::next_look()
 {
   choice++;
+  std::vector<std::string> wardrobe = get_looks();
   choice %= wardrobe.size();
 }
 
-void object::TLook::reset() { choice = 0; }
-
-void object::redraw() {}
+void object::reset() { choice = 0; }
 
 void object::destroy() {}
+
+void object::redraw() const
+{
+  attron(COLOR_PAIR(color()));
+  mvprintw(pos.second, pos.first, current_look().c_str());
+}
 
 object::~object() {}
