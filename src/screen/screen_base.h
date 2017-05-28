@@ -17,6 +17,8 @@ class screen_base {
   /// clear screen
   void scr_clear() const;
 
+  void read_input();
+
   /// keypress event handler
   virtual void handle_event(int event);
 

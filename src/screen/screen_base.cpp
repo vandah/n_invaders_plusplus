@@ -22,8 +22,10 @@ void screen_base::scr_clear() const
 void screen_base::handle_timer()
 {
   redraw();
-  handle_event(wgetch(win));
+  read_input();
 }
+
+void screen_base::read_input() { handle_event(wgetch(win)); }
 
 void screen_base::handle_event(int event)
 {

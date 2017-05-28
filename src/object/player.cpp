@@ -84,8 +84,10 @@ void player::redraw() const
 void player::handle_timer()
 {
   redraw();
+
   if (active_missile) {
     active_missile->fall();
+
     if (active_missile->top()) {
       delete active_missile;
       active_missile = NULL;

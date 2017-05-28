@@ -47,7 +47,11 @@ void scr_game::key_up()
   }
 }
 
-void scr_game::key_pause() { is_paused = !is_paused; }
+void scr_game::key_pause()
+{
+  is_paused = !is_paused;
+  redraw();
+}
 
 void scr_game::key_quit() { gui.switch_screen(SCREEN_MENU); }
 
@@ -64,9 +68,8 @@ void scr_game::game_over() {}
 
 void scr_game::handle_timer()
 {
-  redraw();
-
   if (!is_paused) {
+    redraw();
     Player.handle_timer();
   }
 
