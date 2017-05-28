@@ -54,26 +54,8 @@ print_blank(){
 	print_middle ""
 }
 
-build_objects(){
-	print_title "OBJECT FILES"
-
-	for SOURCE_FILE in ${SRCS}
-	do
-		INCLUDES=`grep ^\#include ${SOURCE_FILE}|awk -F\" '{print $2}'|awk 'BEGIN{FS=".";OFS=".";}{$NF="o";print $0}'`
-		#INCLUDES+=" "
-		#INCLUDES+=`grep ^\#include "${SOURCE_FILE::-${LEN_SRCEXT}}.h" | awk -F\" '{print $2}'|awk 'BEGIN{FS=".";OFS=".";}!/^$/{$NF="o";print $0}'`
-		OBJECT_FILE="${SOURCE_FILE:${LEN_SRCDIR}:-${LEN_SRCEXT}}.o"
-		OBJ_DIR="`echo ${OBJECT_FILE} | awk 'BEGIN{FS="/";OFS="/";}{$NF="";print $0}'`"
-
-		printf "\n"
-		printf "\$(BUILDDIR)/${OBJECT_FILE}: "
-
-		printf "%s" "\$(SRCDIR)/${SOURCE_FILE:${LEN_SRCDIR}}"
-
-		for inc in $INCLUDES
-		do
-			i="${OBJ_DIR}${inc}"
-			i=`echo ${i} | python3 -c "
+get_path(){
+	echo ${1} | python3 -c "
 l=str(input());
 p=''
 o=0
@@ -91,13 +73,44 @@ for i in l:
 	else:
 		o+=1
 	d-=1
-print(p)"`
+print(p)"
+}
+
+build_objects(){
+	print_title "OBJECT FILES"
+
+	for SOURCE_FILE in ${SRCS}
+	do
+		INCLUDES=`grep ^\#include ${SOURCE_FILE}|awk -F\" '{print $2}'|awk 'BEGIN{FS=".";OFS=".";}{$NF="o";print $0}'`
+		INCLUDE_HDRS=`grep ^\#include "${SOURCE_FILE::-${LEN_SRCEXT}}.h" | awk -F\" '{print $2}'`
+		OBJECT_FILE="${SOURCE_FILE:${LEN_SRCDIR}:-${LEN_SRCEXT}}.o"
+		OBJ_DIR="`echo ${OBJECT_FILE} | awk 'BEGIN{FS="/";OFS="/";}{$NF="";print $0}'`"
+
+		printf "\n"
+		printf "\$(BUILDDIR)/${OBJECT_FILE}: "
+
+		printf "\$(BUILDDIR)/${OBJECT_FILE}: " >&2
+
+		printf "%s" "\$(SRCDIR)/${SOURCE_FILE:${LEN_SRCDIR}}"
+
+		for inc in $INCLUDES
+		do
+			i="${OBJ_DIR}${inc}"
+			i=`get_path ${i}`
 			if [ ${i} = ${OBJECT_FILE} ];
 			then
 				printf " \$(SRCDIR)/${i::-2}.h"
 			else
 				printf " \$(BUILDDIR)/${i}"
 			fi
+		done
+
+		for inc in $INCLUDE_HDRS
+		do
+			i="${OBJ_DIR}${inc}"
+			i=`get_path ${i}`
+			echo $i >&2
+			printf " \$(SRCDIR)/${i}"
 		done
 		printf "\n"
 
