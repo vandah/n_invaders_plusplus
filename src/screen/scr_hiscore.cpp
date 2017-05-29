@@ -5,6 +5,8 @@ scr_hiscore::scr_hiscore()
 {
   screen_title = "HIGH SCORES";
   midrow += 12;
+
+  /// load hiscores from file
   hiscores = get_hiscores();
 }
 
@@ -45,7 +47,7 @@ void scr_hiscore::draw_hiscores() const
   /// set green text on black bg
   attron(COLOR_PAIR(1));
 
-  for (int rank = 1; rank <= 10; ++rank) {
+  for (unsigned int rank = 1; rank <= 10; ++rank) {
     if (rank <= hiscores.size()) {
       line = hiscores[rank - 1];
     } else {
@@ -62,8 +64,7 @@ void scr_hiscore::draw_hiscores() const
     ss.str("");
 
     /// put the whole line into a stringstream
-    ss << "#" << std::setw(2) << rank << "  " << std::setw(name_width)
-       << line.first << " " << std::setw(score_width) << line.second;
+    ss << "#" << std::setw(2) << rank << "  " << std::setw(name_width) << line.first << " " << std::setw(score_width) << line.second;
 
     /// and print the line
     mvprintw(curr_row, midcol - ss.str().size() / 2, "%s", ss.str().c_str());

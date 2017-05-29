@@ -6,21 +6,23 @@
 #ifndef VIEW
 #define VIEW
 
-// ncurses colors
-#define RED 1
-#define GREEN 2
-#define YELLOW 3
-#define BLUE 4
-#define CYAN 5
-#define MAGENTA 6
-#define WHITE 7
-
 #define SCREEN_MENU 0
 #define SCREEN_GAME 1
 #define SCREEN_HISCORE 2
 #define SCREEN_SETTINGS 3
 #define SCREEN_QUIT 4
 #define SCREEN_UNDEF 5
+
+#define FREE 0
+#define INVADER_1 1
+#define INVADER_2 2
+#define INVADER_3 3
+#define INVADER_4 4
+#define UFO 5
+#define INVADER_MISSILE 6
+#define BUNKER 7
+#define PLAYER_MISSILE 8
+#define PLAYER 9
 
 #include "globals.h"
 

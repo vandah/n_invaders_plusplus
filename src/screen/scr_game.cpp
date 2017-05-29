@@ -6,18 +6,32 @@ scr_game::scr_game()
   win = newwin(gui.rows - 1, gui.cols - 1, 1, 1);
   keypad(win, TRUE);
   nodelay(win, TRUE);
+
+  battlefield.clear();
+  battlefield.resize(gui.rows);
+
   for (auto v : battlefield) {
+    v.resize(gui.cols);
     std::fill(v.begin(), v.end(), 0);
   }
+
   scr_clear();
+
+  Player = new player();
+  Bunkers = new bunkers();
+  invaders.push_back(new invader(1));
 }
 
-scr_game::~scr_game() {}
+scr_game::~scr_game()
+{
+  delete Player;
+  delete Bunkers;
+}
 
 void scr_game::redraw() const
 {
+  attron(COLOR_PAIR(2));
   if (is_paused) {
-    attron(COLOR_PAIR(2));
 
     for (int i = 2; i < gui.cols - 1; ++i) {
       mvprintw(gui.rows / 2, i, "-");
@@ -25,31 +39,51 @@ void scr_game::redraw() const
 
     mvprintw(gui.rows / 2, gui.cols / 2 - 4, "> PAUSE <");
   } else {
-    Player.redraw();
+    Player->redraw();
   }
 
   wmove(win, 0, 0);
   refresh();
 }
 
+void scr_game::check_player_conflicts()
+{
+  for (unsigned int i = 0; i < Player->current_look().size(); ++i) {
+    /// the field is either free or PLAYER's
+    if (battlefield[Player->pos.first + i][Player->pos.second] ^ PLAYER) {
+      battlefield[Player->pos.first + i][Player->pos.second] = FREE;
+    } else {
+      Player->die();
+    }
+  }
+}
+
 void scr_game::key_right()
 {
   if (!is_paused) {
-    Player.move_right();
+    for (unsigned int i = 0; i < Player->current_look().size(); ++i) {
+      /// the field is either free or player's
+      //      if (battlefield[Player->pos.first + i][Player->pos.second] ^
+      //      PLAYER)
+      //      {
+      //        battlefield[Player->pos.first + i][Player->pos.second] = FREE;
+      //      }
+    }
+    Player->move_right();
   }
 }
 
 void scr_game::key_left()
 {
   if (!is_paused) {
-    Player.move_left();
+    Player->move_left();
   }
 }
 
 void scr_game::key_up()
 {
   if (!is_paused) {
-    Player.shoot();
+    Player->shoot();
   }
 }
 
@@ -65,7 +99,7 @@ void scr_game::key_backspace() { key_quit(); }
 
 void scr_game::check_state()
 {
-  if (Player.is_dead()) {
+  if (Player->is_dead()) {
     game_over();
   }
 }

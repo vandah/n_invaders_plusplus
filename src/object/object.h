@@ -17,10 +17,12 @@ class object {
 
   void reset();
 
-  protected:
-  virtual int color() const = 0;
+  std::pair<int, int> pos;
 
   std::string current_look() const;
+
+  protected:
+  virtual int color() const = 0;
 
   /// switch look
   void next_look();
@@ -32,7 +34,5 @@ class object {
   int choice;
 
   std::pair<int, int> size;
-
-  std::pair<int, int> pos;
 };
 #endif

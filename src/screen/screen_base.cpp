@@ -22,6 +22,7 @@ void screen_base::scr_clear() const
 void screen_base::handle_timer()
 {
   redraw();
+  wmove(win, 0, 0);
   read_input();
 }
 

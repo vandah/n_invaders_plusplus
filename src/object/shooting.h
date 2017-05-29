@@ -12,16 +12,14 @@ class shooting : public moving {
   using moving::redraw;
 
   //  class missile;
-  class missile : public falling {
+  class missile_base : public falling {
 public:
-    missile();
-    ~missile();
+    virtual ~missile_base();
     void set_pos(std::pair<int, int> new_pos);
 
 protected:
-    std::vector<std::string> get_looks() const;
-    int color() const;
-    bool crash;
+    virtual std::vector<std::string> get_looks() const = 0;
+    virtual int color() const = 0;
   };
 
   protected:

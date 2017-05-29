@@ -23,6 +23,7 @@ void view::init()
   init_pair(4, COLOR_WHITE, COLOR_BLACK);
   init_pair(5, COLOR_CYAN, COLOR_BLACK);
   init_pair(6, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(7, COLOR_RED, COLOR_BLACK);
   bkgd(COLOR_PAIR(1)); // Green Text on a White Screen
   keypad(stdscr, TRUE);
   cbreak();
@@ -65,6 +66,7 @@ void view::switch_screen(int s)
     break;
 
   default: /*NO DEFINED SCREEN*/
+    current_screen = tmp_screen;
     return;
   }
 

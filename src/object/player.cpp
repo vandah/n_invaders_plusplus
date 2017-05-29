@@ -1,4 +1,5 @@
 #include "player.h"
+#include "../screen/scr_game.h"
 
 player::player()
     : active_missile(NULL)
@@ -74,9 +75,9 @@ std::vector<std::string> player::get_looks() const
 int player::color() const { return 6; }
 
 player::missile::missile()
-    : falling(false)
-    , crash(false)
+    : crash(false)
 {
+  down = false;
 }
 
 std::vector<std::string> player::missile::get_looks() const

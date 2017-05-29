@@ -2,9 +2,12 @@
 #define SCR_GAME
 
 #include "../object/invader.h"
+#include "../object/object.h"
 #include "../object/player.h"
-#include "../view.h"
 #include "screen_base.h"
+
+class invader;
+class player;
 
 /// game screen
 class scr_game : public screen_base {
@@ -67,13 +70,13 @@ protected:
   /// behaves as key_quit
   void key_backspace();
 
-  std::vector<std::vector<int>> battlefield;
-
   /// grid of invaders
-  std::vector<std::vector<invader>> invaders;
+  std::vector<invader*> invaders;
 
   /// the player's ship
-  player Player;
+  player* Player;
+
+  bunkers* Bunkers;
 
   /// is the game running or paused ?
   bool is_paused;
