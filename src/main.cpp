@@ -1,7 +1,7 @@
 /**
  * @mainpage
  * @section Description
- * Last Change:28-May-2017.
+ * Last Change:29-May-2017.
  * delsi popis
  *
  * Created by Vanda Hendrychova
@@ -23,7 +23,7 @@ int main(int argc, char** argv)
   start_timer();
 
   while (1) {
-    sleep(100);
+    sleep(1000);
   }
 }
 
@@ -67,5 +67,35 @@ std::vector<std::pair<std::string, int>> get_hiscores()
     }
   }
 
+  input.close();
+
   return hiscores;
+}
+
+std::vector<std::vector<int>> get_bunkers()
+{
+  std::ifstream input(BUNKERS_FILE, std::ios::in);
+  int num;
+  char c;
+  int i = 0;
+
+  std::vector<int> line;
+  std::vector<std::vector<int>> bunker;
+
+  input >> std::noskipws;
+  while (!input.fail()) {
+    input >> num >> c;
+
+    line.push_back(num);
+
+    if (!input.eof() && c == '\n') {
+      bunker.push_back(line);
+      line.clear();
+      i++;
+    }
+  }
+
+  input.close();
+
+  return bunker;
 }

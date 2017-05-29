@@ -26,4 +26,6 @@ extern void get_opts(int argc, char** argv);
 
 /// print high scores to stdout
 extern void show_hiscores();
+
+void show_bunkers();
 #endif

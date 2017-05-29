@@ -25,8 +25,10 @@ void get_opts(int argc, char** argv)
       show_help();
     } else if (opt == "--hiscores" || opt == "-s") {
       show_hiscores();
+    } else if (opt == "--bunkers" || opt == "-b") {
+      show_bunkers();
+      finish(0);
     }
-    // TODO other options
   }
 }
 
@@ -40,4 +42,15 @@ void show_hiscores()
     rank++;
   }
   finish(0);
+}
+
+void show_bunkers()
+{
+  std::vector<std::vector<int>> bunker = get_bunkers();
+  for (auto x : bunker) {
+    for (auto b : x) {
+      std::cout << b;
+    }
+    std::cout << std::endl;
+  }
 }

@@ -31,6 +31,7 @@ class view {
   public:
   view();
   ~view();
+
   void init();
 
   /// top bar indicating game status

@@ -18,11 +18,30 @@ class scr_game : public screen_base {
   void handle_timer();
 
   protected:
+  class bunkers : public object {
+public:
+    bunkers();
+    ~bunkers();
+    void display();
+    void reset();
+    void load();
+    void remove(std::pair<int, int> xy);
+
+protected:
+    std::vector<std::string> get_looks() const;
+    std::vector<std::vector<int>> bunker;
+    int color() const;
+  };
+
+  std::vector<std::vector<int>> battlefield;
+
   /// draw the whole screen
   void redraw() const;
 
   /// check whether there are collisions
   void check_conflicts();
+
+  void check_player_conflicts();
 
   /// is player still alive ?
   void check_state();
