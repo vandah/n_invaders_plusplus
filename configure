@@ -7,7 +7,7 @@ TARGET=hendrvan
 SRCEXT=cpp
 HDREXT=h
 CXX="g++"
-CXXFLAGS="-std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb -lncurses"
+CXXFLAGS="-std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb -lncurses -Werror"
 LEN_SRCEXT=`echo ${SRCEXT} | wc -c`
 LEN_SRCDIR=`echo ${SRCDIR} | wc -c`
 SRCS=`echo $(find ${SRCDIR} -type f -name "*.${SRCEXT}" -exec echo {} \;)`
@@ -23,6 +23,17 @@ do
 	printf "%s%s" '$(SRCDIR)/' "${SOURCE_FILE:LEN_SRCDIR} "
 done
 `
+
+text_wrap(){
+	echo "$@" | python3 -c "
+from sys import stdin
+from textwrap import wrap
+x=''
+for line in stdin:
+	x+=line
+print(\" \\\\\n\".join(wrap(x,width=72,subsequent_indent='      ',replace_whitespace=True)))
+"
+}
 
 print_hash_line(){
 	local HASH_LINE='###############################################################################'
@@ -76,46 +87,45 @@ for i in l:
 print(p)"
 }
 
+get_includes(){
+	INCLUDES=`g++ -MM $1`
+	OBJECT_FILE="${SOURCE_FILE:${LEN_SRCDIR}:-${LEN_SRCEXT}}.o"
+	OBJ_DIR="`echo ${OBJECT_FILE} | awk 'BEGIN{FS="/";OFS="/";}{$NF="";print $0}'`"
+
+	first=1
+
+	for inc in $INCLUDES
+	do
+		if [ -n "${first}" ];
+		then
+			i="\$(BUILDDIR)/${OBJ_DIR}${inc}"
+			first=
+
+			printf "${i}"
+		else
+			i="`echo ${inc} | sed 's:\\\::g'`"
+
+			if [ -n "${i}" ]
+			then
+				i=`get_path ${i}`
+				printf " \$(SRCDIR)/${i:${LEN_SRCDIR}}"
+			fi
+		fi
+	done
+	printf "\n"
+}
+
 build_objects(){
 	print_title "OBJECT FILES"
 
+	echo "Getting includes..." >&3
+
 	for SOURCE_FILE in ${SRCS}
 	do
-		INCLUDES=`grep ^\#include ${SOURCE_FILE}|awk -F\" '{print $2}'|awk 'BEGIN{FS=".";OFS=".";}{$NF="o";print $0}'`
-		INCLUDE_HDRS=`grep ^\#include "${SOURCE_FILE::-${LEN_SRCEXT}}.h" | awk -F\" '{print $2}'`
-		OBJECT_FILE="${SOURCE_FILE:${LEN_SRCDIR}:-${LEN_SRCEXT}}.o"
-		OBJ_DIR="`echo ${OBJECT_FILE} | awk 'BEGIN{FS="/";OFS="/";}{$NF="";print $0}'`"
-
-		printf "\n"
-		printf "\$(BUILDDIR)/${OBJECT_FILE}: "
-
-		printf "\$(BUILDDIR)/${OBJECT_FILE}: " >&2
-
-		printf "%s" "\$(SRCDIR)/${SOURCE_FILE:${LEN_SRCDIR}}"
-
-		for inc in $INCLUDES
-		do
-			i="${OBJ_DIR}${inc}"
-			i=`get_path ${i}`
-			if [ ${i} = ${OBJECT_FILE} ];
-			then
-				printf " \$(SRCDIR)/${i::-2}.h"
-			else
-				printf " \$(BUILDDIR)/${i}"
-			fi
-		done
-
-		for inc in $INCLUDE_HDRS
-		do
-			i="${OBJ_DIR}${inc}"
-			i=`get_path ${i}`
-			echo $i >&2
-			printf " \$(SRCDIR)/${i}"
-		done
-		printf "\n"
-
+		text_wrap "`get_includes "${SOURCE_FILE}"`"
 		printf "\t%s\n" '@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"'
 		printf "\t%s\n" '$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"'
+		printf "\n"
 	done
 
 	end_section
@@ -142,15 +152,16 @@ intro(){
 
 basics(){
 	print_title "BASICS"
-	printf "CXX       :=  %s\n"  "${CXX}"
-	printf "CXXFLAGS  :=  %s\n"  "${CXXFLAGS}"
-	printf "TARGET    :=  %s\n" "${TARGET}"
-	printf "SRCDIR    :=  %s\n" "${SRCDIR}"
-	printf "BUILDDIR  :=  %s\n" "${BUILDDIR}"
-	printf "DATADIR   :=  %s\n" "${DATADIR}"
 
-	printf "\n%s\n" '.PHONY : all clean run compile doc'
-	printf "\n%s %s %s\n" 'all:' "${DIRS}" '$(OBJECTS) $(TARGET) doc'
+	printf "%s\n" "`text_wrap "CXX       :="   "${CXX}"`"
+	printf "%s\n" "`text_wrap "CXXFLAGS  :="   "${CXXFLAGS}"`"
+	printf "%s\n" "`text_wrap "TARGET    :="   "${TARGET}"`"
+	printf "%s\n" "`text_wrap "SRCDIR    :="   "${SRCDIR}"`"
+	printf "%s\n" "`text_wrap "BUILDDIR  :="   "${BUILDDIR}"`"
+	printf "%s\n" "`text_wrap "DATADIR   :="   "${DATADIR}"`"
+
+	printf "\n%s\n" "`text_wrap '.PHONY : all clean run compile doc'`"
+	printf "\n%s\n" "`text_wrap 'all:' "${DIRS}" '$(OBJECTS) $(TARGET) doc'`"
 
 	end_section
 }
@@ -160,10 +171,10 @@ directories(){
 
 	for d in ${DIRS}
 	do
-		printf "\n"
 		printf "%s\n" "${d}:"
 		printf "\t%s\n" '@echo -e "\n$(YELLOWT)Creating $@ directory ...$(NOCOL)"'
 		printf "\t%s\n" '@mkdir -p $@'
+		printf "\n"
 	done
 
 	end_section
@@ -172,8 +183,8 @@ directories(){
 list_files(){
 	print_title "FILES"
 
-	printf "SOURCES   :=  %s\n\n" "${SOURCES}"
-	printf "OBJECTS   :=  %s\n" "${OBJECTS}"
+	printf "%s\n\n" "`text_wrap "SOURCES   :=  ${SOURCES}"`"
+	printf "%s\n"   "`text_wrap "OBJECTS   :=  ${OBJECTS}"`"
 
 	end_section
 }
@@ -209,7 +220,7 @@ utilities(){
 target(){
 	print_title "TARGET"
 
-	printf "%s %s %s\n" '$(TARGET):' "${DIRS}" '$(OBJECTS)'
+	printf "%s\n" "`text_wrap '$(TARGET):' "${DIRS}" '$(OBJECTS)'`"
 	printf "\t%s\n" '@echo -e "\n$(GREEN)Linking ...$(NOCOL)"'
 	printf "\t%s\n" '$(CXX) -o $@ $(OBJECTS) $(CXXFLAGS)'
 
@@ -266,7 +277,9 @@ create_doxyfile(){
 	end_section
 }
 
-create_makefile >Makefile
-create_doxyfile >Doxyfile
+{
+	create_makefile >Makefile
+	create_doxyfile >Doxyfile
+} 3>&1
 
 make clean
