@@ -96,19 +96,3 @@ player::missile::~missile()
   crash = true;
   redraw();
 }
-
-void player::handle_timer()
-{
-  redraw();
-
-  if (active_missile) {
-    active_missile->fall();
-    active_missile->redraw();
-
-    if (active_missile->top()) {
-      delete active_missile;
-      active_missile = NULL;
-      redraw();
-    }
-  }
-}
