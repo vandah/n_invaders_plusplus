@@ -68,8 +68,8 @@ $(BUILDDIR)/screen:
 ###############################################################################
 #                                    FILES                                    #
 ###############################################################################
-SOURCES   :=  $(SRCDIR)/object/smart.cpp $(SRCDIR)/object/shooting.cpp \
-      $(SRCDIR)/object/falling.cpp $(SRCDIR)/object/ufo.cpp \
+SOURCES   :=  $(SRCDIR)/object/shooting.cpp $(SRCDIR)/object/game.cpp \
+      $(SRCDIR)/object/bunker.cpp $(SRCDIR)/object/falling.cpp \
       $(SRCDIR)/object/bonus/bonus.cpp $(SRCDIR)/object/invader.cpp \
       $(SRCDIR)/object/moving.cpp $(SRCDIR)/object/player.cpp \
       $(SRCDIR)/object/object.cpp $(SRCDIR)/view.cpp \
@@ -78,8 +78,8 @@ SOURCES   :=  $(SRCDIR)/object/smart.cpp $(SRCDIR)/object/shooting.cpp \
       $(SRCDIR)/screen/scr_hiscore.cpp $(SRCDIR)/screen/scr_menu.cpp \
       $(SRCDIR)/main.cpp $(SRCDIR)/globals.cpp
 
-OBJECTS   :=  $(BUILDDIR)/object/smart.o $(BUILDDIR)/object/shooting.o \
-      $(BUILDDIR)/object/falling.o $(BUILDDIR)/object/ufo.o \
+OBJECTS   :=  $(BUILDDIR)/object/shooting.o $(BUILDDIR)/object/game.o \
+      $(BUILDDIR)/object/bunker.o $(BUILDDIR)/object/falling.o \
       $(BUILDDIR)/object/bonus/bonus.o $(BUILDDIR)/object/invader.o \
       $(BUILDDIR)/object/moving.o $(BUILDDIR)/object/player.o \
       $(BUILDDIR)/object/object.o $(BUILDDIR)/view.o \
@@ -117,127 +117,111 @@ $(TARGET): $(DATADIR) $(BUILDDIR)/ $(BUILDDIR)/object \
 ###############################################################################
 #                                OBJECT FILES                                 #
 ###############################################################################
-$(BUILDDIR)/object/smart.o: $(SRCDIR)/object/smart.cpp \
-      $(SRCDIR)/object/smart.h $(SRCDIR)/object/falling.h \
-      $(SRCDIR)/object/moving.h $(SRCDIR)/main.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/view.h $(SRCDIR)/object/object.h $(SRCDIR)/globals.h
+$(BUILDDIR)/object/shooting.o: $(SRCDIR)/object/shooting.cpp \
+      $(SRCDIR)/object/shooting.h $(SRCDIR)/object/falling.h \
+      $(SRCDIR)/object/moving.h $(SRCDIR)/object/object.h \
+      $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
-$(BUILDDIR)/object/shooting.o: $(SRCDIR)/object/shooting.cpp \
-      $(SRCDIR)/object/shooting.h $(SRCDIR)/object/falling.h \
-      $(SRCDIR)/object/moving.h $(SRCDIR)/main.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/view.h $(SRCDIR)/object/object.h $(SRCDIR)/globals.h
+$(BUILDDIR)/object/game.o: $(SRCDIR)/object/game.cpp \
+      $(SRCDIR)/object/game.h $(SRCDIR)/object/object.h \
+      $(SRCDIR)/globals.h $(SRCDIR)/object/bunker.h \
+      $(SRCDIR)/object/invader.h $(SRCDIR)/object/shooting.h \
+      $(SRCDIR)/object/falling.h $(SRCDIR)/object/moving.h \
+      $(SRCDIR)/object/player.h
+	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
+	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
+
+$(BUILDDIR)/object/bunker.o: $(SRCDIR)/object/bunker.cpp \
+      $(SRCDIR)/object/bunker.h $(SRCDIR)/object/object.h \
+      $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/object/falling.o: $(SRCDIR)/object/falling.cpp \
       $(SRCDIR)/object/falling.h $(SRCDIR)/object/moving.h \
-      $(SRCDIR)/main.h $(SRCDIR)/globals.h $(SRCDIR)/view.h \
       $(SRCDIR)/object/object.h $(SRCDIR)/globals.h
-	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
-	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
-
-$(BUILDDIR)/object/ufo.o: $(SRCDIR)/object/ufo.cpp \
-      $(SRCDIR)/object/ufo.h $(SRCDIR)/object/moving.h $(SRCDIR)/main.h \
-      $(SRCDIR)/globals.h $(SRCDIR)/view.h $(SRCDIR)/object/object.h \
-      $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/object/bonus/bonus.o: $(SRCDIR)/object/bonus/bonus.cpp \
       $(SRCDIR)/object/bonus/bonus.h $(SRCDIR)/object/falling.h \
-      $(SRCDIR)/object/moving.h $(SRCDIR)/main.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/view.h $(SRCDIR)/object/object.h $(SRCDIR)/globals.h
+      $(SRCDIR)/object/moving.h $(SRCDIR)/object/object.h \
+      $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/object/invader.o: $(SRCDIR)/object/invader.cpp \
       $(SRCDIR)/object/invader.h $(SRCDIR)/object/shooting.h \
       $(SRCDIR)/object/falling.h $(SRCDIR)/object/moving.h \
-      $(SRCDIR)/main.h $(SRCDIR)/globals.h $(SRCDIR)/view.h \
-      $(SRCDIR)/object/object.h $(SRCDIR)/globals.h $(SRCDIR)/view.h
+      $(SRCDIR)/object/object.h $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/object/moving.o: $(SRCDIR)/object/moving.cpp \
-      $(SRCDIR)/object/moving.h $(SRCDIR)/main.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/view.h $(SRCDIR)/object/object.h $(SRCDIR)/globals.h
+      $(SRCDIR)/object/moving.h $(SRCDIR)/object/object.h \
+      $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/object/player.o: $(SRCDIR)/object/player.cpp \
       $(SRCDIR)/object/player.h $(SRCDIR)/object/shooting.h \
       $(SRCDIR)/object/falling.h $(SRCDIR)/object/moving.h \
-      $(SRCDIR)/main.h $(SRCDIR)/globals.h $(SRCDIR)/view.h \
-      $(SRCDIR)/object/object.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/screen/scr_game.h $(SRCDIR)/object/invader.h \
-      $(SRCDIR)/object/shooting.h $(SRCDIR)/object/object.h \
-      $(SRCDIR)/object/player.h $(SRCDIR)/screen/screen_base.h \
-      $(SRCDIR)/globals.h
+      $(SRCDIR)/object/object.h $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/object/object.o: $(SRCDIR)/object/object.cpp \
-      $(SRCDIR)/object/object.h $(SRCDIR)/globals.h
+      $(SRCDIR)/object/object.h $(SRCDIR)/globals.h $(SRCDIR)/view.h \
+      $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/view.o: $(SRCDIR)/view.cpp $(SRCDIR)/view.h \
       $(SRCDIR)/globals.h $(SRCDIR)/screen/scr_game.h \
-      $(SRCDIR)/object/invader.h $(SRCDIR)/object/shooting.h \
-      $(SRCDIR)/object/falling.h $(SRCDIR)/object/moving.h \
-      $(SRCDIR)/main.h $(SRCDIR)/globals.h $(SRCDIR)/view.h \
-      $(SRCDIR)/object/object.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/object/object.h $(SRCDIR)/object/player.h \
-      $(SRCDIR)/screen/screen_base.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/screen/scr_hiscore.h $(SRCDIR)/main.h \
+      $(SRCDIR)/object/game.h $(SRCDIR)/object/object.h \
+      $(SRCDIR)/globals.h $(SRCDIR)/screen/screen_base.h \
+      $(SRCDIR)/globals.h $(SRCDIR)/screen/scr_hiscore.h \
       $(SRCDIR)/screen/scr_list.h $(SRCDIR)/screen/scr_menu.h \
-      $(SRCDIR)/screen/scr_settings.h $(SRCDIR)/screen/screen_base.h
+      $(SRCDIR)/screen/scr_settings.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/screen/screen_base.o: $(SRCDIR)/screen/screen_base.cpp \
       $(SRCDIR)/screen/screen_base.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/main.h $(SRCDIR)/globals.h $(SRCDIR)/view.h
+      $(SRCDIR)/view.h $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/screen/scr_settings.o: $(SRCDIR)/screen/scr_settings.cpp \
       $(SRCDIR)/screen/scr_settings.h $(SRCDIR)/screen/scr_list.h \
-      $(SRCDIR)/screen/screen_base.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/main.h $(SRCDIR)/globals.h $(SRCDIR)/view.h
+      $(SRCDIR)/screen/screen_base.h $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/screen/scr_game.o: $(SRCDIR)/screen/scr_game.cpp \
-      $(SRCDIR)/screen/scr_game.h $(SRCDIR)/object/invader.h \
-      $(SRCDIR)/object/shooting.h $(SRCDIR)/object/falling.h \
-      $(SRCDIR)/object/moving.h $(SRCDIR)/main.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/view.h $(SRCDIR)/object/object.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/object/object.h $(SRCDIR)/object/player.h \
+      $(SRCDIR)/screen/scr_game.h $(SRCDIR)/object/game.h \
+      $(SRCDIR)/object/object.h $(SRCDIR)/globals.h \
       $(SRCDIR)/screen/screen_base.h $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/screen/scr_list.o: $(SRCDIR)/screen/scr_list.cpp \
       $(SRCDIR)/screen/scr_list.h $(SRCDIR)/screen/screen_base.h \
-      $(SRCDIR)/globals.h $(SRCDIR)/main.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/view.h
+      $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/screen/scr_hiscore.o: $(SRCDIR)/screen/scr_hiscore.cpp \
-      $(SRCDIR)/screen/scr_hiscore.h $(SRCDIR)/main.h \
-      $(SRCDIR)/globals.h $(SRCDIR)/view.h $(SRCDIR)/screen/scr_list.h \
+      $(SRCDIR)/screen/scr_hiscore.h $(SRCDIR)/screen/scr_list.h \
       $(SRCDIR)/screen/screen_base.h $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
 $(BUILDDIR)/screen/scr_menu.o: $(SRCDIR)/screen/scr_menu.cpp \
       $(SRCDIR)/screen/scr_menu.h $(SRCDIR)/screen/scr_list.h \
-      $(SRCDIR)/screen/screen_base.h $(SRCDIR)/globals.h \
-      $(SRCDIR)/main.h $(SRCDIR)/globals.h $(SRCDIR)/view.h
+      $(SRCDIR)/screen/screen_base.h $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
@@ -246,8 +230,7 @@ $(BUILDDIR)/main.o: $(SRCDIR)/main.cpp $(SRCDIR)/main.h \
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
-$(BUILDDIR)/globals.o: $(SRCDIR)/globals.cpp $(SRCDIR)/globals.h \
-      $(SRCDIR)/main.h $(SRCDIR)/view.h
+$(BUILDDIR)/globals.o: $(SRCDIR)/globals.cpp $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
