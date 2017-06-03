@@ -53,3 +53,54 @@ void show_bunkers()
     std::cout << std::endl;
   }
 }
+
+std::vector<std::pair<std::string, int>> get_hiscores()
+{
+  std::vector<std::pair<std::string, int>> hiscores;
+  std::string name;
+  int score;
+
+  std::ifstream input(HISCORE_FILE, std::ios::in);
+
+  if (!input.fail()) {
+    while (input >> name >> score) {
+      hiscores.push_back({ name, score });
+    }
+  }
+
+  input.close();
+
+  return hiscores;
+}
+
+std::vector<std::vector<int>> get_bunkers() { return get_data(BUNKERS_FILE); }
+
+std::vector<std::vector<int>> get_data(std::string file)
+{
+  std::ifstream input(file, std::ios::in);
+  int num;
+  char c;
+  int i = 0;
+
+  std::vector<int> line;
+  std::vector<std::vector<int>> arr;
+
+  input >> std::noskipws;
+  while (!input.fail()) {
+    input >> num >> c;
+
+    line.push_back(num);
+
+    if (!input.eof() && c == '\n') {
+      arr.push_back(line);
+      line.clear();
+      i++;
+    }
+  }
+
+  input.close();
+
+  return arr;
+}
+
+void finish(int exit_code) { exit(exit_code); }

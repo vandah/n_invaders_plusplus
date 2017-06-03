@@ -11,11 +11,4 @@ void start_timer();
 /// inform the gui about time event
 void handle_timer(int sig);
 
-/// cleanup
-void finish(int exit_code);
-
-/// get high scores from a file
-std::vector<std::pair<std::string, int>> get_hiscores();
-
-std::vector<std::vector<int>> get_bunkers();
 #endif
