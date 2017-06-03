@@ -36,6 +36,8 @@ class game : object {
   private:
   bool is_paused;
 
+  void print_status_line() const;
+
   void load_bunkers();
 
   void load_invaders();

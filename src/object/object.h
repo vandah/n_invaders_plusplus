@@ -37,6 +37,12 @@ class object {
 
   std::string current_look() const;
 
+  static int score;
+
+  static int level;
+
+  static int lives;
+
   protected:
   virtual int color() const = 0;
 
