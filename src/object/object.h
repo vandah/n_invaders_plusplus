@@ -52,9 +52,68 @@ class object {
   /// get an array of available looks
   virtual std::vector<std::string> get_looks() const = 0;
 
-  /// which look shoould be displayed
+  /// which look should be displayed
   int choice;
 
-  std::pair<int, int> size;
+  static std::pair<int, int> size;
+
+  static std::vector<std::vector<object*>> battlefield;
+
+  static player* Player;
+
+  template <typename _T> class grid {
+public:
+    grid()
+        : right(true)
+    {
+    }
+
+    ~grid() { clear(); }
+
+    std::pair<int, int> pos;
+
+    bool empty() { return !cnt; }
+
+    unsigned int size() { return arr.size(); }
+
+    void clear()
+    {
+      for (unsigned int i = 0; i < arr.size(); ++i) {
+        arr[i].clear();
+      }
+      arr.clear();
+    }
+
+    void move()
+    {
+      for (unsigned int i = 0; i < arr.size(); ++i) {
+        if (right) {
+          for (unsigned int j = 0; j < arr[i].size(); ++j) {
+          }
+        } else {
+          for (unsigned int j = arr[i].size() - 1; arr >= 0; ++j) {
+          }
+        }
+      }
+    }
+
+    std::vector<_T*>& operator[](const int idx) { return arr[idx]; }
+
+    void init_arr(int y, int x)
+    {
+      arr.clear();
+      arr.resize(y, std::vector<_T*>(x, NULL));
+    }
+
+    int cnt;
+
+private:
+    bool right;
+    std::vector<std::vector<_T*>> arr;
+  };
+
+  static grid<invader> Invaders;
+
+  static grid<bunker> Bunkers;
 };
 #endif

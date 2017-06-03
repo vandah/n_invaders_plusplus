@@ -1,9 +1,27 @@
 #include "object.h"
-object::object(int size_x, int size_y, int pos_x, int pos_y)
-    : pos({ pos_x, pos_y })
+#include "../view.h"
+
+int object::level(1);
+
+int object::score(0);
+
+int object::lives(DEFAULT_LIVES);
+
+std::vector<std::vector<object*>> object::battlefield;
+
+std::pair<int, int> object::size({ gui.rows, gui.cols });
+
+player* object::Player(NULL);
+
+object::grid<invader> object::Invaders;
+
+object::grid<bunker> object::Bunkers;
+
+object::object()
+    : pos({ 0, 0 })
     , choice(0)
-    , size({ size_x, size_y })
 {
+  size = { gui.rows, gui.cols };
 }
 
 std::string object::current_look() const
