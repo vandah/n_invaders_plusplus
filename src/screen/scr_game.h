@@ -18,36 +18,8 @@ class scr_game : public screen_base {
   void handle_timer();
 
   protected:
-  class bunkers : public object {
-public:
-    bunkers();
-    ~bunkers();
-    void display();
-    void reset();
-    void load();
-    void remove(std::pair<int, int> xy);
-
-protected:
-    std::vector<std::string> get_looks() const;
-    std::vector<std::vector<int>> bunker;
-    int color() const;
-  };
-
-  std::vector<std::vector<int>> battlefield;
-
   /// draw the whole screen
   void redraw() const;
-
-  /// check whether there are collisions
-  void check_conflicts();
-
-  void check_player_conflicts();
-
-  /// is player still alive ?
-  void check_state();
-
-  /// if player is out of lives, end the game, ask for name and show stats
-  void game_over();
 
   /// move player's ship right
   void key_right();
@@ -67,13 +39,8 @@ protected:
   /// behaves as key_quit
   void key_backspace();
 
-  /// grid of invaders
-  std::vector<invader*> invaders;
-
-  /// the player's ship
-  player* Player;
-
-  bunkers* Bunkers;
+  private:
+  game* Game;
 
   /// is the game running or paused ?
   bool is_paused;
