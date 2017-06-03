@@ -76,6 +76,9 @@ void screen_base::handle_event(int event)
     key_backspace();
     break;
 
+  case ' ':
+    key_space();
+
   default:
     break;
   }
@@ -91,10 +94,18 @@ void screen_base::key_right() {}
 
 void screen_base::key_enter() {}
 
+void screen_base::key_space() {}
+
 void screen_base::key_backspace() {}
 
 void screen_base::key_quit() {}
 
 void screen_base::key_pause() {}
 
-screen_base::~screen_base() { endwin(); }
+screen_base::~screen_base()
+{
+  delwin(win);
+  endwin();
+}
+
+void screen_base::switch_screen(int new_scr) { gui.switch_screen(new_scr); }

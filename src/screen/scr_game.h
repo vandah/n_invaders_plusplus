@@ -30,6 +30,9 @@ class scr_game : public screen_base {
   /// shoot
   void key_up();
 
+  // behaves as key_up
+  void key_space();
+
   /// pause game
   void key_pause();
 

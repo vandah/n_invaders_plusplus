@@ -42,8 +42,7 @@ class screen_base {
 
   virtual void key_pause();
 
-  /// Screens are moving between several states
-  int state;
+  virtual void key_space();
 
   /// the main window
   WINDOW* win;
