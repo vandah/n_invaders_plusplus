@@ -49,4 +49,15 @@ extern void get_opts(int argc, char** argv);
 extern void show_hiscores();
 
 void show_bunkers();
+
+/// get high scores from a file
+std::vector<std::pair<std::string, int>> get_hiscores();
+
+std::vector<std::vector<int>> get_data(std::string file);
+
+std::vector<std::vector<int>> get_bunkers();
+
+/// cleanup
+void finish(int exit_code);
+
 #endif

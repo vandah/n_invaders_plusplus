@@ -27,7 +27,7 @@ void scr_hiscore::redraw() const
 void scr_hiscore::draw_hiscores() const
 {
   /// calculate the total available width
-  int width = gui.cols / 2;
+  int width = cols / 2;
 
   /// set name width to 60% of total width
   int name_width = 3 * (width - 2) / 5;
@@ -36,7 +36,7 @@ void scr_hiscore::draw_hiscores() const
   int score_width = 2 * (width - 2) / 5;
 
   /// set current row 10 above the middle so the result is centered
-  int curr_row = gui.rows / 2 - 10;
+  int curr_row = rows / 2 - 10;
 
   /// to save the line to be printed before sending it to stringstream
   std::pair<std::string, int> line;
@@ -64,7 +64,8 @@ void scr_hiscore::draw_hiscores() const
     ss.str("");
 
     /// put the whole line into a stringstream
-    ss << "#" << std::setw(2) << rank << "  " << std::setw(name_width) << line.first << " " << std::setw(score_width) << line.second;
+    ss << "#" << std::setw(2) << rank << "  " << std::setw(name_width)
+       << line.first << " " << std::setw(score_width) << line.second;
 
     /// and print the line
     mvprintw(curr_row, midcol - ss.str().size() / 2, "%s", ss.str().c_str());
