@@ -25,6 +25,8 @@ class screen_base {
   /// time tick
   virtual void handle_timer();
 
+  void switch_screen(int new_scr);
+
   protected:
   virtual void key_up();
 
