@@ -72,11 +72,32 @@ int invader::color() const
 
 invader::missile::missile() { down = true; }
 
-invader::missile::~missile() {}
-
 std::vector<std::string> invader::missile::get_looks() const
 {
-  return std::vector<std::string>{ ":" };
+  return std::vector<std::string>{ ":", " " };
 }
 
 int invader::missile::color() const { return 4; }
+
+invader::missile::~missile() {}
+
+int invader::points() const
+{
+  switch (type) {
+  case INVADER_1:
+    return 150;
+
+  case INVADER_2:
+    return 200;
+
+  case INVADER_3:
+    return 400;
+
+  case INVADER_4:
+    return 1000;
+
+  case UFO:
+    return 1500; // FIXME random
+  }
+  return 0;
+}
