@@ -1,12 +1,14 @@
 #include "screen_base.h"
-#include "../main.h"
+//#include "../main.h"
+#include "../view.h"
 
 screen_base::screen_base()
-    : state(0)
-    , win(NULL)
+    : win(NULL)
     , midcol(0)
     , midrow(0)
 {
+  rows = gui.rows;
+  cols = gui.cols;
 }
 
 void screen_base::scr_clear() const

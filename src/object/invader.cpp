@@ -1,5 +1,4 @@
 #include "invader.h"
-#include "../view.h"
 
 invader::invader(int type)
     : type(type)

@@ -1,5 +1,4 @@
 #include "scr_list.h"
-#include "../main.h"
 
 scr_list::scr_list()
     : items(std::vector<std::pair<std::string, int>>{

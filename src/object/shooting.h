@@ -2,7 +2,7 @@
 #define OBJECT_MOVING_SHOOTING
 
 #include "falling.h"
-#include "moving.h"
+//#include "moving.h"
 
 class shooting : public moving {
   public:

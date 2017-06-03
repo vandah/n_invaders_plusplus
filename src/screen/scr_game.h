@@ -1,13 +1,10 @@
 #ifndef SCR_GAME
 #define SCR_GAME
 
-#include "../object/invader.h"
-#include "../object/object.h"
-#include "../object/player.h"
+#include "../object/game.h"
 #include "screen_base.h"
 
-class invader;
-class player;
+class game;
 
 /// game screen
 class scr_game : public screen_base {

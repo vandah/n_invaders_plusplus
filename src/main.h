@@ -2,18 +2,6 @@
 #define MAIN
 
 #include "globals.h"
-#include "view.h"
-#include <sys/time.h>
-
-extern view gui;
-
-#define FPS 50
-
-#define HISCORE_FILE "data/high_scores.txt"
-#define BUNKERS_FILE "examples/bunkers.txt"
-#define LVL1_FILE "examples/lvl1.txt"
-
-#define LVL_CNT 5
 
 int main(int argc, char** argv);
 

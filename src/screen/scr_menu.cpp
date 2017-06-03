@@ -1,5 +1,4 @@
 #include "scr_menu.h"
-#include "../main.h"
 
 scr_menu::scr_menu()
     : scr_list()

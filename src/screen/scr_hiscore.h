@@ -1,9 +1,7 @@
 #ifndef SCR_HISCORE
 #define SCR_HISCORE
 
-#include "../main.h"
 #include "scr_list.h"
-#include "screen_base.h"
 
 /// show high scores
 class scr_hiscore : public scr_list {

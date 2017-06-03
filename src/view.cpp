@@ -3,7 +3,7 @@
 #include "screen/scr_hiscore.h"
 #include "screen/scr_menu.h"
 #include "screen/scr_settings.h"
-#include "screen/screen_base.h"
+//#include "screen/screen_base.h"
 
 view::view()
     : cols(0)

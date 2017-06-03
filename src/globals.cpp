@@ -1,5 +1,4 @@
 #include "globals.h"
-#include "main.h"
 
 void show_version()
 {

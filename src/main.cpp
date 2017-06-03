@@ -1,13 +1,14 @@
 /**
  * @mainpage
  * @section Description
- * Last Change:29-May-2017.
+ * Last Change:01-Jun-2017.
  * delsi popis
  *
  * Created by Vanda Hendrychova
  */
 
 #include "main.h"
+#include "view.h"
 
 view gui;
 

@@ -3,16 +3,32 @@
 
 #include "../globals.h"
 
+class player;
+class invader;
+class bunker;
+
+#define FREE 0
+#define INVADER_1 1
+#define INVADER_2 2
+#define INVADER_3 3
+#define INVADER_4 4
+#define UFO 5
+#define INVADER_MISSILE 6
+#define BUNKER 7
+#define PLAYER_MISSILE 8
+#define PLAYER 9
+
 /// generic static object
 class object {
   public:
-  object(int size_x = 0, int size_y = 0, int pos_x = 0, int pos_y = 0);
+  object();
 
   virtual ~object();
 
   /// show the object
   virtual void redraw() const;
 
+  /// delete pointers pointing to the object
   virtual void destroy();
 
   void reset();
