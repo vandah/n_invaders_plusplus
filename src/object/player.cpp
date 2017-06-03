@@ -57,8 +57,8 @@ void player::reset()
 
   /// delete missile
   if (active_missile) {
+    active_missile->destroy();
     delete active_missile;
-    active_missile = NULL;
   }
 }
 

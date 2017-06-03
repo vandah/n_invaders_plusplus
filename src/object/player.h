@@ -3,8 +3,6 @@
 
 #include "shooting.h"
 
-#define DEFAULT_LIVES 5
-
 class player : public shooting {
   public:
   player();

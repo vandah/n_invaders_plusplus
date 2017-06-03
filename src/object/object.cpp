@@ -25,12 +25,17 @@ void object::next_look()
 
 void object::reset() { choice = 0; }
 
-void object::destroy() {}
+void object::destroy()
+{
+  for (unsigned int i = 0; i < current_look().length(); ++i) {
+    battlefield[pos.first][pos.second + i] = NULL;
+  }
+}
 
 void object::redraw() const
 {
   attron(COLOR_PAIR(color()));
-  mvprintw(pos.second, pos.first, current_look().c_str());
+  mvprintw(pos.first, pos.second, current_look().c_str());
 }
 
 object::~object() {}

@@ -16,6 +16,7 @@ class shooting : public moving {
 public:
     virtual ~missile_base();
     void set_pos(std::pair<int, int> new_pos);
+    void destroy();
 
 protected:
     virtual std::vector<std::string> get_looks() const = 0;

@@ -4,22 +4,47 @@
 #include "player.h"
 
 game::game()
+    : is_paused(false)
 {
+  level = 1;
+
+  score = 0;
+
+  lives = DEFAULT_LIVES;
+
   Player = new player();
+
   battlefield.clear();
   battlefield.resize(size.first, std::vector<object*>(size.second, NULL));
+
   load_bunkers();
+
+  for (unsigned int i = 0; i < Bunkers.size(); ++i) {
+    for (unsigned int j = 0; j < Bunkers[i].size(); ++j) {
+      if (Bunkers[i][j]) {
+        Bunkers[i][j]->redraw();
+      }
+    }
+  }
+
   load_invaders();
+
+  for (unsigned int i = 0; i < Invaders.size(); ++i) {
+    for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
+      if (Invaders[i][j]) {
+        Invaders[i][j]->redraw();
+      }
+    }
+  }
 }
 
 game::~game()
 {
-  delete Player;
-
-  for (auto row : battlefield) {
-    for (auto cell : row) {
-      if (cell) {
-        delete cell;
+  for (unsigned int i = 0; i < battlefield.size(); ++i) {
+    for (unsigned int j = 0; j < battlefield[i].size(); ++j) {
+      if (battlefield[i][j]) {
+        battlefield[i][j]->destroy();
+        delete battlefield[i][j];
       }
     }
   }
@@ -36,26 +61,65 @@ void game::reset() {}
 void game::redraw() const
 {
   Player->redraw();
+
   if (Player->active_missile) {
     Player->active_missile->fall();
-    Player->active_missile->redraw();
+    if (Player->active_missile) {
+      Player->active_missile->redraw();
 
-    if (Player->active_missile->top()) {
-      delete Player->active_missile;
-      Player->active_missile = NULL;
+      if (Player->active_missile->top()) {
+        Player->active_missile->destroy();
+        delete Player->active_missile;
+      }
     }
   }
+
+  for (unsigned int i = 0; i < Invaders.size(); ++i) {
+    for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
+      if (Invaders[i][j]) {
+        Invaders[i][j]->redraw();
+      }
+    }
+  }
+
+  print_status_line();
+}
+
+void game::print_status_line() const
+{
+  std::stringstream line;
+  line.str("");
+
+  line << "LEVEL: " << level << "  SCORE: " << score;
+
+  mvprintw(size.first - 3, size.second / 2 - line.str().length() / 2,
+      line.str().c_str());
 }
 
 void game::toggle_pause() { is_paused = !is_paused; }
 
 void game::game_over() {}
 
-void game::move_right() { Player->move_right(); }
+void game::move_right()
+{
+  if (!is_paused) {
+    Player->move_right();
+  }
+}
 
-void game::move_left() { Player->move_left(); }
+void game::move_left()
+{
+  if (!is_paused) {
+    Player->move_left();
+  }
+}
 
-void game::shoot() { Player->shoot(); }
+void game::shoot()
+{
+  if (!is_paused) {
+    Player->shoot();
+  }
+}
 
 int game::color() const { return 1; }
 

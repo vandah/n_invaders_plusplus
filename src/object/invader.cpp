@@ -6,6 +6,24 @@ invader::invader(int type)
   missiles.push_back(new missile());
 }
 
+void invader::destroy()
+{
+  for (unsigned int i = 0; i < current_look().size(); ++i) {
+    Invaders[pos.first - Invaders.pos.first]
+            [pos.second - Invaders.pos.second + i]
+        = NULL;
+    mvprintw(pos.first, pos.second + i, " ");
+  }
+
+  // TODO: BONUS
+
+  // if game.is_running(){ //FIXME
+  score += points();
+  // }
+
+  object::destroy();
+}
+
 invader::~invader() {}
 
 void invader::reset() {}

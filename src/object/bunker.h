@@ -9,6 +9,8 @@ class bunker : public object {
 
   ~bunker();
 
+  void destroy();
+
   protected:
   std::vector<std::string> get_looks() const;
 

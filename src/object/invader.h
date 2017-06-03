@@ -8,8 +8,10 @@ class invader : public shooting {
   invader(int type);
   ~invader();
   void reset();
+  void destroy();
   std::vector<std::string> get_looks() const;
   int color() const;
+  int points() const;
 
   class missile : public missile_base {
 public:

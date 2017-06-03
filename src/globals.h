@@ -22,6 +22,7 @@
 #define SCREEN_UNDEF 5
 
 #define LVL_CNT 5
+#define DEFAULT_LIVES 5
 
 #include <csignal>
 #include <fstream>
