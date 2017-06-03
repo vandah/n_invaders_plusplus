@@ -132,27 +132,64 @@ void game::load_bunkers()
 {
   std::vector<std::vector<int>> one_bunker = get_bunkers();
 
-  // void scr_game::bunkers::load()
-  //{
-  //  std::vector<std::vector<int>> bunker = get_bunkers();
-  //  int space = 3;
-  //  int bunker_width = bunker[0].size() * 2 + space;
-  //  int cnt = (cols - 6) / bunker_width;
-  //
-  //  pos.first = ((cols - 2) - (bunker_width * cnt));
-  //  pos.second = rows - bunker_width;
-  //
-  //  std::vector<std::vector<int>> bunker_array;
-  //  for (int i = 0; i < cnt; ++i) {
-  //    for (unsigned int j = 0; j < bunker.size(); ++j) {
-  //      for (unsigned int k = 0; k < bunker[j].size(); ++k) {
-  //        attron(COLOR_PAIR(3));
-  //        mvprintw(pos.second + j, i * (bunker_width) + pos.first + k,
-  //            bunker[j][k] ? "#" : "");
-  //      }
-  //    }
-  //  }
-  //}
+  int space = 3;
+  int bunker_width = one_bunker[0].size() * 2 + space;
+  int cnt = (size.second - 6) / bunker_width;
+
+  Bunkers.init_arr(one_bunker.size(), size.second);
+
+  Bunkers.pos = { size.first - bunker_width,
+    ((size.second - 2) - (bunker_width * cnt)) };
+
+  for (int i = 0; i < cnt; ++i) {
+    for (unsigned int j = 0; j < one_bunker.size(); ++j) {
+      for (unsigned int k = 0; k < one_bunker[j].size(); ++k) {
+        if (one_bunker[j][k]) {
+          bunker* b = new bunker();
+          b->pos = { j + Bunkers.pos.first,
+            i * (bunker_width) + k + Bunkers.pos.second };
+
+          battlefield[b->pos.first][b->pos.second] = b;
+
+          Bunkers[b->pos.first - Bunkers.pos.first]
+                 [b->pos.second - Bunkers.pos.second]
+              = b;
+
+          Bunkers.cnt++;
+        }
+      }
+    }
+  }
 }
 
-void game::load_invaders() {}
+void game::load_invaders()
+{
+  std::vector<std::vector<int>> int_invaders = get_data(LVL_FILE(level));
+
+  Invaders.init_arr(10 + int_invaders.size() * 2, size.second);
+
+  Invaders.pos = { 4, 4 };
+
+  std::pair<int, int> tmp_pos = Invaders.pos;
+
+  for (unsigned int i = 0; i < int_invaders.size(); ++i) {
+    for (unsigned int j = 0; j < int_invaders[i].size(); ++j) {
+      if (int_invaders[i][j]) {
+        invader* I = new invader(int_invaders[i][j]);
+        I->pos = tmp_pos;
+
+        for (unsigned int k = 0; k < I->current_look().size(); ++k) {
+          Invaders[I->pos.first - Invaders.pos.first]
+                  [I->pos.second - Invaders.pos.second + k]
+              = I;
+          battlefield[I->pos.first][I->pos.second + k] = I;
+          tmp_pos.second++;
+        }
+
+        tmp_pos.second++;
+      }
+    }
+    tmp_pos.first += 2;
+    tmp_pos.second = 4;
+  }
+}

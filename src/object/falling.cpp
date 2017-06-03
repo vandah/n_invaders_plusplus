@@ -7,7 +7,7 @@ falling::falling(bool down)
 
 falling::~falling() {}
 
-void falling::fall() { move({ 0, down ? 1 : -1 }); }
+void falling::fall() { move({ down ? 1 : -1, 0 }); }
 
 void falling::reset() {}
 

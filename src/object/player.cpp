@@ -1,30 +1,32 @@
 #include "player.h"
-#include "../screen/scr_game.h"
 
 player::player()
     : active_missile(NULL)
     , lives(DEFAULT_LIVES)
     , score(0)
 {
-  reset();
+  pos = { size.first - 5, size.second / 2 - 2 };
+  old_pos = pos;
 }
 
 player::~player()
 {
   if (active_missile) {
+    active_missile->destroy();
     delete active_missile;
   }
+  Player = NULL;
 }
 
 void player::move_right()
 {
-  move({ 1, 0 });
+  move({ 0, 1 });
   redraw();
 }
 
 void player::move_left()
 {
-  move({ -1, 0 });
+  move({ 0, -1 });
   redraw();
 }
 
@@ -32,7 +34,7 @@ void player::shoot()
 {
   if (!active_missile) {
     active_missile = new missile();
-    active_missile->set_pos({ pos.first + 2, pos.second - 1 });
+    active_missile->set_pos({ pos.first - 1, pos.second + 2 });
     move({ 0, 0 });
     redraw();
   }
@@ -49,7 +51,7 @@ bool player::is_dead() { return (lives <= 0); }
 void player::reset()
 {
   /// reset position
-  pos = { gui.cols / 2 - 2, gui.rows - 5 };
+  pos = { size.first - 5, size.second / 2 - 2 };
 
   move({ 0, 0 });
 
@@ -82,17 +84,14 @@ player::missile::missile()
 
 std::vector<std::string> player::missile::get_looks() const
 {
-  if (!crash) {
-    return std::vector<std::string>{ "!" };
-  } else {
-    return std::vector<std::string>{ " " };
-  }
+  return std::vector<std::string>{ "!", " " };
 }
 
 int player::missile::color() const { return 5; }
 
 player::missile::~missile()
 {
-  crash = true;
-  redraw();
+  if (Player) {
+    Player->active_missile = NULL;
+  }
 }

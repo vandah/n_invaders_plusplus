@@ -7,10 +7,10 @@ scr_list::scr_list()
     , back(SCREEN_MENU)
     , screen_title("")
 {
-  win = newwin(gui.rows - 1, gui.cols - 1, 1, 1);
+  win = newwin(rows - 1, cols - 1, 1, 1);
   keypad(win, TRUE);
-  midcol = gui.cols / 2;
-  midrow = gui.rows / 2;
+  midcol = cols / 2;
+  midrow = rows / 2;
 }
 
 scr_list::~scr_list() {}
@@ -28,7 +28,7 @@ void scr_list::draw_list() const
   }
 }
 
-void scr_list::key_enter() { gui.switch_screen(items[selected_idx].second); }
+void scr_list::key_enter() { switch_screen(items[selected_idx].second); }
 
 void scr_list::key_up()
 {
@@ -46,7 +46,7 @@ void scr_list::key_down()
   }
 }
 
-void scr_list::key_backspace() { gui.switch_screen(back); }
+void scr_list::key_backspace() { switch_screen(back); }
 
 void scr_list::key_right() { key_enter(); }
 

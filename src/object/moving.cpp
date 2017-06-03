@@ -7,30 +7,52 @@ moving::moving()
 
 moving::~moving() {}
 
-void moving::move(std::pair<int, int> xy)
+void moving::move(std::pair<int, int> yx)
 {
-  int new_x = pos.first + xy.first;
-  int new_y = pos.second + xy.second;
-  if (new_x > 2 && (unsigned)new_x < gui.cols - current_look().size() - 1 && new_y > 2 && new_y < gui.rows - 1) {
-    old_pos = { pos.first, pos.second };
-    pos = { new_x, new_y };
+  std::pair<int, int> tmp = { pos.first + yx.first, pos.second + yx.second };
+
+  if (tmp.first > 2 && tmp.first < size.first - 1 && tmp.second > 2
+      && (unsigned)tmp.second < size.second - current_look().size() - 1) {
+    old_pos = pos;
+    pos = tmp;
+
+    for (unsigned int i = 0; i < current_look().size(); ++i) {
+      battlefield[old_pos.first][old_pos.second + i] = NULL;
+    }
+
+    for (unsigned int i = 0; i < current_look().size(); ++i) {
+      if (battlefield[pos.first][pos.second + i]) {
+        battlefield[pos.first][pos.second + i]->destroy();
+        delete battlefield[pos.first][pos.second + i];
+
+        destroy();
+        delete this;
+
+        return;
+      } else {
+        battlefield[pos.first][pos.second + i] = this;
+      }
+    }
   }
 }
 
-bool moving::bottom() { return pos.second >= gui.rows - 1; }
+bool moving::bottom() { return pos.first >= size.first - 1; }
 
-bool moving::top() { return pos.second <= 3; }
+bool moving::top() { return pos.first <= 3; }
 
-bool moving::right() { return (unsigned)pos.first >= gui.cols - current_look().size() - 1; }
+bool moving::right()
+{
+  return (unsigned)pos.second >= size.second - current_look().size() - 1;
+}
 
-bool moving::left() { return pos.first <= 2; }
+bool moving::left() { return pos.second <= 2; }
 
 void moving::redraw() const
 {
   attron(COLOR_PAIR(1) | A_INVIS);
 
   for (unsigned int i = 0; i < current_look().size(); ++i) {
-    mvprintw(old_pos.second, old_pos.first + i, " ");
+    mvprintw(old_pos.first, old_pos.second + i, " ");
   }
 
   attroff(A_INVIS);

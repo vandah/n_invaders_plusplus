@@ -51,6 +51,10 @@ class screen_base {
   int midcol;
 
   int midrow;
+
+  int rows;
+
+  int cols;
 };
 
 #endif

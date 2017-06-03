@@ -8,7 +8,7 @@ class moving : public object {
   public:
   moving();
   ~moving();
-  void move(std::pair<int, int> xy);
+  void move(std::pair<int, int> yx);
 
   bool top();
   bool bottom();
