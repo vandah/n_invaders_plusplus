@@ -1,5 +1,9 @@
 #include "shooting.h"
 
+shooting::missile_base::missile_base() {
+  length = 1;
+}
+
 void shooting::reset() {}
 
 void shooting::missile_base::set_pos(std::pair<int, int> new_pos)

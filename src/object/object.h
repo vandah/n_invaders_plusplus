@@ -6,6 +6,7 @@
 class player;
 class invader;
 class bunker;
+class falling;
 
 #define FREE 0
 #define INVADER_1 1
@@ -37,6 +38,9 @@ class object {
 
   std::string current_look() const;
 
+  /// switch look
+  void next_look();
+
   static int score;
 
   static int level;
@@ -46,14 +50,14 @@ class object {
   protected:
   virtual int color() const = 0;
 
-  /// switch look
-  void next_look();
-
   /// get an array of available looks
   virtual std::vector<std::string> get_looks() const = 0;
 
   /// which look should be displayed
   int choice;
+
+  /// length of the current look
+  int length;
 
   static std::pair<int, int> size;
 
@@ -64,13 +68,20 @@ class object {
   template <typename _T> class grid {
 public:
     grid()
-        : right(true)
+        : pos({ 0, 0 })
+        , old_pos({ 0, 0 })
+        , counter(0)
+        , right(true)
     {
     }
 
     ~grid() { clear(); }
 
     std::pair<int, int> pos;
+
+    std::pair<int, int> old_pos;
+
+    int counter;
 
     bool empty() { return !cnt; }
 
@@ -84,31 +95,23 @@ public:
       arr.clear();
     }
 
-    void move()
-    {
-      for (unsigned int i = 0; i < arr.size(); ++i) {
-        if (right) {
-          for (unsigned int j = 0; j < arr[i].size(); ++j) {
-          }
-        } else {
-          for (unsigned int j = arr[i].size() - 1; arr >= 0; ++j) {
-          }
-        }
-      }
-    }
-
     std::vector<_T*>& operator[](const int idx) { return arr[idx]; }
 
     void init_arr(int y, int x)
     {
       arr.clear();
+      missiles.clear();
       arr.resize(y, std::vector<_T*>(x, NULL));
+      missiles.resize(y, std::vector<falling*>(x, NULL));
     }
+
+    std::vector<std::vector<falling*>> missiles;
 
     int cnt;
 
-private:
     bool right;
+
+private:
     std::vector<std::vector<_T*>> arr;
   };
 

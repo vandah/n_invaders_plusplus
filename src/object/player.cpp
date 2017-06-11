@@ -2,32 +2,42 @@
 
 player::player()
     : active_missile(NULL)
-    , lives(DEFAULT_LIVES)
     , score(0)
 {
-  pos = { size.first - 5, size.second / 2 - 2 };
+  pos = { size.first - 5, (size.second - 1) / 2 - 2 };
   old_pos = pos;
+  length = 5;
 }
 
 player::~player()
 {
-  if (active_missile) {
-    active_missile->destroy();
-    delete active_missile;
+  die();
+
+  if (!is_dead() && !GameOver) {
+    Player = new player();
+    Player->active_missile = active_missile;
+  } else {
+    GameOver = true;
+    Player = NULL;
+
+    object::destroy();
   }
-  Player = NULL;
 }
 
 void player::move_right()
 {
   move({ 0, 1 });
-  redraw();
+  if (Player) {
+    Player->redraw();
+  }
 }
 
 void player::move_left()
 {
   move({ 0, -1 });
-  redraw();
+  if (Player) {
+    Player->redraw();
+  }
 }
 
 void player::shoot()
@@ -36,7 +46,9 @@ void player::shoot()
     active_missile = new missile();
     active_missile->set_pos({ pos.first - 1, pos.second + 2 });
     move({ 0, 0 });
-    redraw();
+    if (Player) {
+      Player->redraw();
+    }
   }
 }
 
@@ -50,17 +62,17 @@ bool player::is_dead() { return (lives <= 0); }
 
 void player::reset()
 {
+  for (unsigned int i = 0; i < current_look().size(); ++i) {
+    mvprintw(pos.first, pos.second + i, " ");
+  }
+
   /// reset position
   pos = { size.first - 5, size.second / 2 - 2 };
 
   move({ 0, 0 });
 
-  redraw();
-
-  /// delete missile
-  if (active_missile) {
-    active_missile->destroy();
-    delete active_missile;
+  if (Player) {
+    Player->redraw();
   }
 }
 

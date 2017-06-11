@@ -3,16 +3,41 @@
 invader::invader(int type)
     : type(type)
 {
-  missiles.push_back(new missile());
+  length = 3;
+
+  if(type==UFO){
+    length = 5;
+  }
+}
+
+void invader::redraw() const
+{
+  attron(COLOR_PAIR(1) | A_INVIS);
+
+  for (unsigned int i = 0; i < current_look().size(); ++i) {
+    mvprintw(Invaders.old_pos.first + pos.first,
+        Invaders.old_pos.second + pos.second + i, " ");
+  }
+
+  attroff(A_INVIS);
+
+  attron(COLOR_PAIR(color()));
+
+  mvprintw(Invaders.pos.first + pos.first, Invaders.pos.second + pos.second,
+      current_look().c_str());
 }
 
 void invader::destroy()
 {
   for (unsigned int i = 0; i < current_look().size(); ++i) {
-    Invaders[pos.first - Invaders.pos.first]
-            [pos.second - Invaders.pos.second + i]
+    Invaders[pos.first][pos.second + i] = NULL;
+
+    mvprintw(pos.first + Invaders.pos.first,
+        pos.second + Invaders.pos.second + i, " ");
+
+    battlefield[pos.first + Invaders.pos.first]
+               [pos.second + Invaders.pos.second + i]
         = NULL;
-    mvprintw(pos.first, pos.second + i, " ");
   }
 
   // TODO: BONUS
@@ -20,8 +45,6 @@ void invader::destroy()
   // if game.is_running(){ //FIXME
   score += points();
   // }
-
-  object::destroy();
 }
 
 invader::~invader() {}
@@ -77,7 +100,19 @@ std::vector<std::string> invader::missile::get_looks() const
   return std::vector<std::string>{ ":", " " };
 }
 
-int invader::missile::color() const { return 4; }
+int invader::missile::color() const { return 3; }
+
+void invader::missile::destroy()
+{
+  for (unsigned int i = 0; i < current_look().size(); ++i) {
+    mvprintw(old_pos.first, old_pos.second + i, " ");
+
+    battlefield[pos.first][pos.second + i] = NULL;
+
+    mvprintw(pos.first, pos.second + i, " ");
+  }
+  Invaders.missiles[init_pos.first][init_pos.second] = NULL;
+}
 
 invader::missile::~missile() {}
 
@@ -97,7 +132,21 @@ int invader::points() const
     return 1000;
 
   case UFO:
-    return 1500; // FIXME random
+    return 1500;
   }
   return 0;
+}
+
+void invader::shoot()
+{
+  missile* m = new missile();
+
+  m->pos = { pos.first + Invaders.pos.first + 1,
+    pos.second + Invaders.pos.second + 1 };
+
+  m->init_pos = pos;
+
+  Invaders.missiles[pos.first][pos.second] = m;
+
+  m->redraw();
 }

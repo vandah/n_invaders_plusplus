@@ -1,5 +1,5 @@
-#ifndef OBJECT_MOVING_PLAYER
-#define OBJECT_MOVING_PLAYER
+#ifndef OBJECT_MOVING_SHOOTING_PLAYER
+#define OBJECT_MOVING_SHOOTING_PLAYER
 
 #include "shooting.h"
 
@@ -47,9 +47,6 @@ protected:
   std::vector<std::string> get_looks() const;
 
   int color() const;
-
-  /// remaining lives
-  int lives;
 
   /// gained score
   int score;

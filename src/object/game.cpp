@@ -326,11 +326,15 @@ void game::load_invaders()
 {
   std::vector<std::vector<int>> int_invaders = get_data(LVL_FILE(level));
 
-  Invaders.init_arr(10 + int_invaders.size() * 2, size.second);
+  Invaders.init_arr(int_invaders.size() * 2, int_invaders[0].size() * 4 - 1);
 
+  // offset leveho horniho rohu mrizky
   Invaders.pos = { 4, 4 };
 
-  std::pair<int, int> tmp_pos = Invaders.pos;
+  Invaders.old_pos = Invaders.pos;
+
+  // relativni pozice v poli Invaders
+  std::pair<int, int> tmp_pos = { 0, 0 };
 
   for (unsigned int i = 0; i < int_invaders.size(); ++i) {
     for (unsigned int j = 0; j < int_invaders[i].size(); ++j) {
@@ -339,10 +343,12 @@ void game::load_invaders()
         I->pos = tmp_pos;
 
         for (unsigned int k = 0; k < I->current_look().size(); ++k) {
-          Invaders[I->pos.first - Invaders.pos.first]
-                  [I->pos.second - Invaders.pos.second + k]
+          Invaders[I->pos.first][I->pos.second + k] = I;
+
+          battlefield[I->pos.first + Invaders.pos.first]
+                     [I->pos.second + Invaders.pos.second + k]
               = I;
-          battlefield[I->pos.first][I->pos.second + k] = I;
+
           tmp_pos.second++;
         }
 
@@ -350,6 +356,65 @@ void game::load_invaders()
       }
     }
     tmp_pos.first += 2;
-    tmp_pos.second = 4;
+    tmp_pos.second = 0;
   }
 }
+
+void game::move_invaders() const
+{
+  Invaders.old_pos = Invaders.pos;
+
+  if (Invaders.pos.second <= 4) {
+    Invaders.pos.first++;
+    Invaders.pos.second++;
+    Invaders.right = true;
+  } else if ((unsigned)Invaders.pos.second
+      >= size.second - 3 - Invaders[0].size()) {
+    Invaders.pos.first++;
+    Invaders.pos.second--;
+    Invaders.right = false;
+  } else if (Invaders.right) {
+    Invaders.pos.second++;
+  } else {
+    Invaders.pos.second--;
+  }
+
+  for (unsigned int i = 0; i < Invaders.size(); ++i) {
+    for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
+      if (Invaders[i][j]) {
+        int current_size = Invaders[i][j]->current_look().size();
+
+        for (unsigned int k = 0; k < Invaders[i][j]->current_look().size();
+             ++k) {
+          battlefield[Invaders.old_pos.first + i]
+                     [Invaders.old_pos.second + j + k]
+              = NULL;
+        }
+
+        for (unsigned int k = 0; k < Invaders[i][j]->current_look().size();
+             ++k) {
+          if (battlefield[Invaders.pos.first + i]
+                         [Invaders.pos.second + j + k]) {
+            battlefield[Invaders.pos.first + i][Invaders.pos.second + j + k]
+                ->destroy();
+            delete battlefield[Invaders.pos.first + i]
+                              [Invaders.pos.second + j + k];
+
+            invader* I = Invaders[i][j];
+            if (I) {
+              I->destroy();
+              delete I;
+            }
+            break;
+          } else {
+            battlefield[Invaders.pos.first + i][Invaders.pos.second + j + k]
+                = Invaders[i][j];
+          }
+        }
+        j += current_size;
+      }
+    }
+  }
+}
+
+bool game::is_running() const { return (!is_paused && lives > 0); }

@@ -20,6 +20,7 @@ object::grid<bunker> object::Bunkers;
 object::object()
     : pos({ 0, 0 })
     , choice(0)
+    , length(0)
 {
   size = { gui.rows, gui.cols };
 }
@@ -39,14 +40,17 @@ void object::next_look()
   choice++;
   std::vector<std::string> wardrobe = get_looks();
   choice %= wardrobe.size();
+  length = current_look().length();
 }
 
 void object::reset() { choice = 0; }
 
 void object::destroy()
 {
-  for (unsigned int i = 0; i < current_look().length(); ++i) {
-    battlefield[pos.first][pos.second + i] = NULL;
+  if (!battlefield.empty()) {
+    for (int i = 0; i < length; ++i) {
+      battlefield[pos.first][pos.second + i] = NULL;
+    }
   }
 }
 

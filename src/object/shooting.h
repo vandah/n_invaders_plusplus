@@ -11,9 +11,12 @@ class shooting : public moving {
   //  virtual void redraw() const;
   using moving::redraw;
 
+  virtual void shoot() = 0;
+
   //  class missile;
   class missile_base : public falling {
 public:
+    missile_base();
     virtual ~missile_base();
     void set_pos(std::pair<int, int> new_pos);
     void destroy();

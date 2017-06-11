@@ -22,8 +22,9 @@ void moving::move(std::pair<int, int> yx)
 
     for (unsigned int i = 0; i < current_look().size(); ++i) {
       if (battlefield[pos.first][pos.second + i]) {
+        object* O = battlefield[pos.first][pos.second + i];
         battlefield[pos.first][pos.second + i]->destroy();
-        delete battlefield[pos.first][pos.second + i];
+        delete O;
 
         destroy();
         delete this;
@@ -36,7 +37,7 @@ void moving::move(std::pair<int, int> yx)
   }
 }
 
-bool moving::bottom() { return pos.first >= size.first - 1; }
+bool moving::bottom() { return pos.first >= size.first - 3; }
 
 bool moving::top() { return pos.first <= 3; }
 
