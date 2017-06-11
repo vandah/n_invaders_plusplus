@@ -15,6 +15,7 @@ class scr_game : public screen_base {
   /// destructor
   ~scr_game();
 
+  /// react to time tick
   void handle_timer();
 
   protected:
@@ -42,9 +43,11 @@ class scr_game : public screen_base {
   /// behaves as key_quit
   void key_backspace();
 
+  /// quit the game and switch screen
   void quit() const;
 
   private:
+  /// the actual game
   game* Game;
 
   /// is the game running or paused ?

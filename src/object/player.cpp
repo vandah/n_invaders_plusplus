@@ -87,11 +87,7 @@ std::vector<std::string> player::get_looks() const
 /// color yellow
 int player::color() const { return 6; }
 
-player::missile::missile()
-    : crash(false)
-{
-  down = false;
-}
+player::missile::missile() { down = false; }
 
 std::vector<std::string> player::missile::get_looks() const
 {

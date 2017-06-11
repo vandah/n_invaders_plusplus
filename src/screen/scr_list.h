@@ -44,13 +44,14 @@ class scr_list : public screen_base {
 
   /// selected line
   unsigned int selected_idx;
-  
+
   /// screen to return to if backspace is pressed
   int back;
 
   /// limit for screen_title
   int max_row;
 
+  /// title of the screen - to be displayed on the top
   std::string screen_title;
 };
 #endif

@@ -18,7 +18,7 @@ scr_list::~scr_list() {}
 
 void scr_list::draw_title() const
 {
-  auto lines = load_lines("examples/title.txt");
+  auto lines = load_lines(LOGO_FILE);
 
   attron(COLOR_PAIR(6));
   int i = max_row - lines.size() - 3;

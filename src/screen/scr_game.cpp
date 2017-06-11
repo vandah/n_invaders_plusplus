@@ -1,7 +1,7 @@
 #include "scr_game.h"
 
 scr_game::scr_game()
-  : is_paused(false)
+    : is_paused(false)
 {
   win = newwin(rows - 1, cols - 1, 1, 1);
   keypad(win, TRUE);

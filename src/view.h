@@ -13,9 +13,13 @@ class screen_base;
 /// GUI basics
 class view {
   public:
+  /// default constructor
   view();
+
+  /// default destructor
   ~view();
 
+  /// intialize the view - screen, color pairs,...
   void init();
 
   /// top bar indicating game status

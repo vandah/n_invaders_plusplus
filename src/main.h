@@ -3,6 +3,7 @@
 
 #include "globals.h"
 
+/// main function - provides basic initialization
 int main(int argc, char** argv);
 
 /// start timer and set time handler function

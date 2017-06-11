@@ -5,7 +5,10 @@
 
 class player : public shooting {
   public:
+  /// default constructor
   player();
+
+  /// default destructor
   ~player();
 
   /// move player's ship right
@@ -31,21 +34,28 @@ class player : public shooting {
 
   class missile : public missile_base {
 public:
+    /// default constructor
     missile();
+
+    /// default destructor
     ~missile();
 
 protected:
+    /// get available looks
     std::vector<std::string> get_looks() const;
+
+    /// get missiles's color
     int color() const;
-    bool crash;
   };
 
   /// a missile shot by player
   missile* active_missile;
 
   protected:
+  /// get available looks
   std::vector<std::string> get_looks() const;
 
+  /// get object's color
   int color() const;
 
   /// gained score

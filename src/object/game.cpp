@@ -217,7 +217,7 @@ void game::game_over() const
     attron(COLOR_PAIR(1));
     int j = i + 4;
 
-    auto lines = load_lines("examples/winner.txt");
+    auto lines = load_lines(WINNER_FILE);
 
     for (std::string line : lines) {
       mvprintw(j, size.second / 2 - line.length() / 2, line.c_str());

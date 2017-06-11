@@ -19,12 +19,6 @@ void view::init()
   cols = COLS;
 
   if (rows < 50 || cols < 100) {
-    std::cout << ""
-              << "\033[0;31m"
-              << "ERROR: "
-              << "\033[0m"
-              << "SCREEN TOO SMALL" << std::endl;
-
     finish(ERROR_SMALL_SCREEN);
   }
 
@@ -89,7 +83,7 @@ void view::switch_screen(int s)
   }
 
   delete tmp_screen;
-  
+
   current_screen->redraw();
 }
 

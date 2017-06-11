@@ -1,8 +1,6 @@
 #include "shooting.h"
 
-shooting::missile_base::missile_base() {
-  length = 1;
-}
+shooting::missile_base::missile_base() { length = 1; }
 
 void shooting::reset() {}
 

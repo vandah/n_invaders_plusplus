@@ -6,10 +6,10 @@
 /// main menu screen
 class scr_menu : public scr_list {
   public:
+  /// default constructor
   scr_menu();
 
+  /// default destructor
   ~scr_menu();
-
-  protected:
 };
 #endif
