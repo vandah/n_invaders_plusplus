@@ -18,6 +18,7 @@ void moving::move(std::pair<int, int> yx)
 
     for (unsigned int i = 0; i < current_look().size(); ++i) {
       battlefield[old_pos.first][old_pos.second + i] = NULL;
+      mvprintw(old_pos.first, old_pos.second + i, " ");
     }
 
     for (unsigned int i = 0; i < current_look().size(); ++i) {

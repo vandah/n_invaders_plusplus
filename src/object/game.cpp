@@ -361,6 +361,19 @@ void game::move_invaders() const
 {
   Invaders.old_pos = Invaders.pos;
 
+  if (Invaders.pos.first >= Bunkers.pos.first - (int)Invaders.size() && !Bunkers.empty()) {
+    for (unsigned int i = 0; i < Bunkers.size(); ++i) {
+      for (unsigned int j = 0; j < Bunkers[i].size(); ++j) {
+        if (Bunkers[i][j]) {
+          object* O = Bunkers[i][j];
+          Bunkers[i][j]->destroy();
+          delete O;
+        }
+      }
+    }
+    Bunkers.clear();
+  }
+
   if (Invaders.pos.second <= 4) {
     Invaders.pos.first++;
     Invaders.pos.second++;

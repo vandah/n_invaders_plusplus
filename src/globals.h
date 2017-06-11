@@ -10,6 +10,8 @@
 
 #define FPS 40
 
+#define ERROR_SMALL_SCREEN 2
+
 #define HISCORE_FILE "data/high_scores.txt"
 #define BUNKERS_FILE "examples/bunkers.txt"
 #define LVL_FILE(x) "examples/lvl" + std::to_string(x) + ".txt"

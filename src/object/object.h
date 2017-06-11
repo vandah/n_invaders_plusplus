@@ -83,7 +83,7 @@ public:
 
     int counter;
 
-    bool empty() { return !cnt; }
+    bool empty() { return arr.empty(); }
 
     unsigned int size() { return arr.size(); }
 

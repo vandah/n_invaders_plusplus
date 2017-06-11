@@ -48,7 +48,7 @@ void object::reset() { choice = 0; }
 void object::destroy()
 {
   if (!battlefield.empty()) {
-    for (int i = 0; i < length; ++i) {
+    for (int i = 0; i <= length; ++i) {
       battlefield[pos.first][pos.second + i] = NULL;
       mvprintw(pos.first, pos.second + i, " ");
     }

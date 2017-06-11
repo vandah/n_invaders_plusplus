@@ -1,8 +1,8 @@
 #include "view.h"
 #include "screen/scr_game.h"
 #include "screen/scr_hiscore.h"
-#include "screen/scr_menu.h"
 #include "screen/scr_instructions.h"
+#include "screen/scr_menu.h"
 
 view::view()
     : cols(0)
@@ -15,8 +15,21 @@ view::view()
 void view::init()
 {
   scr_main = initscr();
+  rows = LINES;
+  cols = COLS;
+
+  if (rows < 30 || cols < 30) {
+    std::cout << ""
+              << "\033[0;31m"
+              << "ERROR: "
+              << "\033[0m"
+              << "SCREEN TOO SMALL" << std::endl;
+
+    finish(ERROR_SMALL_SCREEN);
+  }
+
   start_color();
-  
+
   init_pair(1, COLOR_GREEN, COLOR_BLACK);
   init_pair(2, COLOR_BLACK, COLOR_GREEN);
   init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
@@ -24,17 +37,15 @@ void view::init()
   init_pair(5, COLOR_CYAN, COLOR_BLACK);
   init_pair(6, COLOR_YELLOW, COLOR_BLACK);
   init_pair(7, COLOR_RED, COLOR_BLACK);
-  
+
   bkgd(COLOR_PAIR(1));
-  
+
   keypad(stdscr, TRUE);
   keypad(scr_main, TRUE);
-  
+
   cbreak();
   noecho();
   nodelay(stdscr, TRUE);
-  rows = LINES;
-  cols = COLS;
   refresh();
   current_screen = new scr_menu;
 }
@@ -76,6 +87,8 @@ void view::switch_screen(int s)
   default: /*NO DEFINED SCREEN*/
     return;
   }
+
+  current_screen->redraw();
 
   delete tmp_screen;
 }
