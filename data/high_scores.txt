@@ -1,3 +1,5 @@
+vanda 18000
+vanda 18000
 vanda 17200
 vanda 5750
 vanda 5450
@@ -6,5 +8,3 @@ vanda 3000
 vanda 2700
 vanda 2500
 v 2450
-v 2400
-vanda 2400

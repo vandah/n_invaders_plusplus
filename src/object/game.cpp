@@ -102,18 +102,25 @@ void game::redraw() const
       for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
         if (Invaders.missiles[i][j] && Invaders.counter % 2) {
           Invaders.missiles[i][j]->fall();
+
+          if(GameOver){
+            return;
+          }
+
           if (Invaders.missiles[i][j]) {
             if (Invaders.missiles[i][j]->bottom()) {
               object* O = Invaders.missiles[i][j];
               Invaders.missiles[i][j]->destroy();
               delete O;
             }
+
             if (Invaders.missiles[i][j]) {
               Invaders.missiles[i][j]->redraw();
             }
           }
         } else if (Invaders[i][j]) {
           tmp = Invaders[i][j];
+
           if (!Invaders.missiles[tmp->pos.first][tmp->pos.second]) {
             I = tmp;
           }
