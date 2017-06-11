@@ -5,7 +5,7 @@ invader::invader(int type)
 {
   length = 3;
 
-  if(type==UFO){
+  if (type == UFO) {
     length = 5;
   }
 }
@@ -43,11 +43,12 @@ void invader::destroy()
         = NULL;
   }
 
-  // TODO: BONUS
-
-  // if game.is_running(){ //FIXME
   score += points();
-  // }
+
+  /// BONUS points if you are lucky
+  if (rand() % 5 == 0) {
+    score += points();
+  }
 }
 
 invader::~invader() {}
