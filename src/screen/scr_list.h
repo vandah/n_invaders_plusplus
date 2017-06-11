@@ -21,6 +21,9 @@ class scr_list : public screen_base {
   /// menu items to print (matched with screens they point to)
   std::vector<std::pair<std::string, int>> items;
 
+  /// print game logo + screen title
+  void draw_title() const;
+
   /// go to the screen which corresponds to the selection
   void key_enter();
 
@@ -41,8 +44,12 @@ class scr_list : public screen_base {
 
   /// selected line
   unsigned int selected_idx;
+  
   /// screen to return to if backspace is pressed
   int back;
+
+  /// limit for screen_title
+  int max_row;
 
   std::string screen_title;
 };

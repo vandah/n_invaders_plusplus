@@ -11,12 +11,21 @@ scr_list::scr_list()
   keypad(win, TRUE);
   midcol = cols / 2;
   midrow = rows / 2;
+  max_row = rows / 2 - 13;
 }
 
 scr_list::~scr_list() {}
 
+void scr_list::draw_title() const
+{
+  attron(COLOR_PAIR(3) | A_BOLD );
+  mvprintw(max_row, cols / 2 - screen_title.length() / 2, screen_title.c_str());
+  attroff(A_BOLD);
+}
+
 void scr_list::draw_list() const
 {
+  draw_title();
   int current_row = midrow - items.size() / 2;
   for (unsigned int i = 0; i < items.size(); ++i) {
     attron(COLOR_PAIR(1 + (i == selected_idx)));

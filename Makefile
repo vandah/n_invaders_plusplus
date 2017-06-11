@@ -73,7 +73,8 @@ SOURCES   :=  $(SRCDIR)/object/shooting.cpp $(SRCDIR)/object/game.cpp \
       $(SRCDIR)/object/bonus/bonus.cpp $(SRCDIR)/object/invader.cpp \
       $(SRCDIR)/object/moving.cpp $(SRCDIR)/object/player.cpp \
       $(SRCDIR)/object/object.cpp $(SRCDIR)/view.cpp \
-      $(SRCDIR)/screen/screen_base.cpp $(SRCDIR)/screen/scr_settings.cpp \
+      $(SRCDIR)/screen/screen_base.cpp \
+      $(SRCDIR)/screen/scr_instructions.cpp \
       $(SRCDIR)/screen/scr_game.cpp $(SRCDIR)/screen/scr_list.cpp \
       $(SRCDIR)/screen/scr_hiscore.cpp $(SRCDIR)/screen/scr_menu.cpp \
       $(SRCDIR)/main.cpp $(SRCDIR)/globals.cpp
@@ -83,7 +84,8 @@ OBJECTS   :=  $(BUILDDIR)/object/shooting.o $(BUILDDIR)/object/game.o \
       $(BUILDDIR)/object/bonus/bonus.o $(BUILDDIR)/object/invader.o \
       $(BUILDDIR)/object/moving.o $(BUILDDIR)/object/player.o \
       $(BUILDDIR)/object/object.o $(BUILDDIR)/view.o \
-      $(BUILDDIR)/screen/screen_base.o $(BUILDDIR)/screen/scr_settings.o \
+      $(BUILDDIR)/screen/screen_base.o \
+      $(BUILDDIR)/screen/scr_instructions.o \
       $(BUILDDIR)/screen/scr_game.o $(BUILDDIR)/screen/scr_list.o \
       $(BUILDDIR)/screen/scr_hiscore.o $(BUILDDIR)/screen/scr_menu.o \
       $(BUILDDIR)/main.o $(BUILDDIR)/globals.o
@@ -184,7 +186,7 @@ $(BUILDDIR)/view.o: $(SRCDIR)/view.cpp $(SRCDIR)/view.h \
       $(SRCDIR)/globals.h $(SRCDIR)/screen/screen_base.h \
       $(SRCDIR)/globals.h $(SRCDIR)/screen/scr_hiscore.h \
       $(SRCDIR)/screen/scr_list.h $(SRCDIR)/screen/scr_menu.h \
-      $(SRCDIR)/screen/scr_settings.h
+      $(SRCDIR)/screen/scr_instructions.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
@@ -194,8 +196,9 @@ $(BUILDDIR)/screen/screen_base.o: $(SRCDIR)/screen/screen_base.cpp \
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"
 
-$(BUILDDIR)/screen/scr_settings.o: $(SRCDIR)/screen/scr_settings.cpp \
-      $(SRCDIR)/screen/scr_settings.h $(SRCDIR)/screen/scr_list.h \
+$(BUILDDIR)/screen/scr_instructions.o: \
+      $(SRCDIR)/screen/scr_instructions.cpp \
+      $(SRCDIR)/screen/scr_instructions.h $(SRCDIR)/screen/scr_list.h \
       $(SRCDIR)/screen/screen_base.h $(SRCDIR)/globals.h
 	@echo -e "\n$(YELLOW)Building $@ ...$(NOCOL)"
 	$(CXX) $(CXXFLAGS) -c $< -o $@ && echo -e "$(GREEN)OK$(NOCOL)"

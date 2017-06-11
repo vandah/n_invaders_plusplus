@@ -1,5 +1,4 @@
 #include "screen_base.h"
-//#include "../main.h"
 #include "../view.h"
 
 screen_base::screen_base()

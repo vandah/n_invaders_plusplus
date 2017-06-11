@@ -2,14 +2,13 @@
 #include "screen/scr_game.h"
 #include "screen/scr_hiscore.h"
 #include "screen/scr_menu.h"
-#include "screen/scr_settings.h"
-//#include "screen/screen_base.h"
+#include "screen/scr_instructions.h"
 
 view::view()
     : cols(0)
     , rows(0)
-    , scr_main(NULL)
     , current_screen(NULL)
+    , scr_main(NULL)
 {
 }
 
@@ -17,6 +16,7 @@ void view::init()
 {
   scr_main = initscr();
   start_color();
+  
   init_pair(1, COLOR_GREEN, COLOR_BLACK);
   init_pair(2, COLOR_BLACK, COLOR_GREEN);
   init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
@@ -24,24 +24,31 @@ void view::init()
   init_pair(5, COLOR_CYAN, COLOR_BLACK);
   init_pair(6, COLOR_YELLOW, COLOR_BLACK);
   init_pair(7, COLOR_RED, COLOR_BLACK);
-  bkgd(COLOR_PAIR(1)); // Green Text on a White Screen
+  
+  bkgd(COLOR_PAIR(1));
+  
   keypad(stdscr, TRUE);
+  keypad(scr_main, TRUE);
+  
   cbreak();
   noecho();
   nodelay(stdscr, TRUE);
-  keypad(scr_main, TRUE);
   rows = LINES;
   cols = COLS;
   refresh();
   current_screen = new scr_menu;
 }
 
-view::~view() {}
+view::~view()
+{
+  delwin(scr_main);
+  delwin(stdscr);
+  endwin();
+}
 
 void view::switch_screen(int s)
 {
   screen_base* tmp_screen = current_screen;
-  current_screen = NULL;
 
   switch (s) {
   case SCREEN_MENU:
@@ -56,17 +63,17 @@ void view::switch_screen(int s)
     current_screen = new scr_hiscore;
     break;
 
-  case SCREEN_SETTINGS:
-    current_screen = new scr_settings;
+  case SCREEN_INSTRUCTIONS:
+    current_screen = new scr_instructions;
     break;
 
   case SCREEN_QUIT:
+    current_screen = NULL;
     delete tmp_screen;
     finish(0);
-    break;
+    return;
 
   default: /*NO DEFINED SCREEN*/
-    current_screen = tmp_screen;
     return;
   }
 
