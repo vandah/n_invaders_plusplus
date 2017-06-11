@@ -18,7 +18,17 @@ scr_list::~scr_list() {}
 
 void scr_list::draw_title() const
 {
-  attron(COLOR_PAIR(3) | A_BOLD );
+  auto lines = load_lines("examples/title.txt");
+
+  attron(COLOR_PAIR(6));
+  int i = max_row - lines.size() - 3;
+  for (std::string line : lines) {
+    mvprintw(i, cols / 2 - line.length() / 2 + 4, line.c_str());
+    ++i;
+  }
+  attroff(A_BOLD);
+
+  attron(COLOR_PAIR(3) | A_BOLD);
   mvprintw(max_row, cols / 2 - screen_title.length() / 2, screen_title.c_str());
   attroff(A_BOLD);
 }

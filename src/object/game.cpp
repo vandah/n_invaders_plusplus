@@ -103,7 +103,7 @@ void game::redraw() const
         if (Invaders.missiles[i][j] && Invaders.counter % 2) {
           Invaders.missiles[i][j]->fall();
 
-          if(GameOver){
+          if (GameOver) {
             return;
           }
 
@@ -132,7 +132,8 @@ void game::redraw() const
     if (tmp) {
       /// check if the last one had not reached the bottom
       if (tmp->pos.first + Invaders.pos.first >= Player->pos.first) {
-        game_over();
+        GameOver = true;
+        return;
       }
       /// if there aro no invaders left, go to the next level
     } else {
@@ -140,7 +141,8 @@ void game::redraw() const
       if (level <= LVL_CNT) {
         reset();
       } else {
-        game_over();
+        GameOver = true;
+        return;
       }
     }
 
@@ -188,21 +190,16 @@ void game::toggle_pause()
 void game::game_over() const
 {
   GameOver = true;
-  std::ifstream input(GAME_OVER_FILE, std::ios::in);
-  char line[100];
 
-  std::vector<char*> arr;
+  auto lines = load_lines(GAME_OVER_FILE);
 
-  int i = 10;
-
-  while (input.getline(line, 100)) {
-    mvprintw(i, 10, line);
+  int i = size.first / 2 - lines.size() / 2 - 5;
+  for (std::string line : lines) {
+    mvprintw(i, size.second / 2 - line.length() / 2, line.c_str());
     ++i;
   }
 
   ++i;
-
-  input.close();
 
   std::vector<std::pair<std::string, int>> hiscores = get_hiscores();
 
@@ -212,13 +209,14 @@ void game::game_over() const
 
   if (score > hiscores[hiscores.size() - 1].second) {
     attron(COLOR_PAIR(1));
-    mvprintw(i, 20, "NEW HISCORE!!");
-    attron(COLOR_PAIR(4));
+    mvprintw(i, size.second / 2 - 7, "NEW HISCORE!!");
+    attron(COLOR_PAIR(3));
     i += 2;
     std::string msg = "Enter your name: ";
-    mvprintw(i, 21, msg.c_str());
+    mvprintw(i, size.second / 2 - msg.length() / 2 - 10, msg.c_str());
 
-    WINDOW* w = newwin(3, 10, i, 21 + msg.length());
+    attron(COLOR_PAIR(4));
+    WINDOW* w = newwin(3, 21, i, size.second / 2 + msg.length() / 2 - 8);
     refresh();
     std::string line = "";
 
@@ -263,7 +261,8 @@ void game::game_over() const
       default:
         esc = 0;
 
-        if (!((n >= 'a' && n <= 'z') || (n >= 'A' && n <= 'Z')) || esc == 2) {
+        if (!((n >= 'a' && n <= 'z') || (n >= 'A' && n <= 'Z')) || esc == 2
+            || line.length() >= 20) {
           break;
         }
 
@@ -291,6 +290,10 @@ void game::game_over() const
 
     output.close();
   } else {
+    std::string msg = "Press any key to return to menu.";
+    mvprintw(i, size.second / 2 - msg.length() / 2, msg.c_str());
+    refresh();
+
     WINDOW* w = newwin(2, 2, 4, 4);
     wgetch(w);
     delwin(w);

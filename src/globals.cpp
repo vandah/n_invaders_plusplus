@@ -4,7 +4,13 @@ bool GameOver = false;
 
 void show_version()
 {
-  std::cout << "Version number " << VERSION << std::endl;
+  auto lines = load_lines("examples/title.txt");
+  std::cout << "\033[1;33m";
+  for(auto line:lines){
+    std::cout << line << std::endl;
+  }
+  std::cout << " Version number " << VERSION << std::endl;
+  std::cout << "\033[0m" << std::endl;
   finish(0);
 }
 
@@ -113,6 +119,31 @@ std::vector<std::vector<int>> get_data(std::string file)
   input.close();
 
   return arr;
+}
+
+std::vector<std::string> load_lines(std::string file)
+{
+  std::ifstream input(file, std::ios::in);
+  std::string line;
+  char c;
+  input >> std::noskipws;
+
+  std::vector<std::string> lines;
+  while (!input.eof()) {
+    line = "";
+    while (input >> c) {
+      if (c == '\n') {
+        break;
+      }
+      line += c;
+    }
+
+    lines.push_back(line);
+  }
+  
+  input.close();
+  
+  return lines;
 }
 
 void finish(int exit_code) { exit(exit_code); }

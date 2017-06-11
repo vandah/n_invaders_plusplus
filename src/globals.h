@@ -64,6 +64,8 @@ std::vector<std::vector<int>> get_data(std::string file);
 
 std::vector<std::vector<int>> get_bunkers();
 
+std::vector<std::string> load_lines(std::string file);
+
 /// cleanup
 void finish(int exit_code);
 
