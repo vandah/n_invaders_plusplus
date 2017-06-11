@@ -144,7 +144,7 @@ void game::redraw() const
       }
     }
 
-    if (rand() % (50 + (LVL_CNT - level) * 10) == 0) {
+    if (rand() % (50 + (LVL_CNT - level) * 10 + rand() % 3) == 0) {
       invader* I = bottom_row[rand() % bottom_row.size()];
 
       if (I && !Invaders.missiles[I->pos.first][I->pos.second]) {
@@ -392,12 +392,12 @@ void game::load_invaders() const
 
   Invaders.init_arr(int_invaders.size() * 2, int_invaders[0].size() * 4 - 1);
 
-  // offset leveho horniho rohu mrizky
+  // offset of the left upper corner of the grid
   Invaders.pos = { 4, 4 };
 
   Invaders.old_pos = Invaders.pos;
 
-  // relativni pozice v poli Invaders
+  // relative position in the Invaders array
   std::pair<int, int> tmp_pos = { 0, 0 };
 
   for (unsigned int i = 0; i < int_invaders.size(); ++i) {
