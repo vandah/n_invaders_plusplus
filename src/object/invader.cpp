@@ -32,6 +32,9 @@ void invader::destroy()
   for (unsigned int i = 0; i < current_look().size(); ++i) {
     Invaders[pos.first][pos.second + i] = NULL;
 
+    mvprintw(pos.first + Invaders.old_pos.first,
+        pos.second + Invaders.old_pos.second + i, " ");
+
     mvprintw(pos.first + Invaders.pos.first,
         pos.second + Invaders.pos.second + i, " ");
 

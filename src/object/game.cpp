@@ -25,23 +25,7 @@ game::game()
 
   load_bunkers();
 
-  for (unsigned int i = 0; i < Bunkers.size(); ++i) {
-    for (unsigned int j = 0; j < Bunkers[i].size(); ++j) {
-      if (Bunkers[i][j]) {
-        Bunkers[i][j]->redraw();
-      }
-    }
-  }
-
   load_invaders();
-
-  for (unsigned int i = 0; i < Invaders.size(); ++i) {
-    for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
-      if (Invaders[i][j]) {
-        Invaders[i][j]->redraw();
-      }
-    }
-  }
 }
 
 game::~game()
@@ -105,6 +89,7 @@ void game::redraw() const
     }
 
     invader* I = NULL;
+    invader* tmp = NULL;
 
     for (unsigned int i = 0; i < Invaders.size(); ++i) {
       for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
@@ -121,11 +106,27 @@ void game::redraw() const
             }
           }
         } else if (Invaders[i][j]) {
-          invader* tmp = Invaders[i][j];
+          tmp = Invaders[i][j];
           if (!Invaders.missiles[tmp->pos.first][tmp->pos.second]) {
             I = tmp;
           }
         }
+      }
+    }
+
+    /// if there are still some invaders left
+    if (tmp) {
+      /// check if the last one had not reached the bottom
+      if (tmp->pos.first + Invaders.pos.first >= Player->pos.first) {
+        game_over();
+      }
+      /// if there aro no invaders left, go to the next level
+    } else {
+      level++;
+      if (level <= LVL_CNT) {
+        reset();
+      } else {
+        game_over();
       }
     }
 
@@ -191,6 +192,10 @@ void game::game_over() const
 
   std::vector<std::pair<std::string, int>> hiscores = get_hiscores();
 
+  refresh();
+
+  nodelay(stdscr, FALSE);
+
   if (score > hiscores[hiscores.size() - 1].second) {
     attron(COLOR_PAIR(1));
     mvprintw(i, 20, "NEW HISCORE!!");
@@ -202,7 +207,6 @@ void game::game_over() const
     WINDOW* w = newwin(3, 10, i, 21 + msg.length());
     refresh();
     std::string line = "";
-    nodelay(stdscr, FALSE);
 
     char c[2];
     c[1] = '\0';
@@ -210,30 +214,48 @@ void game::game_over() const
     int esc = 0;
     noecho();
 
-    while (1) {
+    bool end = false;
+
+    while (!end) {
       n = wgetch(w);
-      if (n == '\n') {
+
+      switch (n) {
+      case '\n':
         delwin(w);
-        nodelay(stdscr, TRUE);
+        end = true;
         break;
-      } else if (n == 27) {
+
+      case 27: // escape sequence, char #1
         esc = 1;
-      } else if (esc == 1 && n == 91) {
-        esc = 2;
-      } else if (esc == 2) {
-        esc = 0;
-      } else if ((n >= 'a' && n <= 'z') || (n >= 'A' && n <= 'Z')) {
-        esc = 0;
-        line += n;
-        c[0] = n;
-        wprintw(w, c);
-      } else if (n == 8 || n == 127 || n == KEY_BACKSPACE) {
+        break;
+
+      case 91: // escape sequence, char #2
+        if (esc == 1) {
+          esc = 2;
+        }
+        break;
+
+      case 8:
+      case 127:
+      case KEY_BACKSPACE:
         if (!line.empty()) {
           wmove(w, 0, line.length() - 1);
           wprintw(w, " ");
           line.pop_back();
           wmove(w, 0, line.length());
         }
+        break;
+
+      default:
+        esc = 0;
+
+        if (!((n >= 'a' && n <= 'z') || (n >= 'A' && n <= 'Z')) || esc == 2) {
+          break;
+        }
+
+        line += n;
+        c[0] = n;
+        wprintw(w, c);
       }
     }
 
@@ -254,24 +276,29 @@ void game::game_over() const
     }
 
     output.close();
+  } else {
+    WINDOW* w = newwin(2, 2, 4, 4);
+    wgetch(w);
+    delwin(w);
   }
+  nodelay(stdscr, TRUE);
 }
 
-void game::move_right()
+void game::move_right() const
 {
   if (is_running()) {
     Player->move_right();
   }
 }
 
-void game::move_left()
+void game::move_left() const
 {
   if (is_running()) {
     Player->move_left();
   }
 }
 
-void game::shoot()
+void game::shoot() const
 {
   if (is_running()) {
     Player->shoot();
@@ -285,7 +312,7 @@ std::vector<std::string> game::get_looks() const
   return std::vector<std::string>{};
 }
 
-void game::load_bunkers()
+void game::load_bunkers() const
 {
   std::vector<std::vector<int>> one_bunker = get_bunkers();
 
@@ -317,11 +344,21 @@ void game::load_bunkers()
       }
     }
   }
+
+  for (unsigned int i = 0; i < Bunkers.size(); ++i) {
+    for (unsigned int j = 0; j < Bunkers[i].size(); ++j) {
+      if (Bunkers[i][j]) {
+        Bunkers[i][j]->redraw();
+      }
+    }
+  }
 }
 
-void game::load_invaders()
+void game::load_invaders() const
 {
   std::vector<std::vector<int>> int_invaders = get_data(LVL_FILE(level));
+
+  clear_invaders();
 
   Invaders.init_arr(int_invaders.size() * 2, int_invaders[0].size() * 4 - 1);
 
@@ -355,23 +392,23 @@ void game::load_invaders()
     tmp_pos.first += 2;
     tmp_pos.second = 0;
   }
+
+  for (unsigned int i = 0; i < Invaders.size(); ++i) {
+    for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
+      if (Invaders[i][j]) {
+        Invaders[i][j]->redraw();
+      }
+    }
+  }
 }
 
 void game::move_invaders() const
 {
   Invaders.old_pos = Invaders.pos;
 
-  if (Invaders.pos.first >= Bunkers.pos.first - (int)Invaders.size() && !Bunkers.empty()) {
-    for (unsigned int i = 0; i < Bunkers.size(); ++i) {
-      for (unsigned int j = 0; j < Bunkers[i].size(); ++j) {
-        if (Bunkers[i][j]) {
-          object* O = Bunkers[i][j];
-          Bunkers[i][j]->destroy();
-          delete O;
-        }
-      }
-    }
-    Bunkers.clear();
+  if (Invaders.pos.first >= Bunkers.pos.first - (int)Invaders.size()
+      && !Bunkers.empty()) {
+    destroy_bunkers();
   }
 
   if (Invaders.pos.second <= 4) {
@@ -428,3 +465,37 @@ void game::move_invaders() const
 }
 
 bool game::is_running() const { return (!is_paused && lives > 0); }
+
+void game::destroy_bunkers() const
+{
+  for (unsigned int i = 0; i < Bunkers.size(); ++i) {
+    for (unsigned int j = 0; j < Bunkers[i].size(); ++j) {
+      if (Bunkers[i][j]) {
+        object* O = Bunkers[i][j];
+        Bunkers[i][j]->destroy();
+        delete O;
+      }
+    }
+  }
+
+  Bunkers.clear();
+}
+
+void game::clear_invaders() const
+{
+  for (unsigned int i = 0; i < Invaders.size(); ++i) {
+    for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
+      if (Invaders.missiles[i][j]) {
+        object* O = Invaders.missiles[i][j];
+        Invaders.missiles[i][j]->destroy();
+        delete O;
+      }
+
+      if (Invaders[i][j]) {
+        object* O = Invaders[i][j];
+        Invaders[i][j]->destroy();
+        delete O;
+      }
+    }
+  }
+}

@@ -52,11 +52,7 @@ void player::shoot()
   }
 }
 
-void player::die()
-{
-  reset();
-  lives--;
-}
+void player::die() { lives--; }
 
 bool player::is_dead() { return (lives <= 0); }
 
@@ -67,9 +63,11 @@ void player::reset()
   }
 
   /// reset position
-  pos = { size.first - 5, size.second / 2 - 2 };
+  pos = { size.first - 5, (size.second - 1) / 2 - 2 };
 
-  move({ 0, 0 });
+  for (unsigned int i = 0; i < current_look().size(); ++i) {
+    battlefield[pos.first][pos.second + i] = this;
+  }
 
   if (Player) {
     Player->redraw();

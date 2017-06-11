@@ -13,7 +13,7 @@ class game : object {
 
   ~game();
 
-  void reset();
+  void reset() const;
 
   void redraw() const;
 
@@ -22,11 +22,11 @@ class game : object {
   /// if player is out of lives, end the game, ask for name and show stats
   void game_over() const;
 
-  void move_right();
+  void move_right() const;
 
-  void move_left();
+  void move_left() const;
 
-  void shoot();
+  void shoot() const;
 
   protected:
   int color() const;
@@ -40,9 +40,13 @@ class game : object {
 
   void print_status_line() const;
 
-  void load_bunkers();
+  void load_bunkers() const;
 
-  void load_invaders();
+  void load_invaders() const;
+  
+  void clear_invaders() const;
+
+  void destroy_bunkers() const;
 
   void move_invaders() const;
 };

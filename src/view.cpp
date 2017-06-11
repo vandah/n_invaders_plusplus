@@ -88,9 +88,9 @@ void view::switch_screen(int s)
     return;
   }
 
-  current_screen->redraw();
-
   delete tmp_screen;
+  
+  current_screen->redraw();
 }
 
 void view::handle_timer() { current_screen->handle_timer(); }
