@@ -1,5 +1,4 @@
 #include "globals.h"
-#include <algorithm>
 
 bool GameOver = false;
 
