@@ -16,6 +16,7 @@ player::~player()
   if (!is_dead() && !GameOver) {
     Player = new player();
     Player->active_missile = active_missile;
+    Player->reset();
   } else {
     GameOver = true;
     Player = NULL;

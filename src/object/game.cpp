@@ -49,7 +49,14 @@ game::~game()
   Invaders.clear();
 }
 
-void game::reset() {}
+void game::reset() const
+{
+  load_invaders();
+
+  Bunkers.clear();
+
+  load_bunkers();
+}
 
 void game::redraw() const
 {
