@@ -210,8 +210,19 @@ void game::game_over() const
   if (score > hiscores[hiscores.size() - 1].second) {
     attron(COLOR_PAIR(1));
     mvprintw(i, size.second / 2 - 7, "NEW HISCORE!!");
-    attron(COLOR_PAIR(3));
     i += 2;
+    
+    attron(COLOR_PAIR(1));
+    int j = i + 4;
+
+    auto lines = load_lines("examples/winner.txt");
+
+    for (std::string line : lines) {
+      mvprintw(j, size.second / 2 - line.length() / 2, line.c_str());
+      ++j;
+    }
+
+    attron(COLOR_PAIR(3));
     std::string msg = "Enter your name: ";
     mvprintw(i, size.second / 2 - msg.length() / 2 - 10, msg.c_str());
 
