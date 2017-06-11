@@ -23,11 +23,18 @@ void screen_base::scr_clear() const
 void screen_base::handle_timer()
 {
   redraw();
-  wmove(win, 0, 0);
+  if (win) {
+    wmove(win, 0, 0);
+  }
   read_input();
 }
 
-void screen_base::read_input() { handle_event(wgetch(win)); }
+void screen_base::read_input()
+{
+  if (gui.current_screen && gui.current_screen->win) {
+    gui.current_screen->handle_event(wgetch(gui.current_screen->win));
+  }
+}
 
 void screen_base::handle_event(int event)
 {
@@ -104,7 +111,11 @@ void screen_base::key_pause() {}
 screen_base::~screen_base()
 {
   delwin(win);
+  win = NULL;
   endwin();
 }
 
-void screen_base::switch_screen(int new_scr) { gui.switch_screen(new_scr); }
+void screen_base::switch_screen(int new_scr) const
+{
+  gui.switch_screen(new_scr);
+}

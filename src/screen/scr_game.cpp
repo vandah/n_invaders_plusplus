@@ -1,7 +1,7 @@
 #include "scr_game.h"
 
 scr_game::scr_game()
-    : is_paused(false)
+  : is_paused(false)
 {
   win = newwin(rows - 1, cols - 1, 1, 1);
   keypad(win, TRUE);
@@ -12,12 +12,20 @@ scr_game::scr_game()
   Game = new game();
 }
 
-scr_game::~scr_game() { delete Game; }
+scr_game::~scr_game()
+{
+  delete Game;
+  Game = NULL;
+}
 
 void scr_game::redraw() const
 {
-  Game->redraw();
-  wmove(win, 0, 0);
+  if (!GameOver) {
+    Game->redraw();
+    wmove(win, 0, 0);
+  } else {
+    quit();
+  }
   refresh();
 }
 

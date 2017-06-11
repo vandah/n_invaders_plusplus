@@ -42,6 +42,8 @@ class scr_game : public screen_base {
   /// behaves as key_quit
   void key_backspace();
 
+  void quit() const;
+
   private:
   game* Game;
 

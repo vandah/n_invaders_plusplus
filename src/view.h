@@ -33,11 +33,11 @@ class view {
   /// screen dimensions - y
   int rows;
 
+  /// pointer to the current screen - to enable switching
+  screen_base* current_screen;
+
   protected:
   /// main window
   WINDOW* scr_main;
-
-  /// pointer to the current screen - to enable switching
-  screen_base* current_screen;
 };
 #endif
