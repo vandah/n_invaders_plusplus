@@ -18,7 +18,7 @@ void view::init()
   rows = LINES;
   cols = COLS;
 
-  if (rows < 30 || cols < 100) {
+  if (rows < 50 || cols < 100) {
     std::cout << ""
               << "\033[0;31m"
               << "ERROR: "
