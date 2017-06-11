@@ -77,7 +77,7 @@ void game::redraw() const
       }
     }
 
-    if (Invaders.counter % 4 == 0) {
+    if (Invaders.counter % 5 == 0) {
       move_invaders();
     }
 
@@ -144,7 +144,7 @@ void game::redraw() const
       }
     }
 
-    if (I && Invaders.counter % 50 == 0) {
+    if (I && Invaders.counter % 100 == 0) {
       I->shoot();
     }
   }
