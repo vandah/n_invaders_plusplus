@@ -23,6 +23,9 @@ int main(int argc, char** argv)
   /// start the time ticks
   start_timer();
 
+  /// initialize random sequence with system time
+  srand(time(NULL));
+
   while (1) {
     sleep(1000);
   }

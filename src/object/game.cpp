@@ -95,8 +95,9 @@ void game::redraw() const
       }
     }
 
-    invader* I = NULL;
-    invader* tmp = NULL;
+    std::vector<invader*> bottom_row(Invaders[0].size(), NULL);
+
+    invader* last = NULL;
 
     for (unsigned int i = 0; i < Invaders.size(); ++i) {
       for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
@@ -119,19 +120,16 @@ void game::redraw() const
             }
           }
         } else if (Invaders[i][j]) {
-          tmp = Invaders[i][j];
-
-          if (!Invaders.missiles[tmp->pos.first][tmp->pos.second]) {
-            I = tmp;
-          }
+          last = Invaders[i][j];
+          bottom_row[j] = last;
         }
       }
     }
 
     /// if there are still some invaders left
-    if (tmp) {
-      /// check if the last one had not reached the bottom
-      if (tmp->pos.first + Invaders.pos.first >= Player->pos.first) {
+    if (last) {
+      /// check whether the last one not reached the bottom
+      if (last->pos.first + Invaders.pos.first >= Player->pos.first) {
         GameOver = true;
         return;
       }
@@ -146,8 +144,12 @@ void game::redraw() const
       }
     }
 
-    if (I && Invaders.counter % 100 == 0) {
-      I->shoot();
+    if (rand() % (50 + (LVL_CNT - level) * 10) == 0) {
+      invader* I = bottom_row[rand() % bottom_row.size()];
+
+      if (I && !Invaders.missiles[I->pos.first][I->pos.second]) {
+        I->shoot();
+      }
     }
   }
 
@@ -211,7 +213,7 @@ void game::game_over() const
     attron(COLOR_PAIR(1));
     mvprintw(i, size.second / 2 - 7, "NEW HISCORE!!");
     i += 2;
-    
+
     attron(COLOR_PAIR(1));
     int j = i + 4;
 
