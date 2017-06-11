@@ -8,14 +8,20 @@ game::game()
 {
   level = 1;
 
+  length = 0;
+
   score = 0;
 
   lives = DEFAULT_LIVES;
+
+  GameOver = false;
 
   Player = new player();
 
   battlefield.clear();
   battlefield.resize(size.first, std::vector<object*>(size.second, NULL));
+
+  Player->reset();
 
   load_bunkers();
 
@@ -40,11 +46,14 @@ game::game()
 
 game::~game()
 {
+  GameOver = true;
+
   for (unsigned int i = 0; i < battlefield.size(); ++i) {
     for (unsigned int j = 0; j < battlefield[i].size(); ++j) {
       if (battlefield[i][j]) {
+        object* O = battlefield[i][j];
         battlefield[i][j]->destroy();
-        delete battlefield[i][j];
+        delete O;
       }
     }
   }
@@ -60,25 +69,68 @@ void game::reset() {}
 
 void game::redraw() const
 {
-  Player->redraw();
+  if (is_running()) {
+    Invaders.counter++;
 
-  if (Player->active_missile) {
-    Player->active_missile->fall();
-    if (Player->active_missile) {
-      Player->active_missile->redraw();
+    Player->redraw();
 
-      if (Player->active_missile->top()) {
-        Player->active_missile->destroy();
-        delete Player->active_missile;
+    if (Player->active_missile && Invaders.counter % 2 == 0) {
+      Player->active_missile->fall();
+      if (Player->active_missile) {
+        Player->active_missile->redraw();
+
+        if (Player->active_missile->top()) {
+          Player->active_missile->destroy();
+          delete Player->active_missile;
+        }
       }
     }
-  }
 
-  for (unsigned int i = 0; i < Invaders.size(); ++i) {
-    for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
-      if (Invaders[i][j]) {
-        Invaders[i][j]->redraw();
+    if (Invaders.counter % 4 == 0) {
+      move_invaders();
+    }
+
+    for (unsigned int i = 0; i < Invaders.size(); ++i) {
+      for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
+        if (Invaders[i][j]) {
+          Invaders[i][j]->redraw();
+
+          if (!(Invaders.counter % 9)) {
+            Invaders[i][j]->next_look();
+          }
+
+          j += Invaders[i][j]->current_look().size();
+        }
       }
+    }
+
+    invader* I = NULL;
+
+    for (unsigned int i = 0; i < Invaders.size(); ++i) {
+      for (unsigned int j = 0; j < Invaders[i].size(); ++j) {
+        if (Invaders.missiles[i][j] && Invaders.counter % 2) {
+          Invaders.missiles[i][j]->fall();
+          if (Invaders.missiles[i][j]) {
+            if (Invaders.missiles[i][j]->bottom()) {
+              object* O = Invaders.missiles[i][j];
+              Invaders.missiles[i][j]->destroy();
+              delete O;
+            }
+            if (Invaders.missiles[i][j]) {
+              Invaders.missiles[i][j]->redraw();
+            }
+          }
+        } else if (Invaders[i][j]) {
+          invader* tmp = Invaders[i][j];
+          if (!Invaders.missiles[tmp->pos.first][tmp->pos.second]) {
+            I = tmp;
+          }
+        }
+      }
+    }
+
+    if (I && Invaders.counter % 50 == 0) {
+      I->shoot();
     }
   }
 
@@ -90,33 +142,141 @@ void game::print_status_line() const
   std::stringstream line;
   line.str("");
 
-  line << "LEVEL: " << level << "  SCORE: " << score;
+  line << "LEVEL: " << level << "  SCORE: " << score << "  LIVES: " << lives;
 
+  attron(COLOR_PAIR(1) | A_BOLD);
   mvprintw(size.first - 3, size.second / 2 - line.str().length() / 2,
       line.str().c_str());
+  attroff(A_BOLD);
 }
 
-void game::toggle_pause() { is_paused = !is_paused; }
+void game::toggle_pause()
+{
+  is_paused = !is_paused;
 
-void game::game_over() {}
+  if (is_paused) {
+    attron(COLOR_PAIR(2));
+    for (int i = 2; i < size.second - 1; ++i) {
+      mvprintw(size.first - 4, i, "-");
+    }
+    std::string line = " > PAUSE < ";
+    mvprintw(size.first - 4, (size.second - 1) / 2 - line.length() / 2,
+        line.c_str());
+  } else {
+    attron(COLOR_PAIR(1));
+    for (int i = 2; i < size.second - 1; ++i) {
+      mvprintw(size.first - 4, i, " ");
+    }
+  }
+}
+
+void game::game_over() const
+{
+  GameOver = true;
+  std::ifstream input(GAME_OVER_FILE, std::ios::in);
+  char line[100];
+
+  std::vector<char*> arr;
+
+  int i = 10;
+
+  while (input.getline(line, 100)) {
+    mvprintw(i, 10, line);
+    ++i;
+  }
+
+  ++i;
+
+  input.close();
+
+  std::vector<std::pair<std::string, int>> hiscores = get_hiscores();
+
+  if (score > hiscores[hiscores.size() - 1].second) {
+    attron(COLOR_PAIR(1));
+    mvprintw(i, 20, "NEW HISCORE!!");
+    attron(COLOR_PAIR(4));
+    i += 2;
+    std::string msg = "Enter your name: ";
+    mvprintw(i, 21, msg.c_str());
+
+    WINDOW* w = newwin(3, 10, i, 21 + msg.length());
+    refresh();
+    std::string line = "";
+    nodelay(stdscr, FALSE);
+
+    char c[2];
+    c[1] = '\0';
+    int n;
+    int esc = 0;
+    noecho();
+
+    while (1) {
+      n = wgetch(w);
+      if (n == '\n') {
+        delwin(w);
+        nodelay(stdscr, TRUE);
+        break;
+      } else if (n == 27) {
+        esc = 1;
+      } else if (esc == 1 && n == 91) {
+        esc = 2;
+      } else if (esc == 2) {
+        esc = 0;
+      } else if ((n >= 'a' && n <= 'z') || (n >= 'A' && n <= 'Z')) {
+        esc = 0;
+        line += n;
+        c[0] = n;
+        wprintw(w, c);
+      } else if (n == 8 || n == 127 || n == KEY_BACKSPACE) {
+        if (!line.empty()) {
+          wmove(w, 0, line.length() - 1);
+          wprintw(w, " ");
+          line.pop_back();
+          wmove(w, 0, line.length());
+        }
+      }
+    }
+
+    delwin(w);
+    w = NULL;
+
+    int rank = 0;
+
+    for (int i = 0; i < 9 && i < (int)hiscores.size(); ++i) {
+      if (score > hiscores[i].second) {
+        rank = i;
+        break;
+      }
+    }
+
+    hiscores.insert(rank + hiscores.begin(), { line, score });
+
+    std::ofstream output(HISCORE_FILE, std::ios::out);
+    for (int i = 0; i < 10; ++i) {
+      output << hiscores[i].first << " " << hiscores[i].second << std::endl;
+    }
+
+    output.close();
+  }
+}
 
 void game::move_right()
 {
-  if (!is_paused) {
+  if (is_running()) {
     Player->move_right();
   }
 }
 
 void game::move_left()
 {
-  if (!is_paused) {
+  if (is_running()) {
     Player->move_left();
   }
 }
 
 void game::shoot()
 {
-  if (!is_paused) {
+  if (is_running()) {
     Player->shoot();
   }
 }

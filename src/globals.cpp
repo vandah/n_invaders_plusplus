@@ -1,4 +1,7 @@
 #include "globals.h"
+#include <algorithm>
+
+bool GameOver = false;
 
 void show_version()
 {
@@ -67,6 +70,16 @@ std::vector<std::pair<std::string, int>> get_hiscores()
       hiscores.push_back({ name, score });
     }
   }
+
+  while (hiscores.size() < 10) {
+    hiscores.push_back({ "#####", 0 });
+  }
+
+  std::sort(hiscores.begin(), hiscores.end(),
+      [](const std::pair<std::string, int>& a,
+          const std::pair<std::string, int>& b) {
+        return a.second > b.second;
+      });
 
   input.close();
 
