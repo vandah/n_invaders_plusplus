@@ -240,16 +240,13 @@ void game::game_over() const
     delwin(w);
     w = NULL;
 
-    int rank = 0;
+    hiscores.push_back({ line, score });
 
-    for (int i = 0; i < 9 && i < (int)hiscores.size(); ++i) {
-      if (score > hiscores[i].second) {
-        rank = i;
-        break;
-      }
-    }
-
-    hiscores.insert(rank + hiscores.begin(), { line, score });
+    std::sort(hiscores.begin(), hiscores.end(),
+        [](const std::pair<std::string, int>& a,
+            const std::pair<std::string, int>& b) {
+          return a.second > b.second;
+        });
 
     std::ofstream output(HISCORE_FILE, std::ios::out);
     for (int i = 0; i < 10; ++i) {

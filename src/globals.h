@@ -36,6 +36,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include <vector>
+#include <algorithm>
 
 class view;
 
