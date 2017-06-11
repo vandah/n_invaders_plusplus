@@ -48,6 +48,9 @@ void invader::destroy()
   /// BONUS points if you are lucky
   if (rand() % 5 == 0) {
     score += points();
+    /// bonus life if you're even more lucky
+  } else if (rand() % 415 == 0) {
+    lives++;
   }
 }
 
